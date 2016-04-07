@@ -3,7 +3,7 @@
 Useful classes used for every Laravel project
 --under development--
 
-###Want to see the current package in action, have a look at my starter project.
+####Want to see the current package in action, have a look at my starter project.
 ####[Laravel Starter Project](https://github.com/bpocallaghan/laravel-admin-starter)
 
 #### Documentation is in progress
@@ -21,6 +21,10 @@ Create a list of models.
 This will create a unique slug from all those models.
 
 ## Installation
+
+```bash
+composer require bpocallaghan/titan
+```
 
 ## TODO
 
