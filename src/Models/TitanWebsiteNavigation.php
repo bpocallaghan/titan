@@ -1,6 +1,6 @@
 <?php
 
-namespace Bpocallaghan\Titan\Models;
+namespace Titan\Models;
 
 use App\Models\Website\NavigationWebsite;
 use Illuminate\Database\Eloquent\SoftDeletes;

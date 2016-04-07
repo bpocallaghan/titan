@@ -1,5 +1,5 @@
 <?php
-namespace Bpocallaghan\Titan\Controllers;
+namespace Titan\Controllers;
 
 use App\Http\Controllers\Controller;
 use Request;

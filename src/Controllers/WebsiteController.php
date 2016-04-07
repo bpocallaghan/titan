@@ -1,12 +1,12 @@
 <?php
 
-namespace Bpocallaghan\Titan\Controllers;
+namespace Titan\Controllers;
 
 use App\Http\Requests;
 use App\Models\Advertisement;
 use App\Models\NavigationWebsite;
-use Bpocallaghan\Titan\Controllers\Traits\BreadcrumbWebsite;
-use Bpocallaghan\Titan\Controllers\Traits\PopupEntry;
+use Titan\Controllers\Traits\BreadcrumbWebsite;
+use Titan\Controllers\Traits\PopupEntry;
 
 class WebsiteController extends TitanController
 {

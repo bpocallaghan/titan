@@ -1,6 +1,6 @@
 <?php
 
-namespace Bpocallaghan\Titan\Controllers\Traits;
+namespace Titan\Controllers\Traits;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -11,7 +11,7 @@ use LaravelAnalytics;
  * http://www.colorhexa.com
  *
  * Class Analytics
- * @package Bpocallaghan\Titan\Controllers\Traits
+ * @package Titan\Controllers\Traits
  */
 trait Analytics
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Bpocallaghan\Titan\Models;
+namespace Titan\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

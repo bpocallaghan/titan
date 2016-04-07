@@ -1,8 +1,9 @@
 <?php
-namespace Bpocallaghan\Titan\Controllers;
+
+namespace Titan\Controllers;
 
 use App\Models\NavigationAdmin;
-use Bpocallaghan\Titan\Controllers\Traits\CRUDNotify;
+use Titan\Controllers\Traits\CRUDNotify;
 
 class TitanAdminController extends TitanController
 {
@@ -75,7 +76,8 @@ class TitanAdminController extends TitanController
 
         foreach ($navigation as $key => $nav) {
 
-            $active = (array_search_value($nav->id, $this->urlParentNavs) ? 'active open' : '');
+            $active = (array_search_value($nav->id,
+                $this->urlParentNavs) ? 'active open' : '');
 
             $children = $this->generateNavigationChildren($nav);
 
@@ -109,7 +111,8 @@ class TitanAdminController extends TitanController
         $navigation = NavigationAdmin::whereParentIdORM($parent->id);
 
         foreach ($navigation as $key => $nav) {
-            $active = (array_search_value($nav->id, $this->urlParentNavs) ? 'active open' : '');
+            $active = (array_search_value($nav->id,
+                $this->urlParentNavs) ? 'active open' : '');
 
             $children = $this->generateNavigationChildren($nav);
 
@@ -133,7 +136,8 @@ class TitanAdminController extends TitanController
 
     /**
      * Generate the breadcrumbs
-     * TODO: check for reserved words and some parent links are only for show (not clickable)
+     * TODO: check for reserved words and some parent links are only for show (not
+     * clickable)
      *
      * @return string
      */
@@ -288,7 +292,8 @@ class TitanAdminController extends TitanController
         $mode = $this->checkIfReservedWordInUrl();
 
         $this->selectedNavigation->mode = $mode == false ? 'index' : $mode;
-        $this->selectedNavigation->url = '/' . $this->baseUrl . rtrim($nav->url, '/') . '/';
+        $this->selectedNavigation->url = '/' . $this->baseUrl . rtrim($nav->url,
+                '/') . '/';
 
         return $this->selectedNavigation;
     }
@@ -304,7 +309,8 @@ class TitanAdminController extends TitanController
         $items = $this->getTableRows();
         $ajax = count($items) > 150 ? 'true' : 'false';
 
-        return $this->view($view, compact('ajax'))->with('items', $ajax == 'true' ? [] : $items);
+        return $this->view($view, compact('ajax'))
+            ->with('items', $ajax == 'true' ? [] : $items);
     }
 
     /**

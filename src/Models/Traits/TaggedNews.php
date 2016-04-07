@@ -1,6 +1,6 @@
 <?php
 
-namespace Bpocallaghan\Titan\Models\Traits;
+namespace Titan\Models\Traits;
 
 use DB;
 use App\Models\News;

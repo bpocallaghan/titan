@@ -1,5 +1,5 @@
 <?php
-namespace Bpocallaghan\Titan\Controllers\Auth;
+namespace Titan\Controllers\Auth;
 
 use App\Models\LogAdminLogin;
 use App\Models\LogsAdminLogin;
@@ -10,7 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Http\Request;
-use Bpocallaghan\Titan\Controllers\TitanController;
+use Titan\Controllers\TitanController;
 
 class TitanAuthController extends TitanController
 {

@@ -1,11 +1,11 @@
 <?php
 
-namespace Bpocallaghan\Titan\Models;
+namespace Titan\Models;
 
 use DB;
 use Illuminate\Database\Eloquent\Model;
-use Bpocallaghan\Titan\Models\Traits\LogsActivity;
-use Bpocallaghan\Titan\Models\Traits\ModifyBy;
+use Titan\Models\Traits\LogsActivity;
+use Titan\Models\Traits\ModifyBy;
 
 class TitanCMSModel extends Model
 {

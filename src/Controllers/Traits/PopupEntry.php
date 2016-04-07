@@ -1,6 +1,6 @@
 <?php
 
-namespace Bpocallaghan\Titan\Controllers\Traits;
+namespace Titan\Controllers\Traits;
 
 use ReflectionClass;
 use App\Models\Video;

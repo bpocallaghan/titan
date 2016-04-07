@@ -1,11 +1,11 @@
 <?php
-namespace Bpocallaghan\Titan\Controllers\Auth;
+namespace Titan\Controllers\Auth;
 
 use Password;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Message;
 use App\Models\PasswordReset;
-use Bpocallaghan\Titan\Controllers\TitanController;
+use Titan\Controllers\TitanController;
 
 class TitanPasswordController extends TitanController
 {

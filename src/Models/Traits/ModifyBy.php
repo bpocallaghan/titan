@@ -1,6 +1,6 @@
 <?php
 
-namespace Bpocallaghan\Titan\Models\Traits;
+namespace Titan\Models\Traits;
 
 trait ModifyBy
 {
