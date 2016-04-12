@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Traits;
+namespace Titan\Models\Traits;
 
 trait SlugUnique
 {
