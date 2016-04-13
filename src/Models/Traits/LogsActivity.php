@@ -2,8 +2,8 @@
 
 namespace Titan\Models\Traits;
 
-use App\Models\LogAdminActivity;
 use ReflectionClass;
+use App\Models\LogAdminActivity;
 
 trait LogsActivity
 {
