@@ -26,12 +26,42 @@ trait RecursiveParent
     }
 
     /**
+     * Get all the top level parents and their children
+     * @return mixed
+     */
+    public static function parentsWithChildren()
+    {
+        return self::whereRaw('(parent_id is NULL OR parent_id = 0)')
+            ->with('children')
+            ->orderBy('title')
+            ->get();
+    }
+
+    /**
      * Get the parent
      * @return \Eloquent
      */
     public function parent()
     {
         return $this->belongsTo(self::class, 'parent_id', 'id');
+    }
+
+    /**
+     * Get the models
+     * @return \Eloquent
+     */
+    public function children()
+    {
+        return $this->belongsTo(self::class, 'id', 'parent_id');
+    }
+
+    /**
+     * Get the children attribute
+     * @return \Eloquent
+     */
+    public function getChildrenAttribute()
+    {
+        return $this->children()->get();
     }
 
     /**
