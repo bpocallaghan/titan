@@ -8,7 +8,7 @@ use App\Models\NavigationWebsite;
 use Titan\Controllers\Traits\BreadcrumbWebsite;
 use Titan\Controllers\Traits\PopupEntry;
 
-class WebsiteController extends TitanController
+class TitanWebsiteController extends TitanController
 {
     use BreadcrumbWebsite, PopupEntry;
 
