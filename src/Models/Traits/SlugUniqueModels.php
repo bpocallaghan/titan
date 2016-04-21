@@ -41,13 +41,19 @@ trait SlugUniqueModels
      */
     protected static function bootSlugUniqueModels()
     {
-        static::creating(function ($model) {
-            $model->setSlugAttribute($model->title);
-        });
-
-        static::updating(function ($model) {
-            $model->setSlugAttribute($model->title);
-        });
+        // on model's creating and updating event
+        foreach (['creating', 'updating'] as $event) {
+            static::$event(function ($model) use ($event) {
+                // if custom build slug from column not set
+                if (!property_exists($model, 'buildSlugFrom')) {
+                    $model->setSlugAttribute($model->title);
+                }
+                else { // use specified column
+                    $column = $model->buildSlugFrom;
+                    $model->setSlugAttribute($model->{$column});
+                }
+            });
+        }
     }
 
     /**
