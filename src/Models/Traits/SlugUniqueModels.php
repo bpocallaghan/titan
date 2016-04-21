@@ -34,6 +34,27 @@ trait SlugUniqueModels
         SellerType::class,
     ];
 
+    /**
+     * On create and update, set the slug
+     *
+     * @return void
+     */
+    protected static function bootSlugUniqueModels()
+    {
+        static::creating(function ($model) {
+            $model->setSlugAttribute($model->title);
+        });
+
+        static::updating(function ($model) {
+            $model->setSlugAttribute($model->title);
+        });
+    }
+
+    /**
+     * Set the slug attribute
+     *
+     * @param $slug
+     */
     function setSlugAttribute($slug)
     {
         $this->attributes['slug'] = $this->makeSlugUnique($slug);

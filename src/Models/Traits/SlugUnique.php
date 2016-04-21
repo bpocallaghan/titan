@@ -5,6 +5,22 @@ namespace Titan\Models\Traits;
 trait SlugUnique
 {
     /**
+     * On create and update, set the slug
+     *
+     * @return void
+     */
+    protected static function bootSlugUnique()
+    {
+        static::creating(function ($model) {
+            $model->setSlugAttribute($model->title);
+        });
+
+        static::updating(function ($model) {
+            $model->setSlugAttribute($model->title);
+        });
+    }
+    
+    /**
      * Set the slug attribute
      *
      * @param $slug
