@@ -90,7 +90,7 @@ class TitanWebsiteController extends TitanController
      * Get the selected navigation
      * @return mixed
      */
-    private function setSelectedNavigation()
+    protected function setSelectedNavigation()
     {
         $url = $this->getCurrentUrl();
         $sections = $this->getCurrentUrlSections();
