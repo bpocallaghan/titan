@@ -57,7 +57,7 @@ class TitanAuthController extends TitanController
         $credentials = $this->getCredentials($request);
 
         // make sure the account has been activated
-        $row = User::where('email', $credentials[$this->loginUsername()])
+        $row = User::where('email', $credentials[$this->username()])
             ->whereNotNull('activated_at')
             ->first();
 
@@ -128,7 +128,7 @@ class TitanAuthController extends TitanController
     protected function validateLogin(Request $request)
     {
         $this->validate($request, [
-            $this->loginUsername() => 'required',
+            $this->username() => 'required',
             'password'             => 'required',
         ]);
     }
@@ -165,6 +165,8 @@ class TitanAuthController extends TitanController
 
         // update logged_in_at
         user()->update(['logged_in_at' => Carbon::now()]);
+
+        $request->session()->regenerate();
 
         return redirect()->intended($this->redirectPath);
     }
@@ -290,9 +292,9 @@ class TitanAuthController extends TitanController
     {
         return redirect()
             ->back()
-            ->withInput($request->only($this->loginUsername(), 'remember'))
+            ->withInput($request->only($this->username(), 'remember'))
             ->withErrors([
-                $this->loginUsername() => $this->getFailedLoginMessage(),
+                $this->username() => $this->getFailedLoginMessage(),
             ]);
     }
 
@@ -314,7 +316,7 @@ class TitanAuthController extends TitanController
      */
     protected function getCredentials(Request $request)
     {
-        return $request->only($this->loginUsername(), 'password');
+        return $request->only($this->username(), 'password');
     }
 
     /**
@@ -330,11 +332,16 @@ class TitanAuthController extends TitanController
     /**
      * Log the user out of the application.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function logout()
+    public function logout(Request $request)
     {
         Auth::guard($this->getGuard())->logout();
+
+        $request->session()->flush();
+
+        $request->session()->regenerate();
 
         return redirect(property_exists($this,
             'redirectAfterLogout') ? $this->redirectAfterLogout : '/');
@@ -355,7 +362,7 @@ class TitanAuthController extends TitanController
      *
      * @return string
      */
-    public function loginUsername()
+    public function username()
     {
         return property_exists($this, 'username') ? $this->username : 'email';
     }

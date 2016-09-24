@@ -16,11 +16,6 @@ class TitanAdminController extends TitanController
     // name of the resource we are viewing / modify
     protected $resource = '';
 
-    function __construct()
-    {
-        $this->setSelectedNavigation();
-    }
-
     /**
      * Get the html title (check for crud reserve word)
      *
@@ -51,6 +46,7 @@ class TitanAdminController extends TitanController
      */
     protected function view($view, $data = [])
     {
+        $this->setSelectedNavigation();
         $navigation = $this->generateNavigation();
         $breadcrumb = $this->getBreadCrumb();
 
