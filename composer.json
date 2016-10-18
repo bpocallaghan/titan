@@ -19,7 +19,8 @@
 		"files": [
             "src/Helpers/helpers.php",
             "src/Helpers/view_helpers.php",
-			"src/Helpers/upload_helpers.php"
+            "src/Helpers/form_helpers.php",
+            "src/Helpers/upload_helpers.php"
 		]
 	}
 }
