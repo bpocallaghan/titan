@@ -41,7 +41,7 @@ if (!function_exists('action_row')) {
     function action_row($url, $id, $title, $actions = ['show', 'edit', 'delete'])
     {
         $show = '<div class="btn-group">
-				    <a href="' . $url . $id . '" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Show ' . $title . '">
+				    <a href="' . $url . $id . '" class="btn btn-default btn-xs" data-toggle="tooltip" title="Show ' . $title . '">
 					    <i class="fa fa-eye"></i>
 				    </a>
 			    </div>';
@@ -57,7 +57,7 @@ if (!function_exists('action_row')) {
 				        <input name="_method" type="hidden" value="DELETE">
 				        <input name="_token" type="hidden" value="' . csrf_token() . '">
 					    <input name="_id" type="hidden" value="' . $id . '">
-					    <a data-form="form-delete-row' . $id . '" class="btn btn-primary btn-xs btn-delete-row" data-toggle="tooltip" title="Delete ' . $title . '">
+					    <a data-form="form-delete-row' . $id . '" class="btn btn-danger btn-xs btn-delete-row" data-toggle="tooltip" title="Delete ' . $title . '">
 						    <i class="fa fa-times"></i>
 					    </a>
 					    </form>
