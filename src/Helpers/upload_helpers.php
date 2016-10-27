@@ -10,7 +10,7 @@ if (!function_exists('upload_path')) {
     function upload_path($path = '')
     {
         // path
-        $path = env('PUBLIC_FOLDER') . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . $path;
+        $path = env('PUBLIC_FOLDER', 'public') . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . $path;
         // remove trailing seperators (incase more than 1)
         // add 1 trailing seperator (to add file in directory)
         return rtrim(base_path($path), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
