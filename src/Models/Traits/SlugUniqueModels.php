@@ -15,12 +15,12 @@ trait SlugUniqueModels
      * To make sure the slug is unique across tables
      * @return array
      */
-    public function uniqueModels()
+    /*public function uniqueModels()
     {
         return [
-            //Model::class,
+            //User::class,
         ];
-    }
+    }*/
 
     /**
      * On create and update, set the slug
