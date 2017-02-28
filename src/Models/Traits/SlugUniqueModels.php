@@ -2,37 +2,25 @@
 
 namespace Titan\Models\Traits;
 
-use App\Models\BodyStyle;
-use App\Models\Category;
-use App\Models\Color;
-use App\Models\Condition;
-use App\Models\Exterior;
-use App\Models\FuelType;
-use App\Models\Interior;
-use App\Models\Lifestyle;
-use App\Models\Make;
-use App\Models\Modell;
-use App\Models\SellerType;
-use App\Models\Transmission;
 use ReflectionClass;
 
 trait SlugUniqueModels
 {
-    // list of models to look to make unique slug
-    protected $models = [
-        Category::class,
-        Make::class,
-        Modell::class,
-        Condition::class,
-        Transmission::class,
-        Color::class,
-        FuelType::class,
-        Lifestyle::class,
-        Interior::class,
-        Exterior::class,
-        BodyStyle::class,
-        SellerType::class,
-    ];
+    /**
+     * Move this function to parent model / helper / trait
+     * Add the list of models - to make the slug unique
+     *
+     * List of Models
+     * SlugUniqueModels Trait will look in all the below tables
+     * To make sure the slug is unique across tables
+     * @return array
+     */
+    public function uniqueModels()
+    {
+        return [
+            //Model::class,
+        ];
+    }
 
     /**
      * On create and update, set the slug
@@ -102,7 +90,7 @@ trait SlugUniqueModels
     private function getExistingSlugs($slug)
     {
         $list = collect();
-        foreach ($this->models as $class) {
+        foreach ($this->uniqueModels() as $class) {
 
             // get entries matching slug
             $slugs = $this->eloqent($class)
@@ -158,7 +146,7 @@ trait SlugUniqueModels
         if ($this->id >= 1) {
 
             $found = false;
-            foreach ($this->models as $class) {
+            foreach ($this->uniqueModels() as $class) {
 
                 // find entries matching slug, exclude updating entry
                 $builder = $this->eloqent($class)->where('slug', $slug);
