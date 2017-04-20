@@ -4,11 +4,12 @@ if (!function_exists('user')) {
     /**
      * Get the logged in user
      *
+     * @param string $guard
      * @return \App\Models\User|null
      */
-    function user()
+    function user($guard = 'web')
     {
-        return ((Auth::user()) ? Auth::user() : (object) ['id' => 0]);
+        return ((Auth::guard($guard)->user()) ? Auth::guard($guard)->user() : (object) ['id' => 0]);
     }
 }
 
