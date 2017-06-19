@@ -30,7 +30,7 @@ class TitanController extends Controller
      */
     protected function getTitle()
     {
-        return trim($this->title . (strlen($this->title) < 2 ? '' : ' | ') . env('APP_TITLE'));
+        return trim($this->title . (strlen($this->title) < 2 ? '' : ' | ') . config('app.name'));
     }
 
     /**
@@ -40,7 +40,7 @@ class TitanController extends Controller
      */
     protected function getDescription()
     {
-        return trim($this->description . (strlen($this->description) < 2 ? '' : ' | ') . env('APP_DESCRIPTION'));
+        return trim($this->description . (strlen($this->description) < 2 ? '' : ' | ') . config('app.desription'));
     }
 
     /**
@@ -74,7 +74,7 @@ class TitanController extends Controller
      */
     protected function getCurrentUrl()
     {
-        $url = rtrim(env('APP_URL'), '/') . '/';
+        $url = rtrim(config('app.url'), '/') . '/';
 
         return substr(Request::url(), strlen($url . $this->baseUrl));
     }
