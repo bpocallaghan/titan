@@ -67,13 +67,13 @@ class TitanAdminController extends TitanController
      */
     private function generateNavigation()
     {
-        $html = '<ul class="sidebar-menu"><li class="header">MAIN NAVIGATION</li>';
+        $html = '';
         $navigation = NavigationAdmin::whereParentIdORM(0);
 
         foreach ($navigation as $key => $nav) {
 
             $active = (array_search_value($nav->id,
-                $this->urlParentNavs) ? 'active open' : '');
+                $this->urlParentNavs) ? 'active menu-open' : '');
 
             $children = $this->generateNavigationChildren($nav);
 
@@ -90,7 +90,7 @@ class TitanAdminController extends TitanController
             $html .= '</li>';
         }
 
-        $html .= '</ul>';
+        $html .= '';
 
         return $html;
     }
@@ -107,8 +107,7 @@ class TitanAdminController extends TitanController
         $navigation = NavigationAdmin::whereParentIdORM($parent->id);
 
         foreach ($navigation as $key => $nav) {
-            $active = (array_search_value($nav->id,
-                $this->urlParentNavs) ? 'active open' : '');
+            $active = (array_search_value($nav->id, $this->urlParentNavs) ? 'active open' : '');
 
             $children = $this->generateNavigationChildren($nav);
 
@@ -288,8 +287,7 @@ class TitanAdminController extends TitanController
         $mode = $this->checkIfReservedWordInUrl();
 
         $this->selectedNavigation->mode = $mode == false ? 'index' : $mode;
-        $this->selectedNavigation->url = '/' . $this->baseUrl . rtrim($nav->url,
-                '/') . '/';
+        $this->selectedNavigation->url = '/' . $this->baseUrl . rtrim($nav->url, '/') . '/';
 
         return $this->selectedNavigation;
     }
@@ -305,8 +303,7 @@ class TitanAdminController extends TitanController
         $items = $this->getTableRows();
         $ajax = count($items) > 150 ? 'true' : 'false';
 
-        return $this->view($view, compact('ajax'))
-            ->with('items', $ajax == 'true' ? [] : $items);
+        return $this->view($view, compact('ajax'))->with('items', $ajax == 'true' ? [] : $items);
     }
 
     /**

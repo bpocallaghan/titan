@@ -44,6 +44,19 @@ if (!function_exists('route_admin')) {
     }
 }
 
+if (!function_exists('save_resource_url')) {
+    /**
+     * Save the resource home url (to easily redirect back on store / update / delete)
+     * @param null $url
+     */
+    function save_resource_url($url = null)
+    {
+        $url = $url ?: request()->url();
+
+        session()->put('url.resource.home', $url);
+    }
+}
+
 if (!function_exists('redirect_to_resource')) {
 
     /**
