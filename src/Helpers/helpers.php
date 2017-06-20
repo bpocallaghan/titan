@@ -44,6 +44,25 @@ if (!function_exists('route_admin')) {
     }
 }
 
+if (!function_exists('redirect_to_resource')) {
+
+    /**
+     * Generate a URL to a named route.
+     *
+     * @param boolean $to
+     * @param int     $status
+     * @param array   $headers
+     * @param null    $secure
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    function redirect_to_resource($to = null, $status = 302, $headers = [], $secure = null)
+    {
+        $to = $to ?: session('url.resource.home', '/');
+
+        return redirect($to, $status, $headers, $secure);
+    }
+}
+
 if (!function_exists('input')) {
     /**
      * @param string $key

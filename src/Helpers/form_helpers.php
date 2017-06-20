@@ -26,6 +26,8 @@ if (!function_exists('action_row')) {
      */
     function action_row($url, $id, $title, $actions = ['show', 'edit', 'delete'])
     {
+        $url = rtrim($url, '/') . '/'; // remove last / and add it again (if it was not there)
+
         $show = '<div class="btn-group">
 				    <a href="' . $url . $id . '" class="btn btn-default btn-xs" data-toggle="tooltip" title="Show ' . $title . '">
 					    <i class="fa fa-eye"></i>
@@ -44,7 +46,7 @@ if (!function_exists('action_row')) {
 				        <input name="_token" type="hidden" value="' . csrf_token() . '">
 					    <input name="_id" type="hidden" value="' . $id . '">
 					    <a data-form="form-delete-row' . $id . '" class="btn btn-danger btn-xs btn-delete-row" data-toggle="tooltip" title="Delete ' . $title . '">
-						    <i class="fa fa-times"></i>
+						    <i class="fa fa-trash"></i>
 					    </a>
 					    </form>
 				    </div>';
