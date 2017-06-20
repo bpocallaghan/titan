@@ -223,3 +223,16 @@ function is_slug_url($slug)
 
     return false;
 }
+
+if (!function_exists('log_action')) {
+    /**
+     * Save Action
+     * @param string $type
+     * @param string $description
+     * @param        $eloquent
+     */
+    function log_action($type = '', $description = '', $eloquent = null)
+    {
+        event(new App\Events\ActionWasTriggered($type, $description, $eloquent));
+    }
+}
