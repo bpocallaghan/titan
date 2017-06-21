@@ -9,8 +9,6 @@ class TitanAdminController extends TitanController
 {
     use CRUDNotify;
 
-    protected $baseUrl = 'admin/';
-
     protected $baseViewPath = 'admin.';
 
     // name of the resource we are viewing / modify
@@ -77,7 +75,7 @@ class TitanAdminController extends TitanController
 
             $children = $this->generateNavigationChildren($nav);
 
-            $link = (strlen($children) < 2 ? url($this->baseUrl . $nav->url) : '#');
+            $link = (strlen($children) < 2 ? url($nav->url) : '#');
             $childrenClass = (strlen($children) < 2 ? '' : ' treeview ');
 
             $html .= '<li class="' . $active . $childrenClass . '"><a href="' . $link . '">';
@@ -111,7 +109,7 @@ class TitanAdminController extends TitanController
 
             $children = $this->generateNavigationChildren($nav);
 
-            $link = (strlen($children) < 2 ? url($this->baseUrl . $nav->url) : '#');
+            $link = (strlen($children) < 2 ? url($nav->url) : '#');
             $childrenClass = (strlen($children) < 2 ? '' : ' treeview ');
 
             $html .= '<li class="' . $active . $childrenClass . '"><a href="' . $link . '">';
@@ -139,7 +137,7 @@ class TitanAdminController extends TitanController
     protected function getBreadCrumb()
     {
         $navigation = $this->urlParentNavs;
-        $url = env('APP_URL') . $this->baseUrl;
+        $url = config('app.url');
         $html = '<ol class="breadcrumb">';
 
         // for dashboard, only add home
@@ -150,7 +148,7 @@ class TitanAdminController extends TitanController
             foreach ($navigation as $key => $nav) {
                 $html .= '<li>';
                 $icon = (strlen($nav->icon) > 2 ? '<i class="fa fa-' . $nav->icon . '"></i> ' : '');
-                $html .= '<a href="' . url($this->baseUrl . $nav->url) . '">' . $icon . '' . $nav->title . '</a>';
+                $html .= '<a href="' . url($nav->url) . '">' . $icon . '' . $nav->title . '</a>';
                 $html .= '</li>';
             }
 
@@ -168,7 +166,6 @@ class TitanAdminController extends TitanController
     public function getPagecrumb()
     {
         $navigation = $this->urlParentNavs;
-        $url = env('APP_URL') . $this->baseUrl;
         $html = '<h1>';
 
         // for dashboard, only add home
@@ -287,7 +284,6 @@ class TitanAdminController extends TitanController
         $mode = $this->checkIfReservedWordInUrl();
 
         $this->selectedNavigation->mode = $mode == false ? 'index' : $mode;
-        $this->selectedNavigation->url = '/' . $this->baseUrl . rtrim($nav->url, '/') . '/';
 
         return $this->selectedNavigation;
     }

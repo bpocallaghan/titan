@@ -13,7 +13,7 @@ use LaravelAnalytics;
  * Class Analytics
  * @package Titan\Controllers\Traits
  */
-trait Analytics
+trait AnalyticsHelper
 {
     protected $datasets = [
         [

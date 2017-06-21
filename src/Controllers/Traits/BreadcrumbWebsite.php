@@ -17,7 +17,7 @@ trait BreadcrumbWebsite
         foreach ($navs as $k => $nav) {
 
             if ($nav->title != $prevTitle) {
-                $url = (is_slug_url($nav->slug) ? $nav->slug : url($this->baseUrl . $nav->url));
+                $url = (is_slug_url($nav->slug) ? $nav->slug : url($nav->url));
                 $this->addBreadcrumbLink($nav->title, $url);
             }
 

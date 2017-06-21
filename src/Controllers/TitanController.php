@@ -1,4 +1,5 @@
 <?php
+
 namespace Titan\Controllers;
 
 use App\Http\Controllers\Controller;
@@ -6,8 +7,6 @@ use Request;
 
 class TitanController extends Controller
 {
-    protected $baseUrl = '';
-
     protected $baseViewPath = '';
 
     // html meta headers
@@ -74,9 +73,7 @@ class TitanController extends Controller
      */
     protected function getCurrentUrl()
     {
-        $url = rtrim(config('app.url'), '/') . '/';
-
-        return substr(Request::url(), strlen($url . $this->baseUrl));
+        return substr(request()->url(), strlen(config('app.url')));
     }
 
     /**

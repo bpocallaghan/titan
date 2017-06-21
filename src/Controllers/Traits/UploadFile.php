@@ -41,7 +41,7 @@ trait UploadFile
      * @param array  $size
      * @return string|void
      */
-    public function uploadBanner($file, $path = '', $size = ['o' => [1900, 550], 'tn' => [450, 212]])
+    public function uploadBanner($file, $path = '', $size = ['o' => [1900, 500], 'tn' => [450, 212]])
     {
         $name = token();
         $extension = $file->guessClientExtension();

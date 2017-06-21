@@ -114,9 +114,10 @@ class TitanWebsiteNavigation extends TitanCMSModel
     {
         $this->url = '';
         $this->generateCompleteUrl($this);
+        $this->url = $this->url;
 
         if (strlen($this->slug) > 1) {
-            $this->url .= (strlen($this->url) > 1 ? '/' : '') . $this->slug;
+            $this->url .= "/{$this->slug}";
         }
 
         return $this;
@@ -134,7 +135,7 @@ class TitanWebsiteNavigation extends TitanCMSModel
 
         if ($row) {
             if (strlen($row->slug) > 1) {
-                $this->url = $row->slug . (strlen($this->url) ? '/' . $this->url : '');
+                $this->url = "/{$row->slug}" . ("{$this->url}");
             }
 
             return $this->generateCompleteUrl($row);

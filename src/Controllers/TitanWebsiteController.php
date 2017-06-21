@@ -4,6 +4,7 @@ namespace Titan\Controllers;
 
 use App\Http\Requests;
 use App\Models\Advertisement;
+use App\Models\Banner;
 use App\Models\NavigationWebsite;
 use Titan\Controllers\Traits\BreadcrumbWebsite;
 use Titan\Controllers\Traits\PopupEntry;
@@ -15,8 +16,6 @@ class TitanWebsiteController extends TitanController
     protected $baseViewPath = 'website.';
 
     protected $baseViewSubPath = '';
-
-    protected $sportType;
 
     protected $pageTitle;
 
@@ -53,6 +52,7 @@ class TitanWebsiteController extends TitanController
             ->with('navigation', $this->generateNavigation())
             ->with('breadcrumb', $this->breadcrumbHTML())
             ->with('pageTitle', $this->getPageTitle())
+            ->with('banners', $this->getBanners())
             ->with('selectedNavigation', $this->selectedNavigation);
     }
 
@@ -151,21 +151,19 @@ class TitanWebsiteController extends TitanController
 
         foreach ($navigation as $key => $nav) {
 
-            $extra = '';
-            $link = url($this->baseUrl . $nav->url);
+            $active = (array_search_value($nav->id,
+                $this->urlParentNavs) ? 'active ' : '');
+
             $children = $this->generateNavigationChildren($nav);
-            $class = (array_search_value($nav->id, $this->parentNavs) ? 'active' : '');
 
-            if (strlen($children) > 2) {
-                $link = '#';
-                $class .= ' dropdown-toggle';
-                $extra = ' <i class="icon-down-open-mini"></i>';
-            }
+            $link = (strlen($children) < 2 ? url($nav->url) : '#');
+            $childrenClass = (strlen($children) < 2 ? '' : ' dropdown ');
+            $childrenClassAnchor = (strlen($children) < 2 ? '' : ' class="dropdown-toggle" data-toggle="dropdown" ');
 
-            $html .= "<li class='$class'>";
-            $html .= '<a class="' . $class . '" href="' . $link . '">' . $nav->title . $extra . '</a>';
-            $html .= $children;
-            $html .= '</li>';
+            $html .= '<li class="' . $active . $childrenClass . '"><a href="' . $link . '" ' . $childrenClassAnchor . '>';
+            $html .= $nav->title;
+            $html .= (strlen($children) < 2 ? '' : ' <b class="caret"></b>');
+            $html .= '</a>' . $children . '</li>';
         }
 
         return $html;
@@ -181,10 +179,10 @@ class TitanWebsiteController extends TitanController
         $html = '';
         $navigation = NavigationWebsite::whereParentIdORM($parent->id);
 
-        $html .= '<ul>';
+        $html .= '<ul class="dropdown-menu">';
         foreach ($navigation as $key => $nav) {
 
-            $url = (is_slug_url($nav->slug) ? $nav->slug : url($this->baseUrl . $nav->url));
+            $url = (is_slug_url($nav->slug) ? $nav->slug : url($nav->url));
             $children = NavigationWebsite::whereParentIdORM($nav->id);
 
             $html .= '<li>';
@@ -196,7 +194,7 @@ class TitanWebsiteController extends TitanController
             }
 
             foreach ($children as $c => $child) {
-                $url = (is_slug_url($child->slug) ? $child->slug : url($this->baseUrl . $child->url));
+                $url = (is_slug_url($child->slug) ? $child->slug : url($child->url));
 
                 $html .= '<li><a tabindex="-1" href="' . $url . '">' . $child->title . '</a></li>';
             }
@@ -212,5 +210,12 @@ class TitanWebsiteController extends TitanController
         $html .= '</ul>';
 
         return (count($navigation) > 0 ? $html : '');
+    }
+
+    protected function getBanners()
+    {
+        $items = Banner::active()->get();
+
+        return $items;
     }
 }

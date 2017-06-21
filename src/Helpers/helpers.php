@@ -224,15 +224,29 @@ function is_slug_url($slug)
     return false;
 }
 
+if (!function_exists('mail_to_admins')) {
+    function mail_to_admins($message)
+    {
+        $list = explode(',', env('MAIL_ADMIN_EMAILS'));
+        foreach ($list as $k => $email) {
+            if (strlen($email) > 2) {
+                $message->to($email, env('MAIL_ADMIN_NAME'));
+            }
+        }
+
+        return $message;
+    }
+}
+
 if (!function_exists('log_action')) {
     /**
      * Save Action
      * @param string $type
-     * @param string $description
+     * @param string $message
      * @param        $eloquent
      */
-    function log_action($type = '', $description = '', $eloquent = null)
+    function log_action($type = '', $message = '', $eloquent = null)
     {
-        event(new App\Events\ActionWasTriggered($type, $description, $eloquent));
+        event(new App\Events\ActionWasTriggered($type, $message, $eloquent));
     }
 }
