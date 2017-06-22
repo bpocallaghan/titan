@@ -32,7 +32,7 @@ class TitanAdminController extends TitanController
             }
         }
 
-        return $this->title . ' - Admin | ' . env('APP_TITLE');
+        return $this->title . ' - Admin | ' . config('app.name');
     }
 
     /**
