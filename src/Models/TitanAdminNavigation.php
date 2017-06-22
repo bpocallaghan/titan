@@ -24,6 +24,9 @@ class TitanAdminNavigation extends TitanCMSModel
 
     protected $guarded = ['id'];
 
+    // prefix path
+    protected $prefixPath = '/admin';
+
     /**
      * Validation rules for this model
      *
@@ -91,7 +94,7 @@ class TitanAdminNavigation extends TitanCMSModel
     {
         $this->url = '';
         $this->generateCompleteUrl($this);
-        $this->url = '/admin' . $this->url;
+        $this->url = $this->prefixPath . $this->url;
 
         if (strlen($this->slug) > 1) {
             $this->url .= "/{$this->slug}";
@@ -112,7 +115,7 @@ class TitanAdminNavigation extends TitanCMSModel
 
         if ($row) {
             if (strlen($row->slug) > 1) {
-                $this->url = "/{$row->slug}" . '/' . ltrim("/{$this->url}", '/');
+                $this->url = "/{$row->slug}" . ("{$this->url}");
             }
 
             return $this->generateCompleteUrl($row);
