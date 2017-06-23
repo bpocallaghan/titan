@@ -14,6 +14,14 @@ class TitanAdminController extends TitanController
     // name of the resource we are viewing / modify
     protected $resource = '';
 
+    function __construct()
+    {
+        $this->setSelectedNavigation();
+        $this->navigation = $this->generateNavigation();
+        $this->breadcrumb = $this->getBreadCrumb();
+        $this->pagecrumb = $this->getPagecrumb();
+    }
+
     /**
      * Get the html title (check for crud reserve word)
      *
@@ -44,16 +52,10 @@ class TitanAdminController extends TitanController
      */
     protected function view($view, $data = [])
     {
-        $this->setSelectedNavigation();
-        $navigation = $this->generateNavigation();
-        $breadcrumb = $this->getBreadCrumb();
-
-        $pagecrumb = $this->getPagecrumb();
-
         return parent::view($view, $data)
-            ->with('navigation', $navigation)
-            ->with('breadcrumb', $breadcrumb)
-            ->with('pagecrumb', $pagecrumb)
+            ->with('navigation', $this->navigation)
+            ->with('breadcrumb', $this->breadcrumb)
+            ->with('pagecrumb', $this->pagecrumb)
             ->with('resource', $this->resource)
             ->with('selectedNavigation', $this->selectedNavigation);
     }
