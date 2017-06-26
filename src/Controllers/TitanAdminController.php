@@ -17,7 +17,8 @@ class TitanAdminController extends TitanController
     function __construct()
     {
         $this->setSelectedNavigation();
-        $this->navigation = $this->generateNavigation();
+
+        $this->navigation = NavigationAdmin::getAllByParentGrouped();
         $this->breadcrumb = $this->getBreadCrumb();
         $this->pagecrumb = $this->getPagecrumb();
     }
@@ -54,79 +55,11 @@ class TitanAdminController extends TitanController
     {
         return parent::view($view, $data)
             ->with('navigation', $this->navigation)
+            ->with('selectedNavigationParents', $this->urlParentNavs)
             ->with('breadcrumb', $this->breadcrumb)
             ->with('pagecrumb', $this->pagecrumb)
             ->with('resource', $this->resource)
             ->with('selectedNavigation', $this->selectedNavigation);
-    }
-
-    /**
-     * Generate the Main Navigation's HTML + show Active
-     *
-     * @return string
-     */
-    private function generateNavigation()
-    {
-        $html = '';
-        $navigation = NavigationAdmin::whereParentIdORM(0);
-
-        foreach ($navigation as $key => $nav) {
-
-            $active = (array_search_value($nav->id,
-                $this->urlParentNavs) ? 'active menu-open' : '');
-
-            $children = $this->generateNavigationChildren($nav);
-
-            $link = (strlen($children) < 2 ? url($nav->url) : '#');
-            $childrenClass = (strlen($children) < 2 ? '' : ' treeview ');
-
-            $html .= '<li class="' . $active . $childrenClass . '"><a href="' . $link . '">';
-            $html .= '<i class="fa fa-fw fa-' . $nav->icon . '"></i> ';
-            $html .= '<span>' . $nav->title . '</span>';
-            if (strlen($children) > 2) {
-                $html .= '<i class="fa fa-angle-left pull-right"></i>';
-            }
-            $html .= '</a>' . $children;
-            $html .= '</li>';
-        }
-
-        $html .= '';
-
-        return $html;
-    }
-
-    /**
-     * Recursive generate the menu for all the children of given $nav
-     *
-     * @param $parent
-     * @return string
-     */
-    private function generateNavigationChildren($parent)
-    {
-        $html = '<ul class="treeview-menu">';
-        $navigation = NavigationAdmin::whereParentIdORM($parent->id);
-
-        foreach ($navigation as $key => $nav) {
-            $active = (array_search_value($nav->id, $this->urlParentNavs) ? 'active open' : '');
-
-            $children = $this->generateNavigationChildren($nav);
-
-            $link = (strlen($children) < 2 ? url($nav->url) : '#');
-            $childrenClass = (strlen($children) < 2 ? '' : ' treeview ');
-
-            $html .= '<li class="' . $active . $childrenClass . '"><a href="' . $link . '">';
-            $html .= (strlen($nav->icon) > 2 ? '<i class="fa fa-fw fa-' . $nav->icon . '"></i> ' : '');
-            $html .= '<span>' . $nav->title . '</span>';
-            if (strlen($children) > 2) {
-                $html .= '<i class="fa fa-angle-left pull-right"></i>';
-            }
-            $html .= '</a>' . $children;
-            $html .= '</li>';
-        }
-
-        $html .= '</ul>';
-
-        return (count($navigation) >= 1 ? $html : '');
     }
 
     /**
@@ -268,7 +201,7 @@ class TitanAdminController extends TitanController
         }
 
         // development testing
-        if (!$nav) {
+        if (config('app.env') == 'local' && !$nav) {
             dd('Oops - unique url, please fix at TitanAdminController::setselectedNavigation()');
         }
 

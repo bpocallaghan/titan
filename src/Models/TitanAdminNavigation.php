@@ -179,4 +179,34 @@ class TitanAdminNavigation extends TitanCMSModel
 
         return $parents;
     }
+
+    /**
+     * Get all the navigation to render
+     * Hide hidden
+     * Order by list order
+     * Group by parent_id
+     * @return mixed
+     */
+    public static function getAllByParentGrouped()
+    {
+        $items = self::where('is_hidden', 0)
+            ->orderBy('list_order')
+            ->select('id', 'title', 'slug', 'url', 'icon', 'parent_id')
+            ->get()
+            ->groupBy('parent_id');
+
+        if (count($items)) {
+            $items['root'] = collect();
+            if (isset($items[''])) {
+                $items['root'] = $items[''];
+                unset($items['']);
+            }
+            if (isset($items[0])) {
+                $items['root'] = $items[0];
+                unset($items[0]);
+            }
+        }
+
+        return $items;
+    }
 }
