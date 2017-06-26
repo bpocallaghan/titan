@@ -237,16 +237,15 @@ if (!function_exists('mail_to_admins')) {
         return $message;
     }
 }
-
-if (!function_exists('log_action')) {
+if (!function_exists('log_activity')) {
     /**
-     * Save Action
-     * @param string $type
-     * @param string $message
-     * @param        $eloquent
+     * Log Activity
+     * @param string $title
+     * @param string $description
+     * @param null   $eloquent
      */
-    function log_action($type = '', $message = '', $eloquent = null)
+    function log_activity($title = '', $description = '', $eloquent = null)
     {
-        event(new App\Events\ActionWasTriggered($type, $message, $eloquent));
+        event(new App\Events\ActivityWasTriggered($title, $description, $eloquent));
     }
 }
