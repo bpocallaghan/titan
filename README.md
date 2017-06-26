@@ -1,7 +1,6 @@
 # Titan
 
-Useful classes used for every Laravel project
---under development--
+Useful classes I use for Laravel projects
 
 Want to see the current package in action, have a look at my starter project.
 [Laravel Starter Project](https://github.com/bpocallaghan/laravel-admin-starter)
