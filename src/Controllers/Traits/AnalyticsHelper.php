@@ -299,7 +299,11 @@ trait AnalyticsHelper
             'max-results' => 30
         ]);
 
-        return $data->rows;
+        if ($data->rows) {
+            return $data->rows;
+        }
+
+        return [];
     }
 
     /**
