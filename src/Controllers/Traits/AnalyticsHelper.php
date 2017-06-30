@@ -226,6 +226,9 @@ trait AnalyticsHelper
 
         $items = [];
         $rows = $data->rows;
+        if (is_null($rows)) {
+            return [];
+        }
         shuffle($rows); // shuffle results / randomimize chart color sections
         foreach ($rows as $k => $item) {
             $items[] = $this->getPieDataSet(ucfirst($item[0]), $item[1]);
@@ -248,6 +251,9 @@ trait AnalyticsHelper
         $labels = [];
         $datasets = [];
         $rows = $data->rows;
+        if (is_null($rows)) {
+            return ['labels' => [], 'datasets' => []];
+        }
         foreach ($rows as $k => $item) {
             $labels[] = ucfirst($item[0]);
             $datasets[] = $item[1];
@@ -339,6 +345,10 @@ trait AnalyticsHelper
             'sort'        => '-ga:sessions',
             'max-results' => 30
         ]);
+
+        if (is_null($data->rows)) {
+            return [];
+        }
 
         return $data->rows;
     }
