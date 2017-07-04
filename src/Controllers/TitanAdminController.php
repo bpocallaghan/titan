@@ -17,10 +17,17 @@ class TitanAdminController extends TitanController
     function __construct()
     {
         $this->setSelectedNavigation();
-
-        $this->navigation = NavigationAdmin::getAllByParentGrouped();
         $this->breadcrumb = $this->getBreadCrumb();
-        $this->pagecrumb = $this->getPagecrumb();
+        $this->pagecrumb = $this->getPageCrumb();
+
+        // check role if user have role for navigation
+        $this->middleware('role:' . $this->selectedNavigation->id);
+
+        $this->middleware(function ($request, $next) {
+            $this->navigation = NavigationAdmin::getAllByParentGrouped();
+
+            return $next($request);
+        });
     }
 
     /**
@@ -98,7 +105,7 @@ class TitanAdminController extends TitanController
         return $html . '</ol>';
     }
 
-    public function getPagecrumb()
+    public function getPageCrumb()
     {
         $navigation = $this->urlParentNavs;
         $html = '<h1>';
