@@ -2,6 +2,7 @@
 
 namespace Titan\Models;
 
+use App\Models\Role;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class TitanAdminNavigation extends TitanCMSModel
@@ -33,8 +34,20 @@ class TitanAdminNavigation extends TitanCMSModel
      * @var array
      */
     static public $rules = [
-        'title' => 'required|min:3:max:255',
+        'icon'        => 'required|min:1',
+        'title'       => 'required|min:3:max:255',
+        'description' => 'required|min:3:max:255',
+        'roles'       => 'required|array',
     ];
+
+    /**
+     * Remove the ending '/'
+     * @return string
+     */
+    public function getUrlAttribute()
+    {
+        return rtrim($this->attributes['url'], '/');
+    }
 
     /**
      * Get a the title + url concatenated
@@ -57,6 +70,20 @@ class TitanAdminNavigation extends TitanCMSModel
     }
 
     /**
+     * Get the roles
+     * @return \Eloquent
+     */
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'navigation_admin_role')->withTimestamps();
+    }
+
+    public function getRolesStringAttribute()
+    {
+        return implode(', ', $this->roles()->get()->pluck('title', 'id')->toArray());
+    }
+
+    /**
      * Get the parent
      *
      * @return \Eloquent
@@ -76,7 +103,7 @@ class TitanAdminNavigation extends TitanCMSModel
     static public function whereParentIdORM($id, $hidden = false)
     {
         $builder = self::whereParentId($id);
-        if(!$hidden) {
+        if (!$hidden) {
             $builder->where('is_hidden', 0);
         }
 
@@ -189,7 +216,12 @@ class TitanAdminNavigation extends TitanCMSModel
      */
     public static function getAllByParentGrouped()
     {
+        $roles = user()->getRolesList();
+
         $items = self::where('is_hidden', 0)
+            ->whereHas('roles', function ($query) use ($roles) {
+                return $query->whereIn('roles.id', $roles);
+            })
             ->orderBy('list_order')
             ->select('id', 'title', 'slug', 'url', 'icon', 'parent_id')
             ->get()
