@@ -22,34 +22,40 @@ if (!function_exists('action_row')) {
      * @param            $id
      * @param            $title
      * @param array      $actions
+     * @param bool       $wrapButtons
      * @return string
      */
-    function action_row($url, $id, $title, $actions = ['show', 'edit', 'delete'])
-    {
+    function action_row(
+        $url,
+        $id,
+        $title,
+        $actions = ['show', 'edit', 'delete'],
+        $wrapButtons = true
+    ) {
         $url = rtrim($url, '/') . '/'; // remove last / and add it again (if it was not there)
 
         $show = '<div class="btn-group">
-				    <a href="' . $url . $id . '" class="btn btn-default btn-xs" data-toggle="tooltip" title="Show ' . $title . '">
-					    <i class="fa fa-eye"></i>
-				    </a>
-			    </div>';
+                    <a href="' . $url . $id . '" class="btn btn-default btn-xs" data-toggle="tooltip" title="Show ' . $title . '">
+                        <i class="fa fa-eye"></i>
+                    </a>
+                </div>';
 
         $edit = '<div class="btn-group">
-				    <a href="' . $url . $id . '/edit' . '" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Edit ' . $title . '">
-					    <i class="fa fa-edit"></i>
-				    </a>
-			    </div>';
+                    <a href="' . $url . $id . '/edit' . '" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Edit ' . $title . '">
+                        <i class="fa fa-edit"></i>
+                    </a>
+                </div>';
 
         $delete = '<div class="btn-group">
-				        <form id="form-delete-row' . $id . '" method="POST" action="' . $url . $id . '">
-				        <input name="_method" type="hidden" value="DELETE">
-				        <input name="_token" type="hidden" value="' . csrf_token() . '">
-					    <input name="_id" type="hidden" value="' . $id . '">
-					    <a data-form="form-delete-row' . $id . '" class="btn btn-danger btn-xs btn-delete-row" data-toggle="tooltip" title="Delete ' . $title . '">
-						    <i class="fa fa-trash"></i>
-					    </a>
-					    </form>
-				    </div>';
+                        <form id="form-delete-row' . $id . '" method="POST" action="' . $url . $id . '">
+                        <input name="_method" type="hidden" value="DELETE">
+                        <input name="_token" type="hidden" value="' . csrf_token() . '">
+                        <input name="_id" type="hidden" value="' . $id . '">
+                        <a data-form="form-delete-row' . $id . '" class="btn btn-danger btn-xs btn-delete-row" data-toggle="tooltip" title="Delete ' . $title . '">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                        </form>
+                    </div>';
 
         $html = '';
         foreach ($actions as $k => $action) {
@@ -75,6 +81,10 @@ if (!function_exists('action_row')) {
             }
         }
 
+        if (!$wrapButtons) {
+            return $html;
+        }
+
         return '<div class="btn-toolbar">' . $html . '</div>';
     }
 }
@@ -87,7 +97,7 @@ if (!function_exists('form_select')) {
 
         $options = ['value' => $value, 'selected' => $selected];
 
-        return '<option' . select_attributes($options) . '>' . e($display) . '</option>';
+        return '<option' . select_attributes($options) . '>' . ($display) . '</option>';
     }
 
     function select_selected($value, $selected)
