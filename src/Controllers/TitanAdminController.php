@@ -209,7 +209,7 @@ class TitanAdminController extends TitanController
 
         // development testing
         if (config('app.env') == 'local' && !$nav) {
-            dd('Oops - unique url, please fix at TitanAdminController::setselectedNavigation()');
+            dd('Whoops. Navigation not found - please see if url is in database (navigation_admin');
         }
 
         $this->selectedNavigation = $nav;

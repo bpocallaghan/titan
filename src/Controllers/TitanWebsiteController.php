@@ -125,7 +125,10 @@ class TitanWebsiteController extends TitanController
 
         // when nothing - fall back to home
         if (!$nav) {
-            $nav = NavigationWebsite::where('slug', '/')->first();
+            $nav = NavigationWebsite::find(1);
+            if (config('app.env') == 'local' && !$nav) {
+                dd('Whoops. Navigation not found - please see if url is in database (navigation_website)');
+            }
         }
 
         // load banners relationship

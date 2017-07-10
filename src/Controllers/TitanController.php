@@ -39,7 +39,7 @@ class TitanController extends Controller
      */
     protected function getDescription()
     {
-        return trim($this->description . (strlen($this->description) < 2 ? '' : ' | ') . config('app.desription'));
+        return trim($this->description . (strlen($this->description) < 2 ? '' : ' | ') . config('app.description'));
     }
 
     /**
