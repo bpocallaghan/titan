@@ -70,20 +70,6 @@ class TitanAdminNavigation extends TitanCMSModel
     }
 
     /**
-     * Get the roles
-     * @return \Eloquent
-     */
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class, 'navigation_admin_role')->withTimestamps();
-    }
-
-    public function getRolesStringAttribute()
-    {
-        return implode(', ', $this->roles()->get()->pluck('title', 'id')->toArray());
-    }
-
-    /**
      * Get the parent
      *
      * @return \Eloquent
@@ -216,13 +202,22 @@ class TitanAdminNavigation extends TitanCMSModel
      */
     public static function getAllByParentGrouped()
     {
-        $roles = user()->getRolesList();
+        $roles = false;
+        if (method_exists(user(), 'roles') && method_exists(user(), 'getRolesList')) {
+            $roles = true;
+        }
 
-        $items = self::where('is_hidden', 0)
-            ->whereHas('roles', function ($query) use ($roles) {
+        $builder = self::where('is_hidden', 0);
+
+        // if roles are defined on user
+        if ($roles) {
+            $roles = user()->getRolesList();
+            $builder->whereHas('roles', function ($query) use ($roles) {
                 return $query->whereIn('roles.id', $roles);
-            })
-            ->orderBy('list_order')
+            });
+        }
+
+        $items = $builder->orderBy('list_order')
             ->select('id', 'title', 'slug', 'url', 'icon', 'parent_id')
             ->get()
             ->groupBy('parent_id');
