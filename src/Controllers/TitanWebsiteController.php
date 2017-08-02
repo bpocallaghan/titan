@@ -3,15 +3,12 @@
 namespace Titan\Controllers;
 
 use App\Http\Requests;
-use App\Models\Advertisement;
-use App\Models\Banner;
 use App\Models\NavigationWebsite;
 use Titan\Controllers\Traits\BreadcrumbWebsite;
-use Titan\Controllers\Traits\PopupEntry;
 
 class TitanWebsiteController extends TitanController
 {
-    use BreadcrumbWebsite, PopupEntry;
+    use BreadcrumbWebsite;
 
     protected $baseViewPath = 'website.';
 
@@ -52,7 +49,6 @@ class TitanWebsiteController extends TitanController
             ->with('navigation', $this->generateNavigation())
             ->with('breadcrumb', $this->breadcrumbHTML())
             ->with('pageTitle', $this->getPageTitle())
-            ->with('banners', $this->getBanners())
             ->with('selectedNavigation', $this->selectedNavigation);
     }
 
@@ -131,7 +127,7 @@ class TitanWebsiteController extends TitanController
             }
         }
 
-        // load banners relationship
+        // set the selected navigation
         $this->selectedNavigation = $nav;
 
         // get all navigations -> ON parent_id
@@ -154,8 +150,7 @@ class TitanWebsiteController extends TitanController
 
         foreach ($navigation as $key => $nav) {
 
-            $active = (array_search_value($nav->id,
-                $this->urlParentNavs) ? 'active ' : '');
+            $active = (array_search_value($nav->id, $this->urlParentNavs) ? 'active ' : '');
 
             $children = $this->generateNavigationChildren($nav);
 
@@ -213,12 +208,5 @@ class TitanWebsiteController extends TitanController
         $html .= '</ul>';
 
         return (count($navigation) > 0 ? $html : '');
-    }
-
-    protected function getBanners()
-    {
-        $items = Banner::active()->get();
-
-        return $items;
     }
 }
