@@ -73,10 +73,11 @@ class TitanController extends Controller
      */
     protected function getCurrentUrl($prefix = '/')
     {
-        $url = substr(request()->url(), strlen(config('app.url')));
+        //$url = substr(request()->url(), strlen(config('app.url')));
         // prefix (request can be http://xx and app.url is https)
+        $url = request()->path();
         $url = $prefix . ltrim($url, $prefix);
-
+        
         return $url;
     }
 
