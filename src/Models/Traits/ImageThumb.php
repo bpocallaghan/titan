@@ -35,6 +35,44 @@ trait ImageThumb
      */
     private function appendBeforeExtension($append)
     {
-        return substr_replace($this->image, $append, strpos($this->image, '.'), 0);
+        return substr_replace($this->getImageAttributeName(), $append,
+            strpos($this->getImageAttributeName(), '.'), 0);
+    }
+
+    /**
+     * Get the url to the photo
+     * @return string
+     */
+    public function getImageUrlAttribute()
+    {
+        return $this->urlForName($this->getImageAttributeName());
+    }
+
+    public function getThumbUrlAttribute()
+    {
+        return $this->urlForName($this->image_thumb);
+    }
+
+    /**
+     * Get the url for the file name (specify thumb, default, original)
+     * @param $name
+     * @return string
+     */
+    public function urlForName($name)
+    {
+        return config('app.url') . '/uploads/images/' . $name;
+    }
+
+    /**
+     * Get the value for the image
+     * @return mixed
+     */
+    private function getImageAttributeName()
+    {
+        if (property_exists($this, 'imageColumn')) {
+            return $this->{$this->imageColumn};
+        }
+
+        return $this->image;
     }
 }

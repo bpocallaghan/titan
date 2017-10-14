@@ -69,6 +69,7 @@ class TitanController extends Controller
     /**
      * Get the slug from the url (url inside website)
      *
+     * @param string $prefix
      * @return string
      */
     protected function getCurrentUrl($prefix = '/')
@@ -77,7 +78,7 @@ class TitanController extends Controller
         // prefix (request can be http://xx and app.url is https)
         $url = request()->path();
         $url = $prefix . ltrim($url, $prefix);
-        
+
         return $url;
     }
 

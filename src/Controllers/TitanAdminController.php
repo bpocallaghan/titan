@@ -17,8 +17,6 @@ class TitanAdminController extends TitanController
     function __construct()
     {
         $this->setSelectedNavigation();
-        $this->breadcrumb = $this->getBreadCrumb();
-        $this->pagecrumb = $this->getPageCrumb();
 
         // check role if user have role for navigation
         $this->middleware('role:' . $this->selectedNavigation->id);
@@ -60,6 +58,9 @@ class TitanAdminController extends TitanController
      */
     protected function view($view, $data = [])
     {
+        $this->breadcrumb = $this->getBreadCrumb();
+        $this->pagecrumb = $this->getPageCrumb();
+
         return parent::view($view, $data)
             ->with('navigation', $this->navigation)
             ->with('selectedNavigationParents', $this->urlParentNavs)
@@ -115,13 +116,11 @@ class TitanAdminController extends TitanController
             $html .= '<i class="fa fa-home"></i> Dashboard';
         }
         else {
-
             //foreach ($navigation as $key => $nav) {
             //    $html .= '<li>';
             //    $html .= '<i class="fa fa-' . $nav->icon . '"></i> ' . $nav->title;
             //    $html .= '</li>';
             //}
-
             $html .= '<i class="fa fa-' . $this->selectedNavigation->icon . '"></i> ' . $this->selectedNavigation->title;
 
             // TODO: show edit / create, etc icon ?
@@ -209,7 +208,10 @@ class TitanAdminController extends TitanController
 
         // development testing
         if (config('app.env') == 'local' && !$nav) {
-            dd('Whoops. Navigation not found - please see if url is in database (navigation_admin');
+            //$nav = NavigationAdmin::find(1);
+            dump($url);
+            dd('Whoops. Navigation not found - please see if url is in database (navigation_admin)');
+            //return false;
         }
 
         $this->selectedNavigation = $nav;
