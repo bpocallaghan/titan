@@ -53,6 +53,11 @@ trait ImageThumb
         return $this->urlForName($this->image_thumb);
     }
 
+    public function getOriginalUrlAttribute()
+    {
+        return $this->urlForName($this->image_original);
+    }
+
     /**
      * Get the url for the file name (specify thumb, default, original)
      * @param $name
