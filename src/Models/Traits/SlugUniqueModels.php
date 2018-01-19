@@ -2,8 +2,6 @@
 
 namespace Titan\Models\Traits;
 
-use ReflectionClass;
-
 trait SlugUniqueModels
 {
     /**
@@ -130,7 +128,7 @@ trait SlugUniqueModels
      */
     private function eloqent($class)
     {
-        return (new ReflectionClass($class))->newInstanceArgs();
+        return app($class);
     }
 
     /**
