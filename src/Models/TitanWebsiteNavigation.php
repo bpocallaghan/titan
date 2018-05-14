@@ -116,8 +116,11 @@ class TitanWebsiteNavigation extends TitanCMSModel
         $this->generateCompleteUrl($this);
         $this->url = $this->url;
 
+        //if (strlen($this->slug) > 1) {
+        //    $this->url .= "/{$this->slug}";
+        //}
         if (strlen($this->slug) > 1) {
-            $this->url .= "/{$this->slug}";
+            $this->url .= (is_slug_url($this->slug) ? "" : "/") . $this->slug;
         }
 
         return $this;
