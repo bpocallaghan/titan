@@ -25,6 +25,10 @@ if (!function_exists('profile_image')) {
         $image = user()->image;
         $gender = user()->gender;
         if ($image && strlen($image) > 5) {
+        	if (is_slug_url($image)) {
+                return $image;
+            }
+            
             return '/uploads/images/' . $image;
         }
         else {
