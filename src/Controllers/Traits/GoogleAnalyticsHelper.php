@@ -51,32 +51,64 @@ trait GoogleAnalyticsHelper
 
     protected $pieData = [
         [
+            // red
             'color'     => "#dd4b39",
             'highlight' => "#e15f4f",
         ],
         [
+            // green
             'color'     => "#00a65a",
             'highlight' => "#00c068",
         ],
         [
+            // orange
             'color'     => "#f39c12",
             'highlight' => "#f4a62a",
         ],
         [
+            // blue
             'color'     => "#00c0ef",
             'highlight' => "#09cfff",
         ],
         [
-            'color'     => "#ff2e9f",
-            'highlight' => "#ff3434",
+            // pink
+            'color'     => "#f012be",
+            'highlight' => "#f012be",
         ],
         [
+            // dark blue
             'color'     => "#307095",
             'highlight' => "#367ea8",
         ],
         [
+            // gray
             'color'     => "#d2d6de",
             'highlight' => "#c3c9d3",
+        ],
+        [
+            // navy
+            'color'     => "#001f3f",
+            'highlight' => "#001f3f",
+        ],
+        [
+            // purple
+            'color'     => "#605ca8",
+            'highlight' => "#605ca8",
+        ],
+        [
+            // dark red
+            'color'     => "#3d9970",
+            'highlight' => "#3d9970",
+        ],
+        [
+            // fuchsia
+            'color'     => "#f012be",
+            'highlight' => "#f012be",
+        ],
+        [
+            // olive
+            'color'     => "#3d9970",
+            'highlight' => "#3d9970",
         ],
     ];
 
