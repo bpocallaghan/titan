@@ -1,7 +1,19 @@
 {
     "name": "bpocallaghan/titan",
-    "description": "Useful classes you can use for every Laravel project",
-	"keywords": ["laravel", "titan", "traits", "controllers", "models", "helpers"],
+    "description": "Core framework for laravel projects (Laravel Admin Starter).",
+    "keywords": [
+        "laravel",
+        "titan",
+        "traits",
+        "models",
+        "helpers",
+        "admin",
+        "cms",
+        "pages",
+        "photos",
+        "page builder",
+        "controllers"
+    ],
     "license": "MIT",
     "authors": [
         {
@@ -10,17 +22,18 @@
         }
     ],
     "require": {
-        "php": ">=5.5.9"
+        "php": ">=7.0.0"
     },
-	"autoload": {
-		"psr-4": {
-			"Titan\\": "src/"
-		},
-		"files": [
-            "src/Helpers/helpers.php",
-            "src/Helpers/view_helpers.php",
-            "src/Helpers/form_helpers.php",
-            "src/Helpers/upload_helpers.php"
-		]
-	}
+    "autoload": {
+        "psr-4": {
+            "Bpocallaghan\\Titan\\": "app/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Bpocallaghan\\Titan\\TitanServiceProvider"
+            ]
+        }
+    }
 }
