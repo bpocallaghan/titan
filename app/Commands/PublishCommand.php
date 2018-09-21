@@ -83,11 +83,6 @@ class PublishCommand extends Command
         $destinationSeeds = database_path('seeds');
         $destinationCSV = database_path('seeds' . DIRECTORY_SEPARATOR . 'csv');
 
-        dump($sourceDatabase);
-        dump($destinationMigrations);
-        dump($destinationSeeds);
-        dump($destinationCSV);
-
         // copy files from source to destination
         $this->copyFilesFromSource($sourceDatabase . 'migrations', $destinationMigrations);
         $this->copyFilesFromSource($sourceDatabase . 'seeds', $destinationSeeds);
@@ -105,10 +100,10 @@ class PublishCommand extends Command
         $destination .= DIRECTORY_SEPARATOR;
         $files = collect($this->filesystem->files($source));
 
+        $this->line("Destination: {$destination}");
+
         // can we override the existing files or not
         $override = $this->overrideExistingFiles($files, $destination);
-
-        $this->info("Destination: {$destination}");
 
         // loop through all files and copy file to destination
         $files->map(function (SplFileInfo $file) use ($source, $destination, $override) {
@@ -154,10 +149,12 @@ class PublishCommand extends Command
 
         // if files found
         if (count($filesFound) >= 1) {
-            dump($filesFound);
+            collect($filesFound)->each(function($file) {
+                $this->info(" - {$file}");
+            });
 
-            $this->info("Destination: " . $destination);
-            $answer = $this->confirm("Above is a list of the files already exist. Override all files?");
+            //$this->info("Destination: " . $destination);
+            $answer = $this->confirm("Above is a list of the files that already exist. Override all files?");
         }
 
         return $answer;
