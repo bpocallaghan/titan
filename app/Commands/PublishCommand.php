@@ -30,6 +30,7 @@ class PublishCommand extends Command
      */
     private $filesystem;
 
+    private $appPath;
     private $basePath;
 
     /**
@@ -44,6 +45,7 @@ class PublishCommand extends Command
         $this->filesystem = $filesystem;
 
         $this->basePath = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
+        $this->appPath = $this->basePath . "app" . DIRECTORY_SEPARATOR;
     }
 
     /**
@@ -54,23 +56,45 @@ class PublishCommand extends Command
         $filesToPublish = $this->option('files');
 
         switch ($filesToPublish) {
+            case 'app':
+                $this->copyApp();
+                break;
+            case 'assets':
+                $this->copyAssets();
+                break;
             case 'database':
                 $this->copyDatabase();
                 break;
         }
+    }
 
-        //$this->info("The stubs have been copied to 'asd'.");
+    /**
+     * Copy the app files
+     * Copy all controllers, models and views
+     */
+    private function copyApp()
+    {
+        // to do
+        // change namespace for controllers and models
+        // update files to namespace App\Models
+        $destinationModels = app_path('Models');
 
-        //$this->copyConfigFile();
-        //$this->copyStubsDirectory();
-        //$this->updateStubsPathsInConfigFile();
+        // copy files from source to destination
+        $this->copyFilesFromSource($this->appPath . 'Models', $destinationModels);
+    }
 
-        //$this->info("The config file has been copied to '" . $this->getConfigPath() . "'.");
-        //$this->info("The stubs have been copied to '{$this->option('path')}'.");
+    /**
+     * Copy the asset files
+     * Copy all css, js, images asset files
+     */
+    public function copyAssets()
+    {
+
     }
 
     /**
      * Copy the database files
+     * Copy all files in migrations, seeds and seeds/csv
      */
     private function copyDatabase()
     {
