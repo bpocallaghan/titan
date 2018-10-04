@@ -25,6 +25,7 @@ class PublishCommand extends Command
      */
     protected $description = 'Copy the [type] related files to your laravel app.';
 
+    private $appNamespace = "namespace App";
     private $baseNamespace = "namespace Bpocallaghan\Titan";
 
     /**
@@ -79,14 +80,13 @@ class PublishCommand extends Command
      */
     private function copyApp()
     {
-        // to do
-        // change namespace for controllers and models
         // update files to namespace App\Models
         $destinationModels = app_path('Models');
 
         // copy files from source to destination
-        $search = "{$this->baseNamespace}\Models;";
-        $this->copyFilesFromSource($this->appPath . 'Models', $destinationModels, $search);
+        $search = "{$this->baseNamespace}\Models";
+        $replace = "{$this->appNamespace}\Models";
+        $this->copyFilesFromSource($this->appPath . 'Models', $destinationModels, $search, $replace);
     }
 
     /**
@@ -111,7 +111,6 @@ class PublishCommand extends Command
         $sourceDatabase = $this->basePath . "database" . DIRECTORY_SEPARATOR;
         $destinationMigrations = database_path('migrations');
         $destinationSeeds = database_path('seeds');
-        $destinationCSV = database_path('seeds' . DIRECTORY_SEPARATOR . 'csv');
 
         // copy files from source to destination
         $search = "{$this->baseNamespace}\Migrations;";
@@ -119,8 +118,6 @@ class PublishCommand extends Command
 
         $search = "{$this->baseNamespace}\Seeds;";
         $this->copyFilesFromSource($sourceDatabase . 'seeds', $destinationSeeds, $search);
-        $this->copyFilesFromSource($sourceDatabase . 'seeds' . DIRECTORY_SEPARATOR . 'csv',
-            $destinationCSV);
     }
 
     /**
@@ -129,12 +126,19 @@ class PublishCommand extends Command
      * @param        $destination
      * @param bool   $search
      * @param string $replace
+     * @param bool   $allFolders
      */
-    private function copyFilesFromSource($source, $destination, $search = false, $replace = "")
+    private function copyFilesFromSource($source, $destination, $search = false, $replace = "", $allFolders = true)
     {
         $source = $this->formatFilePath($source . DIRECTORY_SEPARATOR);
         $destination = $this->formatFilePath($destination . DIRECTORY_SEPARATOR);
-        $files = collect($this->filesystem->files($source));
+
+        // include sub folders
+        if(!$allFolders) {
+            $files = collect($this->filesystem->files($source));
+        } else {
+            $files = collect($this->filesystem->allFiles($source));
+        }
 
         $this->line("Destination: {$destination}");
 
@@ -144,14 +148,22 @@ class PublishCommand extends Command
         // loop through all files and copy file to destination
         $files->map(function (SplFileInfo $file) use ($source, $destination, $override, $search, $replace) {
 
-            $fileSource = $source . $file->getFilename();
+            $fileSource = $file->getRealPath();
+            //$fileSource = $source . $file->getFilename();
+            //$fileSource = $file->getPath() . DIRECTORY_SEPARATOR . $file->getFilename();
             $fileDestination = $destination . $file->getFilename();
 
+            // if file is in subdirectory - update destination
+            if($source != $file->getPath() . DIRECTORY_SEPARATOR) {
+                $subDirectories = str_replace($source, "", $file->getPath() . DIRECTORY_SEPARATOR);
+                $fileDestination = $destination . $subDirectories . $file->getFilename();
+            }
+
             //dump("$fileSource");
-            //if (!$this->filesystem->exists($fileSource)) {
-            //    dump("file does not exist? " . $fileSource);
-            //    return;
-            //}
+            if (!$this->filesystem->exists($fileSource)) {
+                dump("file does not exist? " . $fileSource);
+                return;
+            }
 
             // if not exist or if we can override the files
             if ($this->filesystem->exists($fileDestination) == false || $override == true) {
