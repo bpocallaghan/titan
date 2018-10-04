@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Traits;
+namespace Bpocallaghan\Titan\Models\Traits;
 
 use App\Models\Document;
 
