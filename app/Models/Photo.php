@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace Bpocallaghan\Titan\Models;
 
 use Titan\Models\Traits\ModifyBy;
 use Illuminate\Database\Eloquent\Model;

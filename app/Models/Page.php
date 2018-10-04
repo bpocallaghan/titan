@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace Bpocallaghan\Titan\Models;
 
 use App\Models\Traits\PageHelper;
 use Bpocallaghan\Sluggable\HasSlug;
