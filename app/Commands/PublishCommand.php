@@ -85,7 +85,8 @@ class PublishCommand extends Command
         $destinationModels = app_path('Models');
 
         // copy files from source to destination
-        $this->copyFilesFromSource($this->appPath . 'Models', $destinationModels);
+        $search = "{$this->baseNamespace}\Models;";
+        $this->copyFilesFromSource($this->appPath . 'Models', $destinationModels, $search);
     }
 
     /**
