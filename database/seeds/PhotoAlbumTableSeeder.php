@@ -1,5 +1,5 @@
 <?php
-
+namespace Bpocallaghan\Titan\Seeds;
 use Illuminate\Database\Seeder;
 use App\Models\PhotoAlbum;
 

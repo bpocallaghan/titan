@@ -1,5 +1,5 @@
 <?php
-
+namespace Bpocallaghan\Titan\Seeds;
 use App\Models\ArticleCategory;
 use Illuminate\Database\Seeder;
 use App\Models\Article;

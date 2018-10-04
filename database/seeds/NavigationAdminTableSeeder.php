@@ -1,5 +1,5 @@
 <?php
-
+namespace Bpocallaghan\Titan\Seeds;
 use App\Models\NavigationAdmin;
 use Illuminate\Database\Seeder;
 

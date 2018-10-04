@@ -1,5 +1,5 @@
 <?php
-
+namespace Bpocallaghan\Titan\Seeds;
 use App\Models\User;
 use Carbon\Carbon;
 use App\Models\Role;

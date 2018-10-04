@@ -25,12 +25,15 @@ class PublishCommand extends Command
      */
     protected $description = 'Copy the [type] related files to your laravel app.';
 
+    private $baseNamespace = "namespace Bpocallaghan\Titan";
+
     /**
      * @var Filesystem
      */
     private $filesystem;
 
     private $appPath;
+
     private $basePath;
 
     /**
@@ -54,6 +57,8 @@ class PublishCommand extends Command
     public function handle()
     {
         $filesToPublish = $this->option('files');
+
+        //dump($filesToPublish);
 
         switch ($filesToPublish) {
             case 'app':
@@ -108,20 +113,26 @@ class PublishCommand extends Command
         $destinationCSV = database_path('seeds' . DIRECTORY_SEPARATOR . 'csv');
 
         // copy files from source to destination
-        $this->copyFilesFromSource($sourceDatabase . 'migrations', $destinationMigrations);
-        $this->copyFilesFromSource($sourceDatabase . 'seeds', $destinationSeeds);
-        $this->copyFilesFromSource($sourceDatabase . 'seeds' . DIRECTORY_SEPARATOR . 'csv', $destinationCSV);
+        $search = "{$this->baseNamespace}\Migrations;";
+        $this->copyFilesFromSource($sourceDatabase . 'migrations', $destinationMigrations, $search);
+
+        $search = "{$this->baseNamespace}\Seeds;";
+        $this->copyFilesFromSource($sourceDatabase . 'seeds', $destinationSeeds, $search);
+        $this->copyFilesFromSource($sourceDatabase . 'seeds' . DIRECTORY_SEPARATOR . 'csv',
+            $destinationCSV);
     }
 
     /**
      * Copy files from the source to destination
-     * @param $source
-     * @param $destination
+     * @param        $source
+     * @param        $destination
+     * @param bool   $search
+     * @param string $replace
      */
-    private function copyFilesFromSource($source, $destination)
+    private function copyFilesFromSource($source, $destination, $search = false, $replace = "")
     {
-        $source .= DIRECTORY_SEPARATOR;
-        $destination .= DIRECTORY_SEPARATOR;
+        $source = $this->formatFilePath($source . DIRECTORY_SEPARATOR);
+        $destination = $this->formatFilePath($destination . DIRECTORY_SEPARATOR);
         $files = collect($this->filesystem->files($source));
 
         $this->line("Destination: {$destination}");
@@ -130,7 +141,7 @@ class PublishCommand extends Command
         $override = $this->overrideExistingFiles($files, $destination);
 
         // loop through all files and copy file to destination
-        $files->map(function (SplFileInfo $file) use ($source, $destination, $override) {
+        $files->map(function (SplFileInfo $file) use ($source, $destination, $override, $search, $replace) {
 
             $fileSource = $source . $file->getFilename();
             $fileDestination = $destination . $file->getFilename();
@@ -141,12 +152,29 @@ class PublishCommand extends Command
             //    return;
             //}
 
-            // make all the directories
-            $this->makeDirectory($fileDestination);
-
             // if not exist or if we can override the files
             if ($this->filesystem->exists($fileDestination) == false || $override == true) {
-                $this->filesystem->copy($fileSource, $fileDestination);
+
+                // make all the directories
+                $this->makeDirectory($fileDestination);
+
+                // replace file namespace
+                $stub = $this->filesystem->get($fileSource);
+                if (is_string($search)) {
+                    $stub = str_replace($search, $replace, $stub);
+                }
+                else if (is_array($search)) {
+                    foreach ($search as $k => $value) {
+                        $stub = str_replace($value, $replace[$k], $stub);
+                    }
+                }
+
+                // save modified file to destination
+                $this->filesystem->put($fileDestination, $stub);
+
+                // copy (old)
+                //$this->filesystem->copy($fileSource, $fileDestination);
+
                 $this->info("File copied: {$file->getFilename()}");
             }
             //dump($file->getFilename());
@@ -173,7 +201,7 @@ class PublishCommand extends Command
 
         // if files found
         if (count($filesFound) >= 1) {
-            collect($filesFound)->each(function($file) {
+            collect($filesFound)->each(function ($file) {
                 $this->info(" - {$file}");
             });
 
@@ -197,6 +225,17 @@ class PublishCommand extends Command
         }
 
         return $path;
+    }
+
+    /**
+     * Replace the default directory seperator with the
+     * computer's directory seperator (windows, mac, linux)
+     * @param $path
+     * @return mixed
+     */
+    private function formatFilePath($path)
+    {
+        return str_replace('\\', DIRECTORY_SEPARATOR, $path);
     }
 
     /**
