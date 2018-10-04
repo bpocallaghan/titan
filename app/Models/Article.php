@@ -1,7 +1,6 @@
 <?php
 
-namespace App\Models;
-
+namespace Bpocallaghan\Titan\Models;
 use App\Models\User;
 use App\Models\Traits\Photoable;
 use Bpocallaghan\Sluggable\SlugOptions;

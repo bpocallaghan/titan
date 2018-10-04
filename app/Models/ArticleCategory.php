@@ -1,7 +1,6 @@
 <?php
 
-namespace App\Models;
-
+namespace Bpocallaghan\Titan\Models;
 use Titan\Models\TitanCMSModel;
 use Bpocallaghan\Sluggable\HasSlug;
 use Illuminate\Database\Eloquent\SoftDeletes;
