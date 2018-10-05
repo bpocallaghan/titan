@@ -79,6 +79,9 @@ class PublishCommand extends Command
             case 'events':
                 $this->copyEventsAndNotifications();
                 break;
+            case 'helpers':
+                $this->copyHelpers();
+                break;
         }
     }
 
@@ -162,12 +165,30 @@ class PublishCommand extends Command
         // copy LISTENERS
         $this->copyFilesFromSource($this->appPath . 'Listeners', app_path('Listeners'));
 
+        // copy Mail
+        $this->copyFilesFromSource($this->appPath . 'Mail', app_path('Mail'));
+
         // copy Notifications
         $this->copyFilesFromSource($this->appPath . 'Events', app_path('Notifications'));
 
         // copy EventServiceProvider
         $source = $this->appPath . "Providers{$this->ds}EventServiceProvider.php";
         $this->copyFilesFromSource($source, app_path('Providers'));
+    }
+
+    /**
+     * Cope the helpers files
+     */
+    private function copyHelpers()
+    {
+        // copy Notifications
+        $this->copyFilesFromSource($this->appPath . 'Helpers', app_path('Helpers'));
+
+        // copy HelperServiceProvider
+        $source = $this->appPath . "Providers{$this->ds}HelperServiceProvider.php";
+        $this->copyFilesFromSource($source, app_path('Providers'));
+
+        $this->line("Remember to add 'App\Providers\HelperServiceProvider::class,' in your 'config/app.php' in 'providers'");
     }
 
     /**
