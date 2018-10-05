@@ -25,9 +25,6 @@ class PublishCommand extends Command
      */
     protected $description = 'Copy the [type] related files to your laravel app.';
 
-    private $appNamespace = "namespace App";
-    private $baseNamespace = "namespace Bpocallaghan\Titan";
-
     /**
      * @var Filesystem
      */
@@ -36,6 +33,13 @@ class PublishCommand extends Command
     private $appPath;
 
     private $basePath;
+
+    // directory separator
+    private $ds;
+
+    private $appNamespace = "namespace App";
+
+    private $baseNamespace = "namespace Bpocallaghan\Titan";
 
     /**
      * Create a new controller creator command instance.
@@ -46,10 +50,11 @@ class PublishCommand extends Command
     {
         parent::__construct();
 
+        $this->ds = DIRECTORY_SEPARATOR;
         $this->filesystem = $filesystem;
 
-        $this->basePath = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
-        $this->appPath = $this->basePath . "app" . DIRECTORY_SEPARATOR;
+        $this->basePath = __DIR__ . $this->ds . '..' . $this->ds . '..' . $this->ds;
+        $this->appPath = $this->basePath . "app" . $this->ds;
     }
 
     /**
@@ -80,13 +85,16 @@ class PublishCommand extends Command
      */
     private function copyApp()
     {
-        // update files to namespace App\Models
-        $destinationModels = app_path('Models');
+        // copy MODELS
+        $this->copyFilesFromSource($this->appPath . 'Models', app_path('Models'));
 
-        // copy files from source to destination
-        $search = "{$this->baseNamespace}\Models";
-        $replace = "{$this->appNamespace}\Models";
-        $this->copyFilesFromSource($this->appPath . 'Models', $destinationModels, $search, $replace);
+        // copy VIEWS
+        $source = $this->basePath . "resources" . $this->ds . "views";
+        $this->copyFilesFromSource($source, resource_path("views"));
+
+        // copy CONTROLLERS
+        $this->copyFilesFromSource($this->appPath . "Controllers",
+            app_path("Http{$this->ds}Controllers"));
     }
 
     /**
@@ -95,7 +103,18 @@ class PublishCommand extends Command
      */
     public function copyAssets()
     {
+        // copy ASSETS
+        //$source = $this->basePath . "resources" . $this->ds . "assets";
+        //$this->copyFilesFromSource($source, resource_path("assets"));
 
+        // copy WEBPACK.js
+        $base = $source = $this->basePath . "resources" . $this->ds . "assets_setup" . $this->ds;
+        $source = [
+            $base . "webpack.mix.js",
+            $base . "package.json",
+            $base . "package-lock.json",
+        ];
+        $this->copyFilesFromSource($source, base_path(), false);
     }
 
     /**
@@ -108,60 +127,88 @@ class PublishCommand extends Command
         // if one already exist in desired location
         // flag and ask to override or not
 
-        $sourceDatabase = $this->basePath . "database" . DIRECTORY_SEPARATOR;
+        $sourceDatabase = $this->basePath . "database" . $this->ds;
         $destinationMigrations = database_path('migrations');
         $destinationSeeds = database_path('seeds');
 
         // copy files from source to destination
         $search = "{$this->baseNamespace}\Migrations;";
-        $this->copyFilesFromSource($sourceDatabase . 'migrations', $destinationMigrations, $search);
+        $this->copyFilesFromSource($sourceDatabase . 'migrations', $destinationMigrations, $search,
+            "");
 
         $search = "{$this->baseNamespace}\Seeds;";
-        $this->copyFilesFromSource($sourceDatabase . 'seeds', $destinationSeeds, $search);
+        $this->copyFilesFromSource($sourceDatabase . 'seeds', $destinationSeeds, $search, "");
     }
 
     /**
      * Copy files from the source to destination
      * @param        $source
      * @param        $destination
-     * @param bool   $search
+     * @param string $search
      * @param string $replace
      * @param bool   $allFolders
      */
-    private function copyFilesFromSource($source, $destination, $search = false, $replace = "", $allFolders = true)
+    private function copyFilesFromSource($source, $destination, $search = 'Bpocallaghan\Titan', $replace = "App", $allFolders = true)
     {
-        $source = $this->formatFilePath($source . DIRECTORY_SEPARATOR);
-        $destination = $this->formatFilePath($destination . DIRECTORY_SEPARATOR);
+        // destination
+        $destination = $this->formatFilePath($destination . $this->ds);
 
-        // include sub folders
-        if(!$allFolders) {
-            $files = collect($this->filesystem->files($source));
-        } else {
-            $files = collect($this->filesystem->allFiles($source));
+        // is source array
+        if(is_array($source)) {
+            // if one file
+            $files = collect();
+            $sources = $source;
+            foreach ($sources as $k => $path) {
+                // update source
+                $pos = strrpos($path, $this->ds, -2) + 1;
+                $source = substr($path, 0, $pos);
+                $files->push(new SplFileInfo($path, $source, $path));
+            }
+        }
+        // is source a file
+        elseif($this->filesystem->isFile($source)) {
+            $files = collect([new SplFileInfo($source, $source, $source)]);
+            // update source
+            $pos = strrpos($source, $this->ds, -2) + 1;
+            $source = substr($source, 0, $pos);
+        }
+        else {
+            // source is directory path
+            $source = $this->formatFilePath($source . $this->ds);
+
+            // include sub folders
+            if (!$allFolders) {
+                $files = collect($this->filesystem->files($source));
+            }
+            else {
+                $files = collect($this->filesystem->allFiles($source));
+            }
         }
 
         $this->line("Destination: {$destination}");
 
         // can we override the existing files or not
-        $override = $this->overrideExistingFiles($files, $destination);
+        $override = $this->overrideExistingFiles($files, $source, $destination);
 
         // loop through all files and copy file to destination
         $files->map(function (SplFileInfo $file) use ($source, $destination, $override, $search, $replace) {
 
+            $subDirectories = '';
             $fileSource = $file->getRealPath();
             //$fileSource = $source . $file->getFilename();
-            //$fileSource = $file->getPath() . DIRECTORY_SEPARATOR . $file->getFilename();
+            //$fileSource = $file->getPath() . $this->ds . $file->getFilename();
             $fileDestination = $destination . $file->getFilename();
 
             // if file is in subdirectory - update destination
-            if($source != $file->getPath() . DIRECTORY_SEPARATOR) {
-                $subDirectories = str_replace($source, "", $file->getPath() . DIRECTORY_SEPARATOR);
+            if ($source != $file->getPath() . $this->ds) {
+                $subDirectories = str_replace($source, "", $file->getPath() . $this->ds);
                 $fileDestination = $destination . $subDirectories . $file->getFilename();
             }
 
             //dump("$fileSource");
             if (!$this->filesystem->exists($fileSource)) {
                 dump("file does not exist? " . $fileSource);
+
                 return;
             }
 
@@ -188,7 +235,7 @@ class PublishCommand extends Command
                 // copy (old)
                 //$this->filesystem->copy($fileSource, $fileDestination);
 
-                $this->info("File copied: {$file->getFilename()}");
+                $this->info("File copied: {$subDirectories}{$file->getFilename()}");
             }
             //dump($file->getFilename());
         });
@@ -198,17 +245,29 @@ class PublishCommand extends Command
      * See if any files exist
      * Ask to override or not
      * @param Collection $files
+     * @param            $source
      * @param            $destination
      * @return bool
      */
-    private function overrideExistingFiles(Collection $files, $destination)
+    private function overrideExistingFiles(Collection $files, $source, $destination)
     {
         $answer = true;
         $filesFound = [];
         // map over to see if same filename already exist in destination
-        $files->map(function (SplFileInfo $file) use ($destination, &$filesFound) {
-            if ($this->filesystem->exists($destination . $file->getFilename())) {
-                $filesFound [] = $file->getFilename();
+        $files->map(function (SplFileInfo $file) use ($source, $destination, &$filesFound) {
+
+            $subDirectories = '';
+            $fileDestination = $destination . $file->getFilename();
+
+            // if file is in subdirectory - update destination path
+            if ($source != $file->getPath() . $this->ds) {
+                $subDirectories = str_replace($source, "", $file->getPath() . $this->ds);
+                $fileDestination = $destination . $subDirectories . $file->getFilename();
+            }
+
+            // if file exist in destination
+            if ($this->filesystem->exists($fileDestination)) {
+                $filesFound [] = $subDirectories . $file->getFilename();
             }
         });
 
@@ -248,7 +307,7 @@ class PublishCommand extends Command
      */
     private function formatFilePath($path)
     {
-        return str_replace('\\', DIRECTORY_SEPARATOR, $path);
+        return str_replace('\\', $this->ds, $path);
     }
 
     /**

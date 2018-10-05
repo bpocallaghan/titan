@@ -18,6 +18,7 @@ For example, you need to add or change a field in a table or update text or desi
  
 ```bash
 php artisan titan:publish --files=app
+php artisan titan:publish --files=assets
 php artisan titan:publish --files=database
 ```
 
@@ -25,6 +26,11 @@ php artisan titan:publish --files=database
 php artisan titan:publish --files=app
 ```
 This will copy all `Models`, `Views` and `Controllers` to your application.
+
+```bash
+php artisan titan:publish --files=assets
+```
+This will copy all `assets (css, js, fonts, images)` and `webpack.js, packages.json` to your application.
 
 ```bash
 php artisan titan:publish --files=database
@@ -35,8 +41,6 @@ This is for you to execute `php artisan migrate` and `php artisan db:seed` to cr
 ## TODO
 Move all the core files from the starter project to this repository (page builder, banners, etc)
 
-- resources
-- assets (css, js, images, fonts, sounds)
 - events
 - rename model namespace in controllers and models
 - test in admin starter
