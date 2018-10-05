@@ -2,9 +2,9 @@
 
 namespace Bpocallaghan\Titan\Models;
 
-use App\Models\Traits\UserAdmin;
-use App\Models\Traits\UserHelper;
-use App\Models\Traits\UserRoles;
+use Bpocallaghan\Titan\Models\Traits\UserAdmin;
+use Bpocallaghan\Titan\Models\Traits\UserHelper;
+use Bpocallaghan\Titan\Models\Traits\UserRoles;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;

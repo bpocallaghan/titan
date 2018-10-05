@@ -2,7 +2,7 @@
 
 namespace Bpocallaghan\Titan\Models;
 
-use App\Models\Traits\PageHelper;
+use Bpocallaghan\Titan\Models\Traits\PageHelper;
 use Bpocallaghan\Sluggable\HasSlug;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;

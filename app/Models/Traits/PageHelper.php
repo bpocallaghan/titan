@@ -2,7 +2,7 @@
 
 namespace Bpocallaghan\Titan\Models\Traits;
 
-use App\Models\Page;
+use Bpocallaghan\Titan\Models\Page;
 
 trait PageHelper
 {

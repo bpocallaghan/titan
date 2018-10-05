@@ -2,7 +2,7 @@
 
 namespace Bpocallaghan\Titan\Models\Traits;
 
-use App\Models\Photo;
+use Bpocallaghan\Titan\Models\Photo;
 
 trait Photoable
 {

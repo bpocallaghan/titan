@@ -3,8 +3,8 @@
 namespace Bpocallaghan\Titan\Models;
 
 use Titan\Models\TitanCMSModel;
-use App\Models\Traits\Photoable;
-use App\Models\Traits\Documentable;
+use Bpocallaghan\Titan\Models\Traits\Photoable;
+use Bpocallaghan\Titan\Models\Traits\Documentable;
 use Titan\Models\Traits\ImageThumb;
 use Illuminate\Database\Eloquent\SoftDeletes;
 

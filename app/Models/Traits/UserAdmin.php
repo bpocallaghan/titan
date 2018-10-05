@@ -2,7 +2,7 @@
 
 namespace Bpocallaghan\Titan\Models\Traits;
 
-use App\Models\Role;
+use Bpocallaghan\Titan\Models\Role;
 
 trait UserAdmin
 {

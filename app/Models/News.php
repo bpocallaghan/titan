@@ -2,8 +2,8 @@
 
 namespace Bpocallaghan\Titan\Models;
 
-use App\Models\Traits\Photoable;
-use App\Models\User;
+use Bpocallaghan\Titan\Models\Traits\Photoable;
+use Bpocallaghan\Titan\Models\User;
 use Bpocallaghan\Sluggable\HasSlug;
 use Bpocallaghan\Sluggable\SlugOptions;
 use Titan\Models\TitanCMSModel;

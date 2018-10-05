@@ -2,7 +2,7 @@
 
 namespace Bpocallaghan\Titan\Models;
 
-use App\Models\User;
+use Bpocallaghan\Titan\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 class UserInvite extends Model

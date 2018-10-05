@@ -14,6 +14,16 @@ composer require bpocallaghan/titan
 
 ## Commands
 ```bash
+php artisan titan:publish --files=app
+php artisan titan:publish --files=database
+```
+
+```bash
+php artisan titan:publish --files=app
+```
+This will copy all `Controllers` and `Models` to your application.
+
+```bash
 php artisan titan:publish --files=database
 ```
 This will copy the `database/seeds` and `database/migrations` to your application.
@@ -22,4 +32,11 @@ This is for you to execute `php artisan migrate` and `php artisan db:seed` to cr
 ## TODO
 Move all the core files from the starter project to this repository (page builder, banners, etc)
 
+- resources
+- assets (css, js, images, fonts, sounds)
+- events
+- rename model namespace in controllers and models
+- test in admin starter
 - Page Builder
+- add titan:publish --type=banner (to copy all banner files to application)
+- move activity to own package

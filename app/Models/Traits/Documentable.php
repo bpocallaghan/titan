@@ -2,7 +2,7 @@
 
 namespace Bpocallaghan\Titan\Models\Traits;
 
-use App\Models\Document;
+use Bpocallaghan\Titan\Models\Document;
 
 trait Documentable
 {
