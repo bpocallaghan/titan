@@ -27,6 +27,7 @@ php artisan titan:publish --files=database
 php artisan titan:publish --files=app
 ```
 This will copy all `Models`, `Views` and `Controllers` to your application.
+This will also copy all `routes` and `RouteServiceProvider` to your application.
 
 ```bash
 php artisan titan:publish --files=assets

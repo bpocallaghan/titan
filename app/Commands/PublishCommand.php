@@ -76,12 +76,15 @@ class PublishCommand extends Command
             case 'database':
                 $this->copyDatabase();
                 break;
+            case 'events':
+                $this->copyEventsAndNotifications();
+                break;
         }
     }
 
     /**
      * Copy the app files
-     * Copy all controllers, models and views
+     * Copy all controllers, models and views and routes
      */
     private function copyApp()
     {
@@ -95,6 +98,13 @@ class PublishCommand extends Command
         // copy CONTROLLERS
         $this->copyFilesFromSource($this->appPath . "Controllers",
             app_path("Http{$this->ds}Controllers"));
+
+        // copy ROUTES
+        $this->copyFilesFromSource($this->basePath . "routes", base_path("routes"));
+
+        // copy RouteServiceProvider
+        $source = $this->appPath . "Providers{$this->ds}RouteServiceProvider.php";
+        $this->copyFilesFromSource($source, app_path('Providers'));
     }
 
     /**
@@ -141,6 +151,26 @@ class PublishCommand extends Command
     }
 
     /**
+     * Copy the events files
+     * Copy all events, listeners and notifications
+     */
+    public function copyEventsAndNotifications()
+    {
+        // copy EVENTS
+        $this->copyFilesFromSource($this->appPath . 'Events', app_path('Events'));
+
+        // copy LISTENERS
+        $this->copyFilesFromSource($this->appPath . 'Listeners', app_path('Listeners'));
+
+        // copy Notifications
+        $this->copyFilesFromSource($this->appPath . 'Events', app_path('Notifications'));
+
+        // copy EventServiceProvider
+        $source = $this->appPath . "Providers{$this->ds}EventServiceProvider.php";
+        $this->copyFilesFromSource($source, app_path('Providers'));
+    }
+
+    /**
      * Copy files from the source to destination
      * @param        $source
      * @param        $destination
@@ -154,7 +184,7 @@ class PublishCommand extends Command
         $destination = $this->formatFilePath($destination . $this->ds);
 
         // is source array
-        if(is_array($source)) {
+        if (is_array($source)) {
             // if one file
             $files = collect();
             $sources = $source;
@@ -166,7 +196,7 @@ class PublishCommand extends Command
             }
         }
         // is source a file
-        elseif($this->filesystem->isFile($source)) {
+        elseif ($this->filesystem->isFile($source)) {
             $files = collect([new SplFileInfo($source, $source, $source)]);
             // update source
             $pos = strrpos($source, $this->ds, -2) + 1;
