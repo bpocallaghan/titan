@@ -13,6 +13,9 @@ composer require bpocallaghan/titan
 ```
 
 ## Commands
+The publish commands are used to copy the files from titan to your own application for customization.
+For example, you need to add or change a field in a table or update text or design in blade files.
+ 
 ```bash
 php artisan titan:publish --files=app
 php artisan titan:publish --files=database
@@ -21,7 +24,7 @@ php artisan titan:publish --files=database
 ```bash
 php artisan titan:publish --files=app
 ```
-This will copy all `Controllers` and `Models` to your application.
+This will copy all `Models`, `Views` and `Controllers` to your application.
 
 ```bash
 php artisan titan:publish --files=database
