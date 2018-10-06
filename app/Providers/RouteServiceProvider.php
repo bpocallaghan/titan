@@ -37,9 +37,9 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->mapApiRoutes();
 
-        $this->mapVendorRoutes();
-
         $this->mapWebRoutes();
+
+        $this->mapTitanRoutes();
 
         //
     }
@@ -59,17 +59,6 @@ class RouteServiceProvider extends ServiceProvider
     }
 
     /**
-     * Map the web_vendor.php
-     * This has to be called before WebRoutes
-     */
-    protected function mapVendorRoutes()
-    {
-        Route::middleware('web')
-            ->namespace('Bpocallaghan')
-            ->group(base_path('routes/vendor.php'));
-    }
-
-    /**
      * Define the "api" routes for the application.
      *
      * These routes are typically stateless.
@@ -82,5 +71,26 @@ class RouteServiceProvider extends ServiceProvider
              ->middleware('api')
              ->namespace($this->namespace)
              ->group(base_path('routes/api.php'));
+    }
+
+    /**
+     * Map the titan routes
+     */
+    protected function mapTitanRoutes()
+    {
+        $namespace = "Bpocallaghan\\Titan\\Http\\Controllers";
+        // live package
+        $path = base_path("vendor/bpocallaghan/titan/routes/");
+        // developing package
+        $path = base_path("bpocallaghan/titan/routes/");
+
+        Route::middleware('web')
+            ->namespace($namespace)
+            ->group($path . "web.php");
+
+        Route::prefix('api')
+            ->middleware('api')
+            ->namespace($namespace)
+            ->group($path . "api.php");
     }
 }
