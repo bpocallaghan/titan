@@ -6,7 +6,6 @@ use App\Http\Requests;
 use Bpocallaghan\Titan\Models\Page;
 use Illuminate\Http\Request;
 use Bpocallaghan\Titan\Models\LogSocialShare;
-use Titan\Controllers\AjaxController;
 
 class LogsController extends AjaxController
 {

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Validation\ValidationException;
-use Titan\Controllers\TitanAdminController;
+use Bpocallaghan\Titan\Http\Controllers\Admin\TitanAdminController;
 
 class AdminController extends TitanAdminController
 {

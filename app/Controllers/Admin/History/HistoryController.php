@@ -5,7 +5,7 @@ namespace Bpocallaghan\Titan\Http\Controllers\Admin\History;
 use App\Http\Requests;
 use Bpocallaghan\Titan\Models\LogActivity;
 use Bpocallaghan\Titan\Models\LogAdminActivity;
-use Titan\Controllers\TitanAdminController;
+use Bpocallaghan\Titan\Http\Controllers\Admin\TitanAdminController;
 
 class HistoryController extends TitanAdminController
 {

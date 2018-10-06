@@ -11,7 +11,7 @@ use Bpocallaghan\Titan\Models\FeedbackGigapan;
 use Bpocallaghan\Titan\Models\FeedbackPackage;
 use Bpocallaghan\Titan\Models\FeedbackContactUs;
 use Bpocallaghan\Titan\Models\FeedbackWeddingPackage;
-use Titan\Controllers\TitanAdminController;
+use Bpocallaghan\Titan\Http\Controllers\Admin\TitanAdminController;
 
 class SummaryController extends TitanAdminController
 {

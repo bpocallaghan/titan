@@ -10,7 +10,7 @@ use Bpocallaghan\Titan\Models\User;
 use Bpocallaghan\Titan\Models\UsersInvite;
 use Illuminate\Http\Request;
 use Mail;
-use Titan\Controllers\TitanAdminController;
+use Bpocallaghan\Titan\Http\Controllers\Admin\TitanAdminController;
 
 class AdministratorsController extends AdminController
 {

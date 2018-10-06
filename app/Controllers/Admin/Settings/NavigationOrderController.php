@@ -3,7 +3,7 @@ namespace Bpocallaghan\Titan\Http\Controllers\Admin\Settings;
 
 use Illuminate\Http\Request;
 use Bpocallaghan\Titan\Models\NavigationAdmin;
-use Titan\Controllers\TitanAdminController;
+use Bpocallaghan\Titan\Http\Controllers\Admin\TitanAdminController;
 
 class NavigationOrderController extends TitanAdminController
 {
