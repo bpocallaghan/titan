@@ -5,8 +5,7 @@ namespace Bpocallaghan\Titan\Http\Controllers\Website;
 use Bpocallaghan\Titan\Models\News;
 use Illuminate\Http\Request;
 
-use Bpocallaghan\Titan\Http\Requests;
-use Bpocallaghan\Titan\Http\Controllers\Controller;
+use App\Http\Requests;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class NewsEventController extends WebsiteController

@@ -2,11 +2,10 @@
 
 namespace Bpocallaghan\Titan\Http\Controllers\Website;
 
-use Bpocallaghan\Titan\Http\Controllers\Controller;
 use Bpocallaghan\Titan\Models\Page;
 use Illuminate\Http\Request;
 use Bpocallaghan\Titan\Models\Banner;
-use Bpocallaghan\Titan\Http\Requests;
+use App\Http\Requests;
 use Titan\Controllers\TitanWebsiteController;
 
 class WebsiteController extends BaseWebsiteController

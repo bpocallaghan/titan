@@ -2,8 +2,8 @@
 
 namespace Bpocallaghan\Titan\Http\Controllers\Website;
 
-use Bpocallaghan\Titan\Http\Controllers\Controller;
 use Bpocallaghan\Titan\Models\Page;
+use App\Http\Controllers\Controller;
 
 class BaseWebsiteController extends Controller
 {

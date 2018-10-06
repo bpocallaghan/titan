@@ -7,7 +7,7 @@ use Bpocallaghan\Titan\Models\Role;
 use Bpocallaghan\Titan\User;
 use Illuminate\Validation\Rule;
 use Redirect;
-use Bpocallaghan\Titan\Http\Requests;
+use App\Http\Requests;
 use Illuminate\Http\Request;
 use Bpocallaghan\Titan\Http\Controllers\Admin\AdminController;
 

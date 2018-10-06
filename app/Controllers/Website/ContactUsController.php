@@ -2,7 +2,7 @@
 
 namespace Bpocallaghan\Titan\Http\Controllers\Website;
 
-use Bpocallaghan\Titan\Http\Requests;
+use App\Http\Requests;
 use Illuminate\Http\Request;
 use Bpocallaghan\Titan\Models\FeedbackContactUs;
 use Bpocallaghan\Titan\Events\ContactUsFeedback;

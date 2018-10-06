@@ -5,7 +5,7 @@ namespace Bpocallaghan\Titan\Http\Controllers\Admin\Documents;
 use Bpocallaghan\Titan\Models\DocumentCategory;
 use Illuminate\Http\UploadedFile;
 use Redirect;
-use Bpocallaghan\Titan\Http\Requests;
+use App\Http\Requests;
 use Bpocallaghan\Titan\Models\Document;
 use Illuminate\Http\Request;
 use Bpocallaghan\Titan\Http\Controllers\Admin\AdminController;

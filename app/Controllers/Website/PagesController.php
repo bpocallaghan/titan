@@ -5,7 +5,7 @@ namespace Bpocallaghan\Titan\Http\Controllers\Website;
 use Bpocallaghan\Titan\Models\Changelog;
 use Bpocallaghan\Titan\Models\Testimonial;
 use Redirect;
-use Bpocallaghan\Titan\Http\Requests;
+use App\Http\Requests;
 use Bpocallaghan\Titan\Models\Page;
 use Illuminate\Http\Request;
 use Bpocallaghan\Titan\Http\Controllers\Admin\AdminController;

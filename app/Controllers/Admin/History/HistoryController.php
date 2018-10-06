@@ -2,7 +2,7 @@
 
 namespace Bpocallaghan\Titan\Http\Controllers\Admin\History;
 
-use Bpocallaghan\Titan\Http\Requests;
+use App\Http\Requests;
 use Bpocallaghan\Titan\Models\LogActivity;
 use Bpocallaghan\Titan\Models\LogAdminActivity;
 use Titan\Controllers\TitanAdminController;

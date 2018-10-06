@@ -2,7 +2,7 @@
 
 namespace Bpocallaghan\Titan\Http\Controllers\Admin;
 
-use Bpocallaghan\Titan\Http\Requests;
+use App\Http\Requests;
 use Illuminate\Http\Request;
 
 class DashboardController extends AdminController

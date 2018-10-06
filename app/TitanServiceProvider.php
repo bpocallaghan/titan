@@ -14,23 +14,9 @@ class TitanServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // migrations
-        // seeders
-        // resources / assets
-        // resources / views
-        // controllers
-        // models
-        // helpers
-        // events
-        // listeners
-        // notifications
-
-
-
-
+        //$this->loadViewsFrom($path, $namespace)
 
         $this->registerCommand(PublishCommand::class, 'publish');
-
 
         //dump('TitanServiceProvider');
     }

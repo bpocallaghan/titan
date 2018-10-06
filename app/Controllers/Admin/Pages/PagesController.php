@@ -4,7 +4,7 @@ namespace Bpocallaghan\Titan\Http\Controllers\Admin\Pages;
 
 use Bpocallaghan\Titan\Models\Banner;
 use Redirect;
-use Bpocallaghan\Titan\Http\Requests;
+use App\Http\Requests;
 use Bpocallaghan\Titan\Models\Page;
 use Illuminate\Http\Request;
 use Bpocallaghan\Titan\Http\Controllers\Admin\AdminController;

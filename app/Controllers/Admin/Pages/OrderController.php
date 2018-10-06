@@ -7,7 +7,7 @@ use Bpocallaghan\Titan\Models\SportType;
 use Bpocallaghan\Titan\Models\NavigationWebsite;
 use Illuminate\Http\Request;
 
-use Bpocallaghan\Titan\Http\Requests;
+use App\Http\Requests;
 use Titan\Controllers\TitanAdminController;
 
 class OrderController extends TitanAdminController

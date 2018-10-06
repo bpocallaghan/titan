@@ -2,7 +2,7 @@
 
 namespace Bpocallaghan\Titan\Http\Controllers\Admin\Settings;
 
-use Bpocallaghan\Titan\Http\Requests;
+use App\Http\Requests;
 use Bpocallaghan\Titan\Models\Notification;
 use Bpocallaghan\Titan\Models\Role;
 use Illuminate\Http\Request;

@@ -4,7 +4,7 @@ namespace Bpocallaghan\Titan\Http\Controllers\Website;
 
 use Illuminate\Http\Request;
 
-use Bpocallaghan\Titan\Http\Requests;
+use App\Http\Requests;
 
 class AboutController extends WebsiteController
 {

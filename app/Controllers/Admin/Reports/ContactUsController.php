@@ -2,7 +2,7 @@
 
 namespace Bpocallaghan\Titan\Http\Controllers\Admin\Reports;
 
-use Bpocallaghan\Titan\Http\Requests;
+use App\Http\Requests;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Bpocallaghan\Titan\Models\FeedbackContactUs;

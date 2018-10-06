@@ -6,7 +6,7 @@ use Bpocallaghan\Titan\Models\Traits\PageHelper;
 use Bpocallaghan\Sluggable\HasSlug;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Titan\Models\TitanCMSModel;
+use Bpocallaghan\Titan\Models\TitanCMSModel;
 
 /**
  * Class Page

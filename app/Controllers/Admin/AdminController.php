@@ -4,8 +4,7 @@ namespace Bpocallaghan\Titan\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 
-use Bpocallaghan\Titan\Http\Requests;
-use Bpocallaghan\Titan\Http\Controllers\Controller;
+use App\Http\Requests;
 use Illuminate\Validation\ValidationException;
 use Titan\Controllers\TitanAdminController;
 

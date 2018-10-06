@@ -82,6 +82,9 @@ class PublishCommand extends Command
             case 'helpers':
                 $this->copyHelpers();
                 break;
+            case 'routes':
+                $this->copyRouteProvider();
+                break;
         }
     }
 
@@ -105,6 +108,16 @@ class PublishCommand extends Command
         // copy ROUTES
         $this->copyFilesFromSource($this->basePath . "routes", base_path("routes"));
 
+        // copy RouteServiceProvider
+        $this->copyRouteProvider();
+    }
+
+    /**
+     * Copy the route service provider
+     * The provider will point to routes in the vendor directory
+     */
+    private function copyRouteProvider()
+    {
         // copy RouteServiceProvider
         $source = $this->appPath . "Providers{$this->ds}RouteServiceProvider.php";
         $this->copyFilesFromSource($source, app_path('Providers'));

@@ -3,7 +3,7 @@
 namespace Bpocallaghan\Titan\Http\Controllers\Admin\Settings;
 
 use Redirect;
-use Bpocallaghan\Titan\Http\Requests;
+use App\Http\Requests;
 use Bpocallaghan\Titan\Models\Role;
 use Illuminate\Http\Request;
 use Bpocallaghan\Titan\Http\Controllers\Admin\AdminController;

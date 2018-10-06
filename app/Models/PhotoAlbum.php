@@ -3,7 +3,7 @@
 namespace Bpocallaghan\Titan\Models;
 
 use Bpocallaghan\Titan\Models\Traits\Photoable;
-use Titan\Models\TitanCMSModel;
+use Bpocallaghan\Titan\Models\TitanCMSModel;
 use Bpocallaghan\Sluggable\HasSlug;
 use Illuminate\Database\Eloquent\SoftDeletes;
 

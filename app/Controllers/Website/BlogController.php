@@ -3,9 +3,8 @@
 namespace Bpocallaghan\Titan\Http\Controllers\Website;
 
 use Bpocallaghan\Titan\Models\Article;
-use Bpocallaghan\Titan\Http\Requests;
+use App\Http\Requests;
 use Illuminate\Http\Request;
-use Bpocallaghan\Titan\Http\Controllers\Controller;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class BlogController extends WebsiteController

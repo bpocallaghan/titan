@@ -3,7 +3,7 @@
 namespace Bpocallaghan\Titan\Http\Controllers\Admin\General;
 
 use Bpocallaghan\Titan\Models\Banner;
-use Bpocallaghan\Titan\Http\Requests;
+use App\Http\Requests;
 use Illuminate\Http\Request;
 use Bpocallaghan\Titan\Http\Controllers\Admin\AdminController;
 

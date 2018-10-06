@@ -6,7 +6,7 @@ use Illuminate\Validation\Rule;
 use Password;
 use Bpocallaghan\Titan\Models\User;
 use Bpocallaghan\Titan\Models\Role;
-use Bpocallaghan\Titan\Http\Requests;
+use App\Http\Requests;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Bpocallaghan\Titan\Http\Controllers\Admin\AdminController;

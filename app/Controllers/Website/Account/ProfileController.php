@@ -2,7 +2,7 @@
 
 namespace Bpocallaghan\Titan\Http\Controllers\Website\Account;
 
-use Bpocallaghan\Titan\Http\Requests;
+use App\Http\Requests;
 use Illuminate\Http\Request;
 use Bpocallaghan\Titan\Http\Controllers\Website\WebsiteController;
 use Illuminate\Validation\Rule;

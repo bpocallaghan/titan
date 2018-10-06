@@ -4,7 +4,7 @@ namespace Bpocallaghan\Titan\Http\Controllers\Admin;
 
 use Image;
 use Bpocallaghan\Titan\Models\User;
-use Bpocallaghan\Titan\Http\Requests;
+use App\Http\Requests;
 use Illuminate\Http\Request;
 
 class ProfileController extends AdminController

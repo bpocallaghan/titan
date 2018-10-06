@@ -3,7 +3,7 @@
 namespace Bpocallaghan\Titan\Http\Controllers\Auth;
 
 use Password;
-use Bpocallaghan\Titan\Http\Requests;
+use App\Http\Requests;
 use Illuminate\Http\Request;
 
 class ForgotPasswordController extends AuthController

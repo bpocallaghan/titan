@@ -4,7 +4,7 @@ namespace Bpocallaghan\Titan\Http\Controllers\Admin\Photos;
 
 use Image;
 use Bpocallaghan\Titan\Models\Banner;
-use Bpocallaghan\Titan\Http\Requests;
+use App\Http\Requests;
 use Bpocallaghan\Titan\Http\Controllers\Admin\AdminController;
 
 class CropResourceController extends AdminController

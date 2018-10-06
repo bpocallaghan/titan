@@ -3,7 +3,7 @@
 namespace Bpocallaghan\Titan\Http\Controllers\Admin\Photos;
 
 use Image;
-use Bpocallaghan\Titan\Http\Requests;
+use App\Http\Requests;
 use Bpocallaghan\Titan\Models\Article;
 use Bpocallaghan\Titan\Models\News;
 use Bpocallaghan\Titan\Models\Photo;

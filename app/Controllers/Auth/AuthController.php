@@ -2,12 +2,10 @@
 
 namespace Bpocallaghan\Titan\Http\Controllers\Auth;
 
-use Bpocallaghan\Titan\Http\Requests;
+use App\Http\Requests;
 use Bpocallaghan\Titan\Models\LogLogin;
 use Illuminate\Http\Request;
-use Bpocallaghan\Titan\Http\Controllers\Controller;
 use Bpocallaghan\Titan\Http\Controllers\Website\WebsiteController;
-use Bpocallaghan\Titan\Http\Controllers\Website\BaseWebsiteController;
 
 class AuthController extends WebsiteController
 {

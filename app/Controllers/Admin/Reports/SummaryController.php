@@ -2,7 +2,7 @@
 
 namespace Bpocallaghan\Titan\Http\Controllers\Admin\Reports;
 
-use Bpocallaghan\Titan\Http\Requests;
+use App\Http\Requests;
 use Bpocallaghan\Titan\Models\FAQ;
 use Bpocallaghan\Titan\Models\FeedbackPurchase;
 use Illuminate\Http\Request;

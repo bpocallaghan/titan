@@ -4,7 +4,7 @@ namespace Bpocallaghan\Titan\Http\Controllers\Auth;
 
 use Password;
 use Carbon\Carbon;
-use Bpocallaghan\Titan\Http\Requests;
+use App\Http\Requests;
 use Illuminate\Http\Request;
 use Bpocallaghan\Titan\Http\Controllers\WebsiteController;
 

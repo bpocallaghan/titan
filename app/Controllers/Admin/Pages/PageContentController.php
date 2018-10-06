@@ -4,13 +4,13 @@ namespace Bpocallaghan\Titan\Http\Controllers\Admin\Pages;
 
 use Image;
 use Bpocallaghan\Titan\Models\Page;
-use Bpocallaghan\Titan\Http\Requests;
+use App\Http\Requests;
 use Bpocallaghan\Titan\Models\Content;
 use Bpocallaghan\Titan\Models\PageContent;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Bpocallaghan\Titan\Http\Controllers\Admin\AdminController;
-use Titan\Models\Traits\ImageThumb;
+use Bpocallaghan\Titan\Models\Traits\ImageThumb;
 
 class PageContentController extends AdminController
 {

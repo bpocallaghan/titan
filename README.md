@@ -48,7 +48,6 @@ This is for you to execute `php artisan migrate` and `php artisan db:seed` to cr
 ## TODO
 Move all the core files from the starter project to this repository (page builder, banners, etc)
 
-- routes
 - test in admin starter
 - Page Builder
 - add publish --core to copy the 'core' files

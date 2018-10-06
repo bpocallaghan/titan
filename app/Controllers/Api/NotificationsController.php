@@ -7,8 +7,7 @@ use Bpocallaghan\Titan\Models\Notification;
 use Bpocallaghan\Titan\Models\User;
 use Illuminate\Http\Request;
 
-use Bpocallaghan\Titan\Http\Requests;
-use Bpocallaghan\Titan\Http\Controllers\Controller;
+use App\Http\Requests;
 
 class NotificationsController extends ApiController
 {

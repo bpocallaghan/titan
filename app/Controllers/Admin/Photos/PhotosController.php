@@ -6,12 +6,12 @@ use Image;
 use Redirect;
 use Bpocallaghan\Titan\Models\News;
 use Bpocallaghan\Titan\Models\Photo;
-use Bpocallaghan\Titan\Http\Requests;
+use App\Http\Requests;
 use Bpocallaghan\Titan\Models\Article;
 use Bpocallaghan\Titan\Models\PhotoAlbum;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
-use Titan\Models\Traits\ImageThumb;
+use Bpocallaghan\Titan\Models\Traits\ImageThumb;
 use Bpocallaghan\Titan\Http\Controllers\Admin\AdminController;
 
 class PhotosController extends AdminController

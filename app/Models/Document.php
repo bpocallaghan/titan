@@ -5,8 +5,8 @@ namespace Bpocallaghan\Titan\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use PhpParser\Node\Expr\AssignOp\Mod;
-use Titan\Models\TitanCMSModel;
-use Titan\Models\Traits\ModifyBy;
+use Bpocallaghan\Titan\Models\TitanCMSModel;
+use Bpocallaghan\Titan\Models\Traits\ModifyBy;
 
 /**
  * Class Document
