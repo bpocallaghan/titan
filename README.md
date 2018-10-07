@@ -57,3 +57,10 @@ Move all the core files from the starter project to this repository (page builde
 - *banners
 - *activity
 - *google analytics
+
+* add config file
+
+- mysql default schema
+- map titan routes or publish?
+- load migrations or publish? (works when published - run applications migration)
+- publish seeds to add dummy data
