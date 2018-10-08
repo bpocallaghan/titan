@@ -2,6 +2,7 @@
 
 namespace Bpocallaghan\Titan;
 
+use Bpocallaghan\Titan\Commands\DatabaseSeedCommand;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
@@ -29,11 +30,12 @@ class TitanServiceProvider extends ServiceProvider
         // load migrations
         $this->loadMigrationsFrom($migrationsPath);
 
-        dump($appPath);
-        dump($migrationsPath);
+        //dump($appPath);
+        //dump($migrationsPath);
         //$this->loadViewsFrom($path, $namespace)
 
         $this->registerCommand(PublishCommand::class, 'publish');
+        $this->registerCommand(DatabaseSeedCommand::class, 'db:seed');
 
         //dump('TitanServiceProvider');
     }

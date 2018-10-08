@@ -3,12 +3,12 @@
 namespace Bpocallaghan\Titan\Http\Controllers\Auth;
 
 use ReflectionClass;
-use App\Models\Video;
-use App\Models\Gigapan;
-use App\Models\Video360;
-use App\Models\VirtualTour;
-use App\Models\Photography;
-use App\Models\Illustration;
+use Bpocallaghan\Titan\Models\Video;
+use Bpocallaghan\Titan\Models\Gigapan;
+use Bpocallaghan\Titan\Models\Video360;
+use Bpocallaghan\Titan\Models\VirtualTour;
+use Bpocallaghan\Titan\Models\Photography;
+use Bpocallaghan\Titan\Models\Illustration;
 
 trait PopupEntry
 {

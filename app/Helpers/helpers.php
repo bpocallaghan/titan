@@ -1,5 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Str;
+
 if (!function_exists('user')) {
     /**
      * Get the logged in user
@@ -84,7 +89,7 @@ if (!function_exists('input')) {
      */
     function input($key = '', $default = null)
     {
-        return (Illuminate\Support\Facades\Input::has($key) ? Illuminate\Support\Facades\Input::get($key) : $default);
+        return (Input::has($key) ? Input::get($key) : $default);
     }
 }
 
@@ -98,7 +103,7 @@ if (!function_exists('token')) {
      */
     function token($str = null)
     {
-        $str = isset($str) ? $str : \Illuminate\Support\Str::random();
+        $str = isset($str) ? $str : Str::random();
         $value = str_shuffle(sha1($str . microtime(true)));
         $token = hash_hmac('sha1', $value, env('APP_KEY'));
 

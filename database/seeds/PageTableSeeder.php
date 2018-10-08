@@ -1,19 +1,20 @@
 <?php
+
 namespace Bpocallaghan\Titan\Seeds;
-use App\Models\PageContent;
-use App\Models\Photo;
+
+use Bpocallaghan\Titan\Models\PageContent;
+use Bpocallaghan\Titan\Models\Photo;
 use Illuminate\Database\Seeder;
-use App\Models\Page;
+use Bpocallaghan\Titan\Models\Page;
 
 class PageTableSeeder extends Seeder
 {
     /**
      * @param \Faker\Generator $faker
      */
-    public function run(Faker\Generator $faker)
+    public function run(Faker\Generator $faker = null)
     {
         Page::truncate();
-        // PageSection::truncate();
         PageContent::truncate();
 
         $csvPath = database_path() . DIRECTORY_SEPARATOR . 'seeds' . DIRECTORY_SEPARATOR . 'csv' . DIRECTORY_SEPARATOR . 'pages.csv';
@@ -59,38 +60,40 @@ class PageTableSeeder extends Seeder
 
         // only generate content for the following pages
 
-        $page = Page::where('name', 'Privacy Policy')->first();
-        $this->pageContent($page, $faker);
-        $this->pageContent($page, $faker);
-        $this->pageContent($page, $faker);
+        if ($faker) {
+            $page = Page::where('name', 'Privacy Policy')->first();
+            $this->pageContent($page, $faker);
+            $this->pageContent($page, $faker);
+            $this->pageContent($page, $faker);
 
-        $page = Page::where('name', 'Terms and Conditions')->first();
-        $this->pageContent($page, $faker);
-        $this->pageContent($page, $faker);
-        $this->pageContent($page, $faker);
+            $page = Page::where('name', 'Terms and Conditions')->first();
+            $this->pageContent($page, $faker);
+            $this->pageContent($page, $faker);
+            $this->pageContent($page, $faker);
 
-        $page = Page::where('name', 'About Us')->first();
-        $this->pageContent($page, $faker);
-        $this->pageContent($page, $faker);
-        $this->pageContent($page, $faker);
+            $page = Page::where('name', 'About Us')->first();
+            $this->pageContent($page, $faker);
+            $this->pageContent($page, $faker);
+            $this->pageContent($page, $faker);
 
-        $page = Page::where('name', 'Content Only')->first();
-        $this->pageContent($page, $faker);
-        $this->pageContent($page, $faker);
-        $this->pageContent($page, $faker);
-        $this->pageContent($page, $faker);
+            $page = Page::where('name', 'Content Only')->first();
+            $this->pageContent($page, $faker);
+            $this->pageContent($page, $faker);
+            $this->pageContent($page, $faker);
+            $this->pageContent($page, $faker);
 
-        $page = Page::where('name', 'Content and Photo')->first();
-        $this->pageContent($page, $faker);
-        $this->pageMedia($page, $faker);
-        $this->pageMedia($page, $faker, 'right');
-        $this->pageContent($page, $faker);
+            $page = Page::where('name', 'Content and Photo')->first();
+            $this->pageContent($page, $faker);
+            $this->pageMedia($page, $faker);
+            $this->pageMedia($page, $faker, 'right');
+            $this->pageContent($page, $faker);
 
-        $page = Page::where('name', 'Content and Gallery')->first();
-        $this->pageContent($page, $faker);
-        $this->pageMedia($page, $faker);
-        $this->pageContent($page, $faker);
-        $this->pageGallery($page, $faker);
+            $page = Page::where('name', 'Content and Gallery')->first();
+            $this->pageContent($page, $faker);
+            $this->pageMedia($page, $faker);
+            $this->pageContent($page, $faker);
+            $this->pageGallery($page, $faker);
+        }
     }
 
     private function pageContent($page, $faker)
@@ -101,7 +104,6 @@ class PageTableSeeder extends Seeder
             'heading_element' => 'h2',
             'content'         => "<p>{$faker->paragraph(5)}</p>",
         ]);
-
         // $page->attachComponent($component);
     }
 
@@ -116,7 +118,6 @@ class PageTableSeeder extends Seeder
             'media_align'     => $align,
             'content'         => "<p>{$faker->paragraph(5)}</p>",
         ]);
-
         // $page->attachComponent($component);
     }
 
@@ -138,7 +139,6 @@ class PageTableSeeder extends Seeder
                 'photoable_type' => get_class($component),
             ]);
         }
-
         // $page->attachComponent($component);
     }
 }

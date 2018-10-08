@@ -1,13 +1,13 @@
 <?php
 namespace Bpocallaghan\Titan\Seeds;
-use App\Models\User;
+use Bpocallaghan\Titan\Models\User;
 use Carbon\Carbon;
-use App\Models\Role;
+use Bpocallaghan\Titan\Models\Role;
 use Illuminate\Database\Seeder;
 
 class UserTableSeeder extends Seeder
 {
-    public function run(Faker\Generator $faker)
+    public function run(Faker\Generator $faker = null)
     {
         User::truncate();
         //DB::delete('TRUNCATE role_user'); //Unnecessary in Laravel 5.6

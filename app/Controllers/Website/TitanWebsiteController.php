@@ -3,7 +3,7 @@
 namespace Bpocallaghan\Titan\Http\Controllers\Website;
 
 use App\Http\Requests;
-use App\Models\NavigationWebsite;
+use Bpocallaghan\Titan\Models\NavigationWebsite;
 use Titan\Controllers\Traits\BreadcrumbWebsite;
 
 class TitanWebsiteController extends TitanController

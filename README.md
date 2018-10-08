@@ -12,6 +12,12 @@ Update your project's `composer.json` file.
 composer require bpocallaghan/titan
 ```
 
+run command art migrate
+ - create all the tables
+run art titan:db:seed
+ - seed core tables (roles, users, banners, pages, navigation_admin)
+
+
 ## Commands
 The publish commands are used to copy the files from titan to your own application for customization.
 For example, you need to add or change a field in a table or update text or design in blade files.

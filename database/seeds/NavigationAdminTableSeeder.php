@@ -1,6 +1,6 @@
 <?php
 namespace Bpocallaghan\Titan\Seeds;
-use App\Models\NavigationAdmin;
+use Bpocallaghan\Titan\Models\NavigationAdmin;
 use Illuminate\Database\Seeder;
 
 class NavigationAdminTableSeeder extends Seeder

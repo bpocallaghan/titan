@@ -1,7 +1,7 @@
 <?php
 namespace Bpocallaghan\Titan\Seeds;
 use Illuminate\Database\Seeder;
-use App\Models\Settings;
+use Bpocallaghan\Titan\Models\Settings;
 
 class SettingTableSeeder extends Seeder
 {

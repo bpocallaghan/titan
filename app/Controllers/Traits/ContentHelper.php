@@ -2,7 +2,7 @@
 
 namespace Bpocallaghan\Titan\Http\Controllers\Auth;
 
-use App\Models\Category;
+use Bpocallaghan\Titan\Models\Category;
 use ReflectionClass;
 
 trait ContentHelper

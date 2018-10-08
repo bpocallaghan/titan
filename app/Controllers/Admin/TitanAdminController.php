@@ -2,7 +2,7 @@
 
 namespace Bpocallaghan\Titan\Http\Controllers\Admin;
 
-use App\Models\NavigationAdmin;
+use Bpocallaghan\Titan\Models\NavigationAdmin;
 use Titan\Controllers\Traits\CRUDNotify;
 
 class TitanAdminController extends TitanController

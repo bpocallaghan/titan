@@ -166,6 +166,11 @@ class PublishCommand extends Command
         $this->copyFilesFromSource($sourceDatabase . 'seeds', $destinationSeeds, $search, "");
     }
 
+    private function copyDatabaseSeeds()
+    {
+
+    }
+
     /**
      * Copy the events files
      * Copy all events, listeners and notifications

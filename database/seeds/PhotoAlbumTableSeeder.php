@@ -1,7 +1,7 @@
 <?php
 namespace Bpocallaghan\Titan\Seeds;
 use Illuminate\Database\Seeder;
-use App\Models\PhotoAlbum;
+use Bpocallaghan\Titan\Models\PhotoAlbum;
 
 class PhotoAlbumTableSeeder extends Seeder
 {
