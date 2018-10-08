@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(BannerTableSeeder::class);
 
         $this->call(PageTableSeeder::class);
-        //$this->call(NavigationAdminTableSeeder::class);
+        $this->call(NavigationAdminTableSeeder::class);
 
         //$this->call(SubscriptionPlanFeaturesSeeder::class);
         //$this->call(SubscriptionPlanTableSeeder::class);

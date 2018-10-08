@@ -57,7 +57,6 @@ class DatabaseSeedCommand extends Command
     {
         $seed = new DatabaseSeeder();
         $seed->run();
-        dd("handle");
     }
 
     /**

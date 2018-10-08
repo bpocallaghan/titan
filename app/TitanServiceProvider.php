@@ -2,11 +2,11 @@
 
 namespace Bpocallaghan\Titan;
 
-use Bpocallaghan\Titan\Commands\DatabaseSeedCommand;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Bpocallaghan\Titan\Commands\PublishCommand;
+use Bpocallaghan\Titan\Commands\DatabaseSeedCommand;
 
 class TitanServiceProvider extends ServiceProvider
 {
@@ -23,12 +23,15 @@ class TitanServiceProvider extends ServiceProvider
         $appPath = __DIR__ . DIRECTORY_SEPARATOR;
         $basePath = $appPath . ".." . DIRECTORY_SEPARATOR;
         $migrationsPath = $basePath . "database" . DIRECTORY_SEPARATOR . "migrations";
+        $viewsPath = $basePath . "resources" . DIRECTORY_SEPARATOR . "views";
 
         // map routes
         $this->mapTitanRoutes();
 
         // load migrations
         $this->loadMigrationsFrom($migrationsPath);
+
+        $this->loadViewsFrom($viewsPath, "titan");
 
         //dump($appPath);
         //dump($migrationsPath);
