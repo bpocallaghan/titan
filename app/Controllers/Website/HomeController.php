@@ -16,6 +16,6 @@ class HomeController extends WebsiteController
     {
         $items = News::active()->orderBy('created_at', 'DESC')->get()->take(6);
 
-        return $this->view('home')->with('news', $items)->with('hidePageFooter', true);
+        return $this->view('titan::home')->with('news', $items)->with('hidePageFooter', true);
     }
 }

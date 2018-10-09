@@ -94,13 +94,27 @@ class BaseWebsiteController extends Controller
     /**
      * Return / Render the view
      *
-     * @param            $view
+     * @param            $path
      * @param array      $data
      * @return $this
      */
-    protected function view($view, $data = [])
+    protected function view($path, $data = [])
     {
-        return view($this->baseViewPath . $view, $data)
+        $view = $this->baseViewPath . $path;
+        // if view has package name (dont prefix)
+        //if(strpos($path, "::") !== false) {
+        //    $view = $path;
+        //}
+
+        // explode on package prefix
+        // format view path
+        $pieces = explode("::", $path);
+        if (count($pieces) >= 2) {
+            $view = $pieces[0] . "::";
+            $view .= $this->baseViewPath . $pieces[1];
+        }
+
+        return view($view, $data)
             ->with('image', $this->getImage())
             ->with('title', $this->getTitle())
             ->with('description', $this->getDescription())
