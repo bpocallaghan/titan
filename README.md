@@ -17,7 +17,6 @@ run command art migrate
 run art titan:db:seed
  - seed core tables (roles, users, banners, pages, navigation_admin)
 
-
 ## Commands
 The publish commands are used to copy the files from titan to your own application for customization.
 For example, you need to add or change a field in a table or update text or design in blade files.
@@ -56,7 +55,6 @@ Move all the core files from the starter project to this repository (page builde
 
 - test in admin starter
 - Page Builder
-- add publish --core to copy the 'core' files
 - add titan:publish --type=banner (to copy all banner files to application)
 -
 - create new packages for
@@ -66,7 +64,6 @@ Move all the core files from the starter project to this repository (page builde
 
 * add config file
 
-- mysql default schema
 - map titan routes or publish?
 - load migrations or publish? (works when published - run applications migration)
 - publish seeds to add dummy data
