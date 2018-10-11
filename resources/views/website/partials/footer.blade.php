@@ -12,21 +12,15 @@
             </div>
             <div class="col-sm-8 text-center">
                 <div class="row text-left">
-                    <ul class="col-sm-4">
+                    {{--<ul class="col-sm-4">
                         @foreach($footerNavigation['About'] as $item)
                             <li><a class="{{ $loop->first ? 'text-white':'text-grey' }}" href="{{ $item->url }}">{!! $item->name !!}</a></li>
                         @endforeach
                             <li><a class="text-grey" href="/contact-us">Contact Us</a></li>
-                    </ul>
+                    </ul>--}}
                     <ul class="col-sm-4">
                         <li><a class="text-white" href="#">Pages</a></li>
                         @foreach($footerNavigation['Pages'] as $item)
-                            <li><a class="text-grey" href="{{ $item->url }}">{!! $item->name !!}</a></li>
-                        @endforeach
-                    </ul>
-                    <ul class="col-sm-4">
-                        <li><a class="text-white" href="#">Corporate</a></li>
-                        @foreach($footerNavigation['Corporate'] as $item)
                             <li><a class="text-grey" href="{{ $item->url }}">{!! $item->name !!}</a></li>
                         @endforeach
                     </ul>
