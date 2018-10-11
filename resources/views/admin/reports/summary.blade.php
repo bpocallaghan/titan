@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('titan::layouts.admin')
 
 @section('content')
     <div class="row">
@@ -13,7 +13,7 @@
 
                 <div class="box-body">
 
-                    @include('admin.partials.info')
+                    @include('titan::admin.partials.info')
 
                     <table class="table table-striped table-bordered table-hover" width="100%">
                         <thead>

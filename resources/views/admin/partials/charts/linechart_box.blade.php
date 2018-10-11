@@ -5,12 +5,12 @@
             <span>{{ isset($title)? $title:'Title' }}</span>
         </h3>
 
-        @include('admin.partials.boxes.toolbar')
+        @include('titan::admin.partials.boxes.toolbar')
         {{-- , ['btnDateClass' => 'btn-default'] --}}
     </div>
 
     <div class="box-body">
-        @include('admin.partials.charts.linechart')
+        @include('titan::admin.partials.charts.linechart')
     </div>
 </div>
 

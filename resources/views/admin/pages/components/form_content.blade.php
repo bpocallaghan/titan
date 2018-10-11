@@ -8,7 +8,7 @@
     </div>
 </div>
 
-@include('admin.partials.summernote.document', ['summernote' => '#content-content'])
+@include('titan::admin.partials.summernote.document', ['summernote' => '#content-content'])
 
 @section('scripts')
     @parent

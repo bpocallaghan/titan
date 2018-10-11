@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('titan::layouts.admin')
 
 @section('content')
     <div class="row">
@@ -13,7 +13,7 @@
 
                 <div class="box-body no-padding">
 
-                    @include('admin.partials.info')
+                    @include('titan::admin.partials.info')
 
                     <form>
                         <fieldset>
@@ -82,7 +82,7 @@
                             @endif
                         </fieldset>
 
-                        @include('admin.partials.form_footer', ['submit' => false])
+                        @include('titan::admin.partials.form_footer', ['submit' => false])
                     </form>
                 </div>
             </div>

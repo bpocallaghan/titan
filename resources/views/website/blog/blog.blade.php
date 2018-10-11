@@ -1,19 +1,19 @@
-@extends('layouts.website')
+@extends('titan::layouts.website')
 
 @section('content')
     <section class="content p-3">
-        @include('website.partials.page_header')
+        @include('titan::website.partials.page_header')
 
         <div class="row">
             <div class="body col-sm-7 col-lg-8">
-                @include('website.partials.breadcrumb')
+                @include('titan::website.partials.breadcrumb')
 
                 <div class="pagination-box">
-                    @include('website.blog.pagination')
+                    @include('titan::website.blog.pagination')
                 </div>
             </div>
 
-            @include('website.partials.page_side')
+            @include('titan::website.partials.page_side')
         </div>
     </section>
 @endsection

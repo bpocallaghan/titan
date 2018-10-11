@@ -1,14 +1,14 @@
-@extends('layouts.website')
+@extends('titan::layouts.website')
 
 @section('content')
     <section class="content bg-default padding padding-top padding-bottom">
 
-        @include('website.partials.page_header')
+        @include('titan::website.partials.page_header')
 
         <div class="row">
             <div class="body col-sm-7 col-lg-8">
 
-                @include('website.partials.breadcrumb')
+                @include('titan::website.partials.breadcrumb')
 
                 <h2>Send us a Message</h2>
                 <form id="form-contact-us" accept-charset="UTF-8" action="{{ request()->url().'/submit' }}" method="POST">
@@ -53,9 +53,9 @@
                         </div>
                     </div>
 
-                    @include('website.partials.form.captcha')
+                    @include('titan::website.partials.form.captcha')
 
-                    @include('website.partials.form.feedback')
+                    @include('titan::website.partials.form.feedback')
 
                     <div class="row">
                         <div class="col-md-12 mb-5">

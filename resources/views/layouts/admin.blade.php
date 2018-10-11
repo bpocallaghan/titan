@@ -25,9 +25,9 @@
         <h1 class="hidden">{{ isset($HTMLTitle) ? $HTMLTitle : config('app.name') }}</h1>
 
         <div class="wrapper">
-            @include('admin.partials.header')
+            @include('titan::admin.partials.header')
 
-            @include('admin.partials.navigation')
+            @include('titan::admin.partials.navigation')
 
             <div class="content-wrapper">
                 <h2 class="hidden">Breadcrumb</h2>
@@ -60,8 +60,8 @@
             </footer>
         </div>
 
-        @include('notify::notify')
-        @include('admin.partials.modals')
+        @include('titan::notify::notify')
+        @include('titan::admin.partials.modals')
 
         <script type="text/javascript" charset="utf-8" src="/js/admin.js?v=1"></script>
         <script type="text/javascript" charset="utf-8">
@@ -73,7 +73,7 @@
         @yield('scripts')
 
         @if(config('app.env') != 'local')
-            @include('partials.analytics')
+            @include('titan::partials.analytics')
         @endif
     </body>
 </html>

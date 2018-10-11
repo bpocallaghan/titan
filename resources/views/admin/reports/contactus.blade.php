@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('titan::layouts.admin')
 
 @section('content')
     <div class="row">
@@ -10,12 +10,12 @@
                         <span>Contact Us</span>
                     </h3>
 
-                    @include('admin.partials.boxes.toolbar')
+                    @include('titan::admin.partials.boxes.toolbar')
                 </div>
 
                 <div class="box-body">
 
-                    @include('admin.partials.charts.linechart', [
+                    @include('titan::admin.partials.charts.linechart', [
                         'id' => 'box-main-chart',
                     ])
 

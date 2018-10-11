@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('titan::layouts.admin')
 
 @section('content')
     <div class="row">
@@ -42,7 +42,7 @@
         </div>
     </div>
 
-    @include('admin.partials.nestable')
+    @include('titan::admin.partials.nestable')
 @endsection
 
 @section('scripts')

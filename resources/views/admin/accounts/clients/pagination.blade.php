@@ -66,4 +66,4 @@
     </tbody>
 </table>
 
-@include('admin.partials.pagination_footer')
+@include('titan::admin.partials.pagination_footer')

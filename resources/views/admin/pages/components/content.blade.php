@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('titan::layouts.admin')
 
 @section('content')
     <div class="row">
@@ -30,7 +30,7 @@
                         <input name="_method" type="hidden" value="{{isset($item)? 'PUT':'POST'}}">
 
                         <fieldset>
-                            @include('admin.pages.components.form_heading')
+                            @include('titan::admin.pages.components.form_heading')
 
                             <div class="row">
                                 <div class="col-md-8">
@@ -66,7 +66,7 @@
                                 </div>
                             </div>
 
-                            @include('admin.pages.components.form_content')
+                            @include('titan::admin.pages.components.form_content')
 
                             @if(isset($item) && $item->media)
                                 <div>
@@ -77,7 +77,7 @@
                             @endif
                         </fieldset>
 
-                        {{--@include('admin.partials.form_footer')--}}
+                        {{--@include('titan::admin.partials.form_footer')--}}
                         <div class="form-footer">
                             @if(isset($submit) == false || $submit == true)
                                 <button class="btn btn-labeled btn-primary btn-submit">
@@ -95,8 +95,8 @@
         </div>
     </div>
     @if(isset($item))
-        @include('admin.photos.photoable', ['photoable' => $item, 'photos' => $item->photos])
+        @include('titan::admin.photos.photoable', ['photoable' => $item, 'photos' => $item->photos])
 
-        @include('admin.documents.documentable', ['documentable' => $item, 'documents' => $item->documents])
+        @include('titan::admin.documents.documentable', ['documentable' => $item, 'documents' => $item->documents])
     @endif
 @endsection

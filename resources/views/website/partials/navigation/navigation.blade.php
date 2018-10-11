@@ -9,7 +9,7 @@
 
         @if (isset($navigation[$nav->id]))
             <div class="dropdown-menu" aria-labelledby="{{ $nav->id }}">
-                @include('website.partials.navigation.dropdown', ['collection' => $navigation[$nav->id]])
+                @include('titan::website.partials.navigation.dropdown', ['collection' => $navigation[$nav->id]])
             </div>
         @endif
     </li>

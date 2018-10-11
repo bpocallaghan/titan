@@ -1,7 +1,7 @@
-@extends('layouts.admin')
+@extends('titan::layouts.admin')
 
 @section('content')
 
-    @include('admin.photos.photoable')
+    @include('titan::admin.photos.photoable')
 
 @endsection

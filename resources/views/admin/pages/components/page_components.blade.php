@@ -1,5 +1,5 @@
-@extends('layouts.admin')
+@extends('titan::layouts.admin')
 
 @section('content')
-    @include('admin.pages.components.components')
+    @include('titan::admin.pages.components.components')
 @endsection

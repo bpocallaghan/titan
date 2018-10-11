@@ -5,7 +5,7 @@
             <span>Top Browsers</span>
         </h3>
 
-        @include('admin.partials.boxes.toolbar')
+        @include('titan::admin.partials.boxes.toolbar')
     </div>
 
     <div class="box-body">

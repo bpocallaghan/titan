@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('titan::layouts.admin')
 
 @section('content')
     <div class="row">
@@ -66,5 +66,5 @@
         </div>
     </div>
 
-    @include('admin.partials.form_footer', ['submit' => false])
+    @include('titan::admin.partials.form_footer', ['submit' => false])
 @endsection

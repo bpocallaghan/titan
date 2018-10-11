@@ -1,19 +1,19 @@
-@extends('layouts.website')
+@extends('titan::layouts.website')
 
 @section('content')
     <section class="content bg-default padding padding-top padding-bottom">
-        @include('website.partials.page_header')
+        @include('titan::website.partials.page_header')
 
         <div class="row">
             <div class="body col-sm-7 col-lg-8">
-                @include('website.partials.breadcrumb')
+                @include('titan::website.partials.breadcrumb')
 
                 @foreach($activePage->components as $content)
-                    @include('website.pages.page_heading')
-                    @include('website.pages.page_content')
+                    @include('titan::website.pages.page_heading')
+                    @include('titan::website.pages.page_content')
 
-                    @include('website.pages.page_gallery')
-                    @include('website.pages.page_documents')
+                    @include('titan::website.pages.page_gallery')
+                    @include('titan::website.pages.page_documents')
                 @endforeach
 
                 @if($childrenPages && $childrenPages->count() > 0)
@@ -35,7 +35,7 @@
                 @endif
             </div>
 
-            @include('website.partials.page_side')
+            @include('titan::website.partials.page_side')
         </div>
     </section>
 @endsection

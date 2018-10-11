@@ -1,4 +1,4 @@
-@extends('layouts.website')
+@extends('titan::layouts.website')
 
 @section('content')
     <div class="row mt-5">
@@ -181,7 +181,7 @@
         </div>
     @endif
 
-    @include('website.partials.footer_newsletter')
+    @include('titan::website.partials.footer_newsletter')
 
     <!-- Call to Action Section -->
     <div class="card bg-light mt-3">

@@ -135,7 +135,7 @@
             </div>
 
             <div class="box-footer">
-                @include('admin.partials.form_footer', ['submit' => false])
+                @include('titan::admin.partials.form_footer', ['submit' => false])
             </div>
         </div>
     </div>

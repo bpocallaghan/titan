@@ -1,19 +1,19 @@
-@extends('layouts.admin')
+@extends('titan::layouts.admin')
 
 @section('content')
     {{-- interests --}}
     <div class="row">
         <div class="col-md-6">
-            @include('admin.analytics.partials.interests_affinity')
+            @include('titan::admin.analytics.partials.interests_affinity')
         </div>
 
         <div class="col-md-6">
-            @include('admin.analytics.partials.interests_market')
+            @include('titan::admin.analytics.partials.interests_market')
         </div>
     </div>
     <div class="row">
         <div class="col-md-6">
-            @include('admin.analytics.partials.interests_other')
+            @include('titan::admin.analytics.partials.interests_other')
         </div>
     </div>
 @endsection

@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('titan::layouts.admin')
 
 @section('content')
 	<div class="row">
@@ -18,9 +18,9 @@
                         <p>Idea? add app_url, google analytics and other 'settings' related info here</p>
                     </div>
 
-					@include('admin.partials.info')
+					@include('titan::admin.partials.info')
 
-					@include('admin.partials.toolbar')
+					@include('titan::admin.partials.toolbar')
 
 					<table id="tbl-list" data-server="false" class="dt-table table table-striped table-bordered" cellspacing="0" width="100%">
 						<thead>

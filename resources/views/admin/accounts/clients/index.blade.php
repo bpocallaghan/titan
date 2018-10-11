@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('titan::layouts.admin')
 
 @section('content')
     <div class="row">
@@ -12,7 +12,7 @@
                 </div>
 
                 <div class="box-body">
-                    @include('admin.partials.info')
+                    @include('titan::admin.partials.info')
 
                     <div class="well">
                         <form id="js-form-filters">
@@ -50,7 +50,7 @@
                     </div>
 
                     <div class="pagination-box">
-                        @include('admin.accounts.clients.pagination')
+                        @include('titan::admin.accounts.clients.pagination')
                     </div>
                 </div>
             </div>

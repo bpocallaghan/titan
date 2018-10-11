@@ -1,7 +1,7 @@
-@extends('layouts.admin')
+@extends('titan::layouts.admin')
 
 @section('content')
 
-    @include('admin.documents.documentable')
+    @include('titan::admin.documents.documentable')
 
 @endsection

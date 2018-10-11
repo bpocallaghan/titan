@@ -1,4 +1,4 @@
-@extends('layouts.website')
+@extends('titan::layouts.website')
 
 @section('content')
     <div class="row mt-4 body">

@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('titan::layouts.admin')
 
 @section('content')
     <div class="row">
@@ -13,9 +13,9 @@
 
                 <div class="box-body">
 
-                    @include('admin.partials.info')
+                    @include('titan::admin.partials.info')
 
-                    @include('admin.partials.toolbar', ['order' => true])
+                    @include('titan::admin.partials.toolbar', ['order' => true])
 
                     <table id="tbl-list" data-page-length="25" data-server="{{$ajax}}" class="dt-table table table-bordered table-striped dataTable table-hover" cellspacing="0" width="100%">
                         <thead>
@@ -51,7 +51,7 @@
     </div>
 @endsection
 
-@include('admin.partials.datatables', ['options' => [
+@include('titan::admin.partials.datatables', ['options' => [
                     ['data' => 'title', 'name' => 'title'],
                     ['data' => 'description', 'name' => 'description'],
                     ['data' => 'slug', 'name' => 'slug'],

@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('titan::layouts.admin')
 
 @section('content')
     <div class="row">
@@ -12,7 +12,7 @@
                 </div>
 
                 <div class="box-body no-padding">
-                    @include('admin.partials.info')
+                    @include('titan::admin.partials.info')
 
                     <form id="form-edit" method="post" action="{{ $selectedNavigation->url . (isset($item)? '/' . $item->id : '') }}">
                         {!! csrf_field() !!}
@@ -157,7 +157,7 @@
                             </div>
                         </fieldset>
 
-                        @include('admin.partials.form_footer')
+                        @include('titan::admin.partials.form_footer')
                     </form>
                 </div>
             </div>

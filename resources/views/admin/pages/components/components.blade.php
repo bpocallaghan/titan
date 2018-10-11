@@ -107,7 +107,7 @@
 
 @section('scripts')
     @parent
-    @include('admin.partials.nestable')
+    @include('titan::admin.partials.nestable')
     <script type="text/javascript" charset="utf-8">
         $(function () {
             initNestableMenu(1, "{{ (isset($url)? $url : request()->url()) }}/order");

@@ -18,7 +18,7 @@
         <meta property="og:description" name="og:description" content="{{ isset($description) ? $description : config('app.description') }}">
         <meta property="og:image" name="og:image" content="{{ config('app.url') }}{{ isset($image) ? $image : '/images/logo.png' }}">
 
-        @include ('partials.favicons')
+        @include('titan::partials.favicons')
 
         <title>{{ isset($title) ? $title : config('app.name') }}</title>
 
@@ -35,24 +35,24 @@
         <h1 class="d-none">{{ isset($title) ? $title : config('app.name') }}</h1>
 
         @if(config('app.env') != 'local')
-            @include('partials.facebook')
+            @include('titan::partials.facebook')
         @endif
 
-        @include('website.partials.header')
+        @include('titan::website.partials.header')
 
-        @include('website.partials.navigation')
+        @include('titan::website.partials.navigation')
 
         @if(isset($showPageBanner) && $showPageBanner == true || !isset($showPageBanner))
-            @include('website.partials.banner')
+            @include('titan::website.partials.banner')
         @endif
 
         <div class="container mb-5">
             @yield('content')
         </div>
 
-        @include('website.partials.footer')
+        @include('titan::website.partials.footer')
 
-        @include('website.partials.popups')
+        @include('titan::website.partials.popups')
 
         {{-- back to top --}}
         <a href="#top" class="back-to-top jumper btn btn-secondary">
@@ -64,7 +64,7 @@
         @yield('scripts')
 
         @if(config('app.env') != 'local')
-            @include('partials.analytics')
+            @include('titan::partials.analytics')
         @endif
     </body>
 </html>

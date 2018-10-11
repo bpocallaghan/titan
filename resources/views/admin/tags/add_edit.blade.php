@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('titan::layouts.admin')
 
 @section('content')
     <div class="row">
@@ -13,7 +13,7 @@
 
                 <div class="box-body no-padding">
 
-                    @include('admin.partials.info')
+                    @include('titan::admin.partials.info')
 
 					<form method="POST" action="{{$selectedNavigation->url . (isset($item)? "/{$item->id}" : '')}}" accept-charset="UTF-8">
                         <input name="_token" type="hidden" value="{{ csrf_token() }}">
@@ -31,7 +31,7 @@
                             </div>
 						</fieldset>
 
-						@include('admin.partials.form_footer')
+						@include('titan::admin.partials.form_footer')
                     </form>
                 </div>
             </div>

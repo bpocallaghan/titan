@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('titan::layouts.admin')
 
 @section('content')
     <div class="row">
@@ -13,7 +13,7 @@
 
                 <div class="box-body">
 
-                    @include('admin.partials.info')
+                    @include('titan::admin.partials.info')
 
                     <div class="well well-sm well-toolbar" id="nestable-menu">
                         <a href="javascript:window.history.back();" class="btn btn-labeled btn-default">
@@ -41,7 +41,7 @@
         </div>
     </div>
 
-    @include('admin.partials.nestable')
+    @include('titan::admin.partials.nestable')
 @endsection
 
 @section('scripts')
