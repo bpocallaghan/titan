@@ -15,6 +15,6 @@ class AccountController extends WebsiteController
 	        return $query->where('name', 'Account');
         })->orderBy('list_order')->get();
 
-		return $this->view('account.account', compact('faq'));
+		return $this->view('titan::account.account', compact('faq'));
 	}
 }

@@ -30,7 +30,7 @@ class GalleryController extends WebsiteController
                 ->render());
         }
 
-        return $this->view('gallery.albums')->with('paginator', $paginator);
+        return $this->view('titan::gallery.albums')->with('paginator', $paginator);
     }
 
     public function showAlbum($albumSlug)
@@ -43,6 +43,6 @@ class GalleryController extends WebsiteController
         $items = $album->photos;
         $this->addBreadcrumbLink($album->name, '/gallery');
 
-        return $this->view('gallery.album_show')->with('album', $album);
+        return $this->view('titan::gallery.album_show')->with('album', $album);
     }
 }

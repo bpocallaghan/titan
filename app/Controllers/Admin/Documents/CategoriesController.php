@@ -19,7 +19,7 @@ class CategoriesController extends AdminController
     {
         save_resource_url();
 
-        return $this->view('documents.categories.index')->with('items', DocumentCategory::all());
+        return $this->view('titan::documents.categories.index')->with('items', DocumentCategory::all());
     }
 
     /**
@@ -29,7 +29,7 @@ class CategoriesController extends AdminController
      */
     public function create()
     {
-        return $this->view('documents.categories.create_edit');
+        return $this->view('titan::documents.categories.create_edit');
     }
 
     /**
@@ -54,7 +54,7 @@ class CategoriesController extends AdminController
      */
     public function edit(DocumentCategory $category)
     {
-        return $this->view('documents.categories.create_edit')->with('item', $category);
+        return $this->view('titan::documents.categories.create_edit')->with('item', $category);
     }
 
     /**

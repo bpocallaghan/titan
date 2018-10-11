@@ -18,7 +18,7 @@ class BannersOrderController extends AdminController
     {
         $items = Banner::active()->orderBy('list_order')->get();
 
-        return $this->view('banners.order')->with('items', $items);
+        return $this->view('titan::banners.order')->with('items', $items);
     }
 
     /**

@@ -14,7 +14,7 @@ class ContactUsController extends WebsiteController
 
     public function index()
     {
-        return $this->view('contact');
+        return $this->view('titan::contact');
     }
 
     public function feedback(Request $request)

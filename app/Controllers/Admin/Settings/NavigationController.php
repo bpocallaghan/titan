@@ -34,7 +34,7 @@ class NavigationController extends AdminController
         $roles = Role::getAllLists();
         $parents = NavigationAdmin::getAllLists();
 
-        return $this->view('settings.navigation.add_edit')
+        return $this->view('titan::settings.navigation.add_edit')
             ->with('roles', $roles)
             ->with('parents', $parents);
     }
@@ -86,7 +86,7 @@ class NavigationController extends AdminController
     {
         $navigation = NavigationAdmin::findOrFail($id);
 
-        return $this->view('settings.navigation.show')->with('item', $navigation);
+        return $this->view('titan::settings.navigation.show')->with('item', $navigation);
     }
 
     /**
@@ -100,7 +100,7 @@ class NavigationController extends AdminController
         $roles = Role::getAllLists();
         $navigation = NavigationAdmin::findOrFail($id);
 
-        return $this->view('settings.navigation.add_edit')
+        return $this->view('titan::settings.navigation.add_edit')
             ->with('item', $navigation)
             ->with('roles', $roles)
             ->with('parents', NavigationAdmin::getAllLists());

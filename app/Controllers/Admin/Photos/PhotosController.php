@@ -27,7 +27,7 @@ class PhotosController extends AdminController
 
         $items = Photo::with('photoable')->get();
 
-        return $this->view('photos.index')->with('items', $items);
+        return $this->view('titan::photos.index')->with('items', $items);
     }
 
     /**
@@ -41,7 +41,7 @@ class PhotosController extends AdminController
     {
         save_resource_url();
 
-        return $this->view('photos.create_edit')
+        return $this->view('titan::photos.create_edit')
             ->with('photoable', $photoable)
             ->with('photos', $photos);
     }

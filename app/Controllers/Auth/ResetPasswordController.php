@@ -23,7 +23,7 @@ class ResetPasswordController extends AuthController
         $email = request('email');
         $this->showPageBanner = false;
 
-        return $this->view('reset_password', compact('token', 'email'));
+        return $this->view('titan::reset_password', compact('token', 'email'));
     }
 
     /**

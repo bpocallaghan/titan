@@ -29,7 +29,7 @@ class BlogController extends WebsiteController
                 ->render());
         }
 
-        return $this->view('blog.blog')->with('paginator', $paginator);
+        return $this->view('titan::blog.blog')->with('paginator', $paginator);
     }
 
     public function show($newsSlug)
@@ -41,6 +41,6 @@ class BlogController extends WebsiteController
 
         $this->addBreadcrumbLink($item->title, false);
 
-        return $this->view('blog.article_show')->with('article', $item);
+        return $this->view('titan::blog.article_show')->with('article', $item);
     }
 }

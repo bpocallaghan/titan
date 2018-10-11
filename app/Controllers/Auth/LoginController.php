@@ -21,7 +21,7 @@ class LoginController extends AuthController
     public function showLoginForm()
     {
         $this->showPageBanner = false;
-        return $this->view('login');
+        return $this->view('titan::login');
     }
 
     /**

@@ -19,7 +19,7 @@ class CategoriesController extends AdminController
 	{
 		save_resource_url();
 
-		return $this->view('blog.categories.index')->with('items', ArticleCategory::all());
+		return $this->view('titan::blog.categories.index')->with('items', ArticleCategory::all());
 	}
 
 	/**
@@ -29,7 +29,7 @@ class CategoriesController extends AdminController
 	 */
 	public function create()
 	{
-		return $this->view('blog.categories.create_edit');
+		return $this->view('titan::blog.categories.create_edit');
 	}
 
 	/**
@@ -55,7 +55,7 @@ class CategoriesController extends AdminController
 	 */
 	public function show(ArticleCategory $category)
 	{
-		return $this->view('blog.categories.show')->with('item', $category);
+		return $this->view('titan::blog.categories.show')->with('item', $category);
 	}
 
 	/**
@@ -66,7 +66,7 @@ class CategoriesController extends AdminController
      */
     public function edit(ArticleCategory $category)
 	{
-		return $this->view('blog.categories.create_edit')->with('item', $category);
+		return $this->view('titan::blog.categories.create_edit')->with('item', $category);
 	}
 
 	/**

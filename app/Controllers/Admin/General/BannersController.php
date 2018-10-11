@@ -20,7 +20,7 @@ class BannersController extends AdminController
     {
         save_resource_url();
 
-        return $this->view('banners.index')->with('items', Banner::all());
+        return $this->view('titan::banners.index')->with('items', Banner::all());
     }
 
     /**
@@ -30,7 +30,7 @@ class BannersController extends AdminController
      */
     public function create()
     {
-        return $this->view('banners.create_edit');
+        return $this->view('titan::banners.create_edit');
     }
 
     /**
@@ -63,7 +63,7 @@ class BannersController extends AdminController
      */
     public function show(Banner $banner)
     {
-        return $this->view('banners.show')->with('item', $banner);
+        return $this->view('titan::banners.show')->with('item', $banner);
     }
 
     /**
@@ -74,7 +74,7 @@ class BannersController extends AdminController
      */
     public function edit(Banner $banner)
     {
-        return $this->view('banners.create_edit')->with('item', $banner);
+        return $this->view('titan::banners.create_edit')->with('item', $banner);
     }
 
     /**

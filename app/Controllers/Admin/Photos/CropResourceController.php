@@ -19,7 +19,7 @@ class CropResourceController extends AdminController
      */
     private function showCropper($photoable)
     {
-        return $this->view('photos.crop_resource')->with('photoable', $photoable);
+        return $this->view('titan::photos.crop_resource')->with('photoable', $photoable);
     }
 
     /**

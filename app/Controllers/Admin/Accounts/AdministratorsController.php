@@ -25,7 +25,7 @@ class AdministratorsController extends AdminController
 
         $items = User::with('roles')->whereRole(Role::$BASE_ADMIN)->get();
 
-        return $this->view('accounts.administrators.index', compact('items'));
+        return $this->view('titan::accounts.administrators.index', compact('items'));
     }
 
     /**
@@ -37,7 +37,7 @@ class AdministratorsController extends AdminController
     {
         $items = UserInvite::orderBy('created_at')->get();
 
-        return $this->view('accounts.administrators.invite')->with('items', $items);
+        return $this->view('titan::accounts.administrators.invite')->with('items', $items);
     }
 
     /**
@@ -80,7 +80,7 @@ class AdministratorsController extends AdminController
     {
         $roles = Role::getAllLists();
 
-        return $this->view('accounts.administrators.create_edit', compact('roles'))
+        return $this->view('titan::accounts.administrators.create_edit', compact('roles'))
             ->with('item', $administrator);
     }
 

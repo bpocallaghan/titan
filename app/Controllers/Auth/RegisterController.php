@@ -24,7 +24,7 @@ class RegisterController extends AuthController
         // check if token is valid
         $userInvite = UserInvite::whereToken($token)->whereNull('claimed_at')->first();
 
-        return $this->view('register')->with('userInvite', $userInvite);
+        return $this->view('titan::register')->with('userInvite', $userInvite);
     }
 
     /**

@@ -22,7 +22,7 @@ class PagesController extends AdminController
 
         $items = Page::with('parent')->get();
 
-        return $this->view('pages.index')->with('items', $items);
+        return $this->view('titan::pages.index')->with('items', $items);
     }
 
     /**
@@ -35,7 +35,7 @@ class PagesController extends AdminController
         $parents = Page::getAllList();
         $banners = Banner::getAllList();
 
-        return $this->view('pages.create_edit', compact('parents', 'banners'));
+        return $this->view('titan::pages.create_edit', compact('parents', 'banners'));
     }
 
     /**
@@ -71,7 +71,7 @@ class PagesController extends AdminController
      */
     public function show(Page $page)
     {
-        return $this->view('pages.show')->with('item', $page);
+        return $this->view('titan::pages.show')->with('item', $page);
     }
 
     /**
@@ -91,7 +91,7 @@ class PagesController extends AdminController
         $parents = Page::getAllList();
         $banners = Banner::getAllList();
 
-        return $this->view('pages.create_edit', compact('parents', 'banners'))->with('item', $page);
+        return $this->view('titan::pages.create_edit', compact('parents', 'banners'))->with('item', $page);
     }
 
     /**

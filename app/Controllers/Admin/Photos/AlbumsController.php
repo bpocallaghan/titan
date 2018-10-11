@@ -21,7 +21,7 @@ class AlbumsController extends AdminController
 
         $items = PhotoAlbum::with('photos')->get();
 
-        return $this->view('photos.albums.index')->with('items', $items);
+        return $this->view('titan::photos.albums.index')->with('items', $items);
     }
 
     /**
@@ -31,7 +31,7 @@ class AlbumsController extends AdminController
      */
     public function create()
     {
-        return $this->view('photos.albums.create_edit');
+        return $this->view('titan::photos.albums.create_edit');
     }
 
     /**
@@ -57,7 +57,7 @@ class AlbumsController extends AdminController
      */
     public function edit(PhotoAlbum $album)
     {
-        return $this->view('photos.albums.create_edit')->with('item', $album);
+        return $this->view('titan::photos.albums.create_edit')->with('item', $album);
     }
 
     /**

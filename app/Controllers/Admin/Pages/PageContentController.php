@@ -27,7 +27,7 @@ class PageContentController extends AdminController
 
         $page->load('sections');
 
-        return $this->view('pages.components.page_components')->with('page', $page);
+        return $this->view('titan::pages.components.page_components')->with('page', $page);
     }
 
     /**
@@ -38,7 +38,7 @@ class PageContentController extends AdminController
      */
     public function create(Page $page)
     {
-        return $this->view('pages.components.content')
+        return $this->view('titan::pages.components.content')
             ->with('page', $page);
     }
 
@@ -79,7 +79,7 @@ class PageContentController extends AdminController
     public function edit(Page $page, PageContent $content)
     {
 
-        return $this->view('pages.components.content')
+        return $this->view('titan::pages.components.content')
             ->with('page', $page)
             ->with('item', $content);
     }

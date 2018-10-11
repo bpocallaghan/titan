@@ -21,7 +21,7 @@ class NewsController extends AdminController
         save_resource_url();
         $items = News::with(['category', 'photos'])->get();
 
-        return $this->view('news_events.index', compact('items'));
+        return $this->view('titan::news_events.index', compact('items'));
     }
 
     /**
@@ -33,7 +33,7 @@ class NewsController extends AdminController
     {
         $categories = NewsCategory::getAllList();
 
-        return $this->view('news_events.create_edit', compact('categories'));
+        return $this->view('titan::news_events.create_edit', compact('categories'));
     }
 
     /**
@@ -59,7 +59,7 @@ class NewsController extends AdminController
      */
     public function show(News $news)
     {
-        return $this->view('news_events.show')->with('item', $news);
+        return $this->view('titan::news_events.show')->with('item', $news);
     }
 
     /**
@@ -72,7 +72,7 @@ class NewsController extends AdminController
     {
         $categories = NewsCategory::getAllList();
 
-        return $this->view('news_events.create_edit', compact('categories'))->with('item', $news);
+        return $this->view('titan::news_events.create_edit', compact('categories'))->with('item', $news);
     }
 
     /**

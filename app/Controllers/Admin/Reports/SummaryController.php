@@ -19,7 +19,7 @@ class SummaryController extends TitanAdminController
     {
         $items = $this->getData();
 
-        return $this->view('reports.summary', compact('items'));
+        return $this->view('titan::reports.summary', compact('items'));
     }
 
     private function getData()

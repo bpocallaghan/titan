@@ -24,7 +24,7 @@ class ClientsController extends AdminController
 
         $items = User::with('roles')->whereRole(Role::$WEBSITE)->get();
 
-        return $this->view('clients.index')->with('items', $items);
+        return $this->view('titan::clients.index')->with('items', $items);
     }
 
     /**
@@ -42,7 +42,7 @@ class ClientsController extends AdminController
 
         $roles = Role::getAllLists();
 
-        return $this->view('clients.create_edit')->with('item', $user)->with('roles', $roles);
+        return $this->view('titan::clients.create_edit')->with('item', $user)->with('roles', $roles);
     }
 
     /**

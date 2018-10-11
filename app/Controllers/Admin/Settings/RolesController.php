@@ -19,7 +19,7 @@ class RolesController extends AdminController
     {
         save_resource_url();
 
-        return $this->view('settings.roles.index')->with('items', Role::all());
+        return $this->view('titan::settings.roles.index')->with('items', Role::all());
     }
 
     /**
@@ -29,7 +29,7 @@ class RolesController extends AdminController
      */
     public function create()
     {
-        return $this->view('settings.roles.add_edit');
+        return $this->view('titan::settings.roles.add_edit');
     }
 
     /**
@@ -55,7 +55,7 @@ class RolesController extends AdminController
      */
     public function show(Role $role)
     {
-        return $this->view('settings.roles.show')->with('item', $role);
+        return $this->view('titan::settings.roles.show')->with('item', $role);
     }
 
     /**
@@ -66,7 +66,7 @@ class RolesController extends AdminController
      */
     public function edit(Role $role)
     {
-        return $this->view('settings.roles.add_edit')->with('item', $role);
+        return $this->view('titan::settings.roles.add_edit')->with('item', $role);
     }
 
     /**

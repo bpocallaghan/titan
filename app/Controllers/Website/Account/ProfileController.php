@@ -13,7 +13,7 @@ class ProfileController extends WebsiteController
     {
         $user = user();
 
-        return $this->view('account.profile', compact('user'));
+        return $this->view('titan::account.profile', compact('user'));
     }
 
     /**

@@ -30,7 +30,7 @@ class NewsEventController extends WebsiteController
                 ->render());
         }
 
-        return $this->view('news_events.news_events')->with('paginator', $paginator);
+        return $this->view('titan::news_events.news_events')->with('paginator', $paginator);
     }
 
     /**
@@ -47,6 +47,6 @@ class NewsEventController extends WebsiteController
 
         $this->addBreadcrumbLink($item->title, false);
 
-        return $this->view('news_events.news_event_show')->with('news', $item);
+        return $this->view('titan::news_events.news_event_show')->with('news', $item);
     }
 }

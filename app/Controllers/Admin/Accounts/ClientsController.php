@@ -75,7 +75,7 @@ class ClientsController extends AdminController
         $item = $user;
         $roles = Role::getAllLists();
 
-        return $this->view('accounts.clients.create_edit')
+        return $this->view('titan::accounts.clients.create_edit')
             ->with('item', $user)
             ->with('roles', $roles);
     }

@@ -9,6 +9,6 @@ class DashboardController extends AdminController
 {
 	public function index()
 	{
-		return $this->view('dashboard');
+		return $this->view('titan::dashboard');
 	}
 }

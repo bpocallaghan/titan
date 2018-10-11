@@ -21,7 +21,7 @@ class ArticlesController extends AdminController
         save_resource_url();
         $items = Article::with(['category', 'photos'])->get();
 
-        return $this->view('blog.index', compact('items'));
+        return $this->view('titan::blog.index', compact('items'));
     }
 
     /**
@@ -33,7 +33,7 @@ class ArticlesController extends AdminController
     {
         $categories = ArticleCategory::getAllList();
 
-        return $this->view('blog.create_edit', compact('categories'));
+        return $this->view('titan::blog.create_edit', compact('categories'));
     }
 
     /**
@@ -59,7 +59,7 @@ class ArticlesController extends AdminController
      */
     public function show(Article $article)
     {
-        return $this->view('blog.show')->with('item', $article);
+        return $this->view('titan::blog.show')->with('item', $article);
     }
 
     /**
@@ -72,7 +72,7 @@ class ArticlesController extends AdminController
     {
         $categories = ArticleCategory::getAllList();
 
-        return $this->view('blog.create_edit', compact('categories'))->with('item', $article);
+        return $this->view('titan::blog.create_edit', compact('categories'))->with('item', $article);
     }
 
     /**

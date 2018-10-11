@@ -11,7 +11,7 @@ class ProfileController extends AdminController
 {
     public function index()
     {
-        return $this->view('profile');
+        return $this->view('titan::profile');
     }
 
     /**

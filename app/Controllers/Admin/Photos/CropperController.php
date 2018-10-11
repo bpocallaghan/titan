@@ -24,7 +24,7 @@ class CropperController extends AdminController
      */
     private function showCropper($photoable, Photo $photo)
     {
-        return $this->view('photos.cropper')->with('photoable', $photoable)->with('photo', $photo);
+        return $this->view('titan::photos.cropper')->with('photoable', $photoable)->with('photo', $photo);
     }
 
     /**

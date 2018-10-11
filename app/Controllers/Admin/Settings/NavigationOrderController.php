@@ -16,7 +16,7 @@ class NavigationOrderController extends TitanAdminController
     {
         $html = $this->getNavigationHtml();
 
-        return $this->view('settings.navigation.order')->with('itemsHtml', $html);
+        return $this->view('titan::settings.navigation.order')->with('itemsHtml', $html);
     }
 
     public function updateOrder(Request $request)

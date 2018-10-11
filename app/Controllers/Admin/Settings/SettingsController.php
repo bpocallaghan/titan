@@ -19,7 +19,7 @@ class SettingsController extends AdminController
 	{
 		save_resource_url();
 
-		return $this->view('settings.settings.index')->with('items', Settings::all());
+		return $this->view('titan::settings.settings.index')->with('items', Settings::all());
 	}
 
 	/**
@@ -29,7 +29,7 @@ class SettingsController extends AdminController
 	 */
 	public function create()
 	{
-		return $this->view('settings.settings.create_edit');
+		return $this->view('titan::settings.settings.create_edit');
 	}
 
 	/**
@@ -57,7 +57,7 @@ class SettingsController extends AdminController
 	 */
 	public function show(Settings $setting)
 	{
-		return $this->view('settings.settings.show')->with('item', $setting);
+		return $this->view('titan::settings.settings.show')->with('item', $setting);
 	}
 
 	/**
@@ -68,7 +68,7 @@ class SettingsController extends AdminController
      */
     public function edit(Settings $setting)
 	{
-		return $this->view('settings.settings.create_edit')->with('item', $setting);
+		return $this->view('titan::settings.settings.create_edit')->with('item', $setting);
 	}
 
 	/**

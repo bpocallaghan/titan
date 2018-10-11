@@ -22,7 +22,7 @@ class DocumentsController extends AdminController
         save_resource_url();
         $items = Document::with('documentable')->get();
 
-        return $this->view('documents.index')->with('items', $items);
+        return $this->view('titan::documents.index')->with('items', $items);
     }
 
     /**
@@ -36,7 +36,7 @@ class DocumentsController extends AdminController
     {
         save_resource_url();
 
-        return $this->view('documents.create_edit')
+        return $this->view('titan::documents.create_edit')
             ->with('documentable', $documentable)
             ->with('documents', $documents);
     }

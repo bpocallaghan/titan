@@ -10,6 +10,6 @@ class AboutController extends WebsiteController
 {
 	public function index()
 	{
-        return $this->view('about');
+        return $this->view('titan::about');
 	}
 }

@@ -37,7 +37,7 @@ class OrderController extends TitanAdminController
 
         $itemsHtml = $this->getNavigationHtml($this->defaultParent);
 
-        return $this->view('pages.order', compact('itemsHtml'));
+        return $this->view('titan::pages.order', compact('itemsHtml'));
     }
 
     /**

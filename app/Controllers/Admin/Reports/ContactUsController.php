@@ -20,7 +20,7 @@ class ContactUsController extends TitanAdminController
      */
     public function index()
     {
-        return $this->view('reports.contactus');
+        return $this->view('titan::reports.contactus');
     }
 
     /**

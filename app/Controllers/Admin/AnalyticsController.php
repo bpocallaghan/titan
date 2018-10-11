@@ -8,26 +8,26 @@ class AnalyticsController extends AdminController
 {
     public function summary()
     {
-        return $this->view('analytics.summary');
+        return $this->view('titan::analytics.summary');
     }
 
     public function devices()
     {
-        return $this->view('analytics.devices');
+        return $this->view('titan::analytics.devices');
     }
 
     public function visitsReferrals()
     {
-        return $this->view('analytics.visits_referrals');
+        return $this->view('titan::analytics.visits_referrals');
     }
 
     public function interests()
     {
-        return $this->view('analytics.interests');
+        return $this->view('titan::analytics.interests');
     }
 
     public function demographics()
     {
-        return $this->view('analytics.demographics');
+        return $this->view('titan::analytics.demographics');
     }
 }

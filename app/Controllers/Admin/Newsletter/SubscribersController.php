@@ -19,7 +19,7 @@ class SubscribersController extends AdminController
 	{
 		save_resource_url();
 
-		return $this->view('newsletters.subscribers.index')->with('items', NewsletterSubscriber::all());
+		return $this->view('titan::newsletters.subscribers.index')->with('items', NewsletterSubscriber::all());
 	}
 
 	/**
@@ -29,7 +29,7 @@ class SubscribersController extends AdminController
 	 */
 	public function create()
 	{
-		return $this->view('newsletters.subscribers.create_edit');
+		return $this->view('titan::newsletters.subscribers.create_edit');
 	}
 
 	/**
@@ -54,7 +54,7 @@ class SubscribersController extends AdminController
 	 */
 	public function show(NewsletterSubscriber $subscriber)
 	{
-		return $this->view('newsletters.subscribers.show')->with('item', $subscriber);
+		return $this->view('titan::newsletters.subscribers.show')->with('item', $subscriber);
 	}
 
 	/**
@@ -65,7 +65,7 @@ class SubscribersController extends AdminController
      */
     public function edit(NewsletterSubscriber $subscriber)
 	{
-		return $this->view('newsletters.subscribers.create_edit')->with('item', $subscriber);
+		return $this->view('titan::newsletters.subscribers.create_edit')->with('item', $subscriber);
 	}
 
 	/**

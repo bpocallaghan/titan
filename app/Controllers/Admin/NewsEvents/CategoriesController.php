@@ -19,7 +19,7 @@ class CategoriesController extends AdminController
 	{
 		save_resource_url();
 
-		return $this->view('news_events.categories.index')->with('items', NewsCategory::all());
+		return $this->view('titan::news_events.categories.index')->with('items', NewsCategory::all());
 	}
 
 	/**
@@ -29,7 +29,7 @@ class CategoriesController extends AdminController
 	 */
 	public function create()
 	{
-		return $this->view('news_events.categories.create_edit');
+		return $this->view('titan::news_events.categories.create_edit');
 	}
 
 	/**
@@ -55,7 +55,7 @@ class CategoriesController extends AdminController
 	 */
 	public function show(NewsCategory $category)
 	{
-		return $this->view('news_events.categories.show')->with('item', $category);
+		return $this->view('titan::news_events.categories.show')->with('item', $category);
 	}
 
 	/**
@@ -66,7 +66,7 @@ class CategoriesController extends AdminController
      */
     public function edit(NewsCategory $category)
 	{
-		return $this->view('news_events.categories.create_edit')->with('item', $category);
+		return $this->view('titan::news_events.categories.create_edit')->with('item', $category);
 	}
 
 	/**
