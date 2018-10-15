@@ -85,6 +85,10 @@ class PublishCommand extends Command
             case 'routes':
                 $this->copyRouteProvider();
                 break;
+            case 'public':
+                $this->copyPublic();
+                break;
+
         }
     }
 
@@ -207,6 +211,11 @@ class PublishCommand extends Command
         $this->copyFilesFromSource($source, app_path('Providers'));
 
         $this->line("Remember to add 'App\Providers\HelperServiceProvider::class,' in your 'config/app.php' in 'providers'");
+    }
+
+    private function copyPublic()
+    {
+        $this->copyFilesFromSource($this->basePath . 'public', base_path('public'));
     }
 
     /**
