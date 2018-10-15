@@ -3,6 +3,7 @@
 #### This version is under development.
 I am busy rewriting Titan and the Laravel Starter Project to be more robust and easier to maintain.
 
+A Laravel Website and Admin Framework for your everyday Websites build in Laravel.
 This project is the core framework for [Laravel Starter](https://github.com/bpocallaghan/laravel-admin-starter).
 
 ## Installation
@@ -12,10 +13,34 @@ Update your project's `composer.json` file.
 composer require bpocallaghan/titan
 ```
 
-run command art migrate
- - create all the tables
-run art titan:db:seed
- - seed core tables (roles, users, banners, pages, navigation_admin)
+```bash
+php artisan migrate
+```
+This will create all the tables needed.
+
+```bash
+php artisan titan:publish --files=public
+```
+This will copy all assets to your public directory.
+ - css
+ - js
+ - fonts
+ - sounds
+ - uploads
+ 
+ Update the config/auth.php
+ 'model' => \Bpocallaghan\Titan\Models\User::class,
+
+ ```bash
+php artisan titan:db:seed
+php artisan titan:assets
+```
+This will seed the core tables to get started
+ - roles
+ - users
+ - banners
+ - pages
+ - navigation_admin
 
 ## Commands
 The publish commands are used to copy the files from titan to your own application for customization.

@@ -35,7 +35,6 @@ class TitanServiceProvider extends ServiceProvider
 
         //dump($appPath);
         //dump($migrationsPath);
-        //$this->loadViewsFrom($path, $namespace)
 
         $this->registerCommand(PublishCommand::class, 'publish');
         $this->registerCommand(DatabaseSeedCommand::class, 'db:seed');
