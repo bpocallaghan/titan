@@ -3,7 +3,8 @@
 namespace Bpocallaghan\Titan\Http\Controllers\Admin;
 
 use Bpocallaghan\Titan\Models\NavigationAdmin;
-use Titan\Controllers\Traits\CRUDNotify;
+use Bpocallaghan\Titan\Http\Controllers\TitanController;
+use Bpocallaghan\Titan\Http\Controllers\Traits\CRUDNotify;
 
 class TitanAdminController extends TitanController
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Bpocallaghan\Titan\Controllers\Traits;
+namespace Bpocallaghan\Titan\Http\Controllers\Traits;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
