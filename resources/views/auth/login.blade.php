@@ -4,7 +4,7 @@
     <div class="row mt-4 body">
         <div class="col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-8 col-sm-offset-2">
             <div class="margin-top-20">
-                @include('titan::alert::alert')
+                @include('alert::alert')
             </div>
 
             <h2 class="page-header text-center mb-4">Sign In</h2>

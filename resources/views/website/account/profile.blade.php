@@ -8,7 +8,7 @@
             <div class="body col-sm-7 col-lg-8">
                 @include('titan::website.partials.breadcrumb')
 
-                @include('titan::alert::alert')
+                @include('alert::alert')
 
                 <h2>Update my Information</h2>
 
