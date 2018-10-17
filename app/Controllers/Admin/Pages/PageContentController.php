@@ -50,7 +50,6 @@ class PageContentController extends AdminController
      */
     public function store(Request $request)
     {
-
         if (is_null(request()->file('media'))) {
             $attributes = request()->validate(array_except(PageContent::$rules, 'media'),
                 PageContent::$messages);
@@ -78,7 +77,6 @@ class PageContentController extends AdminController
      */
     public function edit(Page $page, PageContent $content)
     {
-
         return $this->view('titan::pages.components.content')
             ->with('page', $page)
             ->with('item', $content);

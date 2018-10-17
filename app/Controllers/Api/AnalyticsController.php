@@ -4,7 +4,7 @@ namespace Bpocallaghan\Titan\Http\Controllers\Api;
 
 use Analytics;
 use App\Http\Requests;
-use Titan\Controllers\Traits\GoogleAnalyticsHelper;
+use Bpocallaghan\Titan\Http\Controllers\Traits\GoogleAnalyticsHelper;
 
 class AnalyticsController extends ApiController
 {

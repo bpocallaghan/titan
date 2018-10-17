@@ -50,7 +50,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group {{ form_error_class('media_align', $errors) }}">
                                         <label for="media_align">Media Alignment</label>
-                                        {!! form_select('media_align', \App\Models\PageContent::$alignments, ($errors && $errors->any()? old('media_align') : (isset($item)? $item->media_align : 'left')), ['class' => 'select2 form-control']) !!}
+                                        {!! form_select('media_align', ['left'  => 'Left', 'right' => 'Right', 'top'   => 'Top'], ($errors && $errors->any()? old('media_align') : (isset($item)? $item->media_align : 'left')), ['class' => 'select2 form-control']) !!}
                                         {!! form_error_message('media_align', $errors) !!}
                                     </div>
                                 </div>
@@ -81,7 +81,8 @@
                         <div class="form-footer">
                             @if(isset($submit) == false || $submit == true)
                                 <button class="btn btn-labeled btn-primary btn-submit">
-                                    <span class="btn-label"><i class="fa fa-fw fa-save"></i></span>Submit & Continue
+                                    <span class="btn-label"><i class="fa fa-fw fa-save"></i></span>Submit
+                                    & Continue
                                 </button>
                             @endif
 

@@ -7,8 +7,8 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Bpocallaghan\Titan\Models\FeedbackContactUs;
 use Yajra\DataTables\Facades\DataTables;
+use Bpocallaghan\Titan\Http\Controllers\Traits\ReportChartTable;
 use Bpocallaghan\Titan\Http\Controllers\Admin\TitanAdminController;
-use Titan\Controllers\Traits\ReportChartTable;
 
 class ContactUsController extends TitanAdminController
 {

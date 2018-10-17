@@ -44,30 +44,26 @@
                                 <td>{{ $item->roles_string }}</td>
                                 <td>{{ ($item->logged_in_at)? $item->logged_in_at->diffForHumans():'-' }}</td>
                                 <td>
-                                    @if(!config('app.is_preview'))
-                                        <div class="btn-toolbar">
-                                            @if($item->confirmed_at)
-                                                <div class="btn-group">
-                                                    <form id="impersonate-login-form-{{ $item->id }}" action="{{ route('impersonate.login', $item->id) }}" method="post">
-                                                        <input name="_token" type="hidden" value="{{ csrf_token() }}">
-                                                        <a data-form="impersonate-login-form-{{ $item->id }}" class="btn btn-warning btn-xs btn-confirm-modal-row" data-toggle="tooltip" title="Impersonate {{ $item->fullname }}">
-                                                            <i class="fa fa-user-secret"></i>
-                                                        </a>
-                                                    </form>
-                                                </div>
-                                            @endif
-
-                                            {!! action_row($selectedNavigation->url, $item->id, $item->fullname, ['edit', 'delete'], false) !!}
-
+                                    <div class="btn-toolbar">
+                                        @if($item->confirmed_at)
                                             <div class="btn-group">
+                                                <form id="impersonate-login-form-{{ $item->id }}" action="{{ route('impersonate.login', $item->id) }}" method="post">
+                                                    <input name="_token" type="hidden" value="{{ csrf_token() }}">
+                                                    <a data-form="impersonate-login-form-{{ $item->id }}" class="btn btn-warning btn-xs btn-confirm-modal-row" data-toggle="tooltip" title="Impersonate {{ $item->fullname }}">
+                                                        <i class="fa fa-user-secret"></i>
+                                                    </a>
+                                                </form>
+                                            </div>
+                                        @endif
+
+                                        {!! action_row($selectedNavigation->url, $item->id, $item->fullname, ['edit', 'delete'], false) !!}
+
+                                        <div class="btn-group">
                                             <span class="label label-{{ $item->confirmed_at ? 'success':'warning' }}">
                                                 {{ $item->confirmed_at ? 'Confirmed ' . $item->confirmed_at->format('d M Y') : 'Not confirmed yet' }}
                                             </span>
-                                            </div>
                                         </div>
-                                    @else
-                                        <span class="label label-info">No Action (primary user)</span>
-                                    @endif
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach

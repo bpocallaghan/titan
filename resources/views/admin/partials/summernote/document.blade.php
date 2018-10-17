@@ -26,7 +26,9 @@
                         </div>
                         <div class="form-group">
                             <label for="document">Document</label>
-                            {!! form_select('document_id', ([0 => 'Please select a Document'] + $documents), null, ['class' => 'select2 form-control']) !!}
+                            @if(isset($documents))
+                                {!! form_select('document_id', ([0 => 'Please select a Document'] + $documents), null, ['class' => 'select2 form-control']) !!}
+                            @endif
                         </div>
                         <div class="checkbox">
                             <label>

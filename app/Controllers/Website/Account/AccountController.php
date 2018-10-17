@@ -11,10 +11,11 @@ class AccountController extends WebsiteController
 {
 	public function index()
 	{
-	    $faq = FAQ::whereHas('category', function($query) {
-	        return $query->where('name', 'Account');
-        })->orderBy('list_order')->get();
+	    //$faq = FAQ::whereHas('category', function($query) {
+	    //    return $query->where('name', 'Account');
+        //})->orderBy('list_order')->get();
+        // , compact('faq')
 
-		return $this->view('titan::account.account', compact('faq'));
+		return $this->view('titan::account.account');
 	}
 }

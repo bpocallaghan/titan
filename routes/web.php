@@ -197,7 +197,9 @@ Route::group(['middleware' => ['auth', 'auth.admin'], 'prefix' => 'admin', 'name
         Route::group(['prefix' => 'accounts', 'namespace' => 'Accounts'], function () {
             // clients
             Route::post('clients/filter', 'ClientsController@filter');
-            Route::resource('clients', 'ClientsController');
+            Route::resource('clients', 'ClientsController')->parameters([
+                'clients' => 'user'
+            ]);
             Route::post('clients/{user}/notify/forgot-password',
                 'ClientsController@sendResetLinkEmail');
 

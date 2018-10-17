@@ -21,7 +21,7 @@ class NavigationController extends AdminController
     {
         save_resource_url();
 
-        return $this->showIndex('settings.navigation.index');
+        return $this->showIndex('titan::settings.navigation.index');
     }
 
     /**
@@ -150,13 +150,6 @@ class NavigationController extends AdminController
      */
     public function destroy($id, Request $request)
     {
-        // for the showcase - do not delete 'active' pages
-        if (config('app.is_preview')) {
-            notify()->error('Whoops', "Site is in 'preview' mode.");
-
-            return redirect_to_resource();
-        }
-
         $navigation = NavigationAdmin::findOrFail($id);
         $this->deleteEntry($navigation, $request);
 
@@ -166,6 +159,7 @@ class NavigationController extends AdminController
     /**
      * Return the data formatted for the table
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function getTableData()
     {

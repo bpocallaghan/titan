@@ -41,7 +41,7 @@ class ClientsController extends AdminController
 
         save_resource_url();
 
-        return $this->view("accounts.clients.index")->with('paginator', $paginator);
+        return $this->view("titan::accounts.clients.index")->with('paginator', $paginator);
     }
 
     /**
@@ -63,7 +63,7 @@ class ClientsController extends AdminController
      */
     public function show(User $user)
     {
-        return $this->view("accounts.clients.show", compact('user'));
+        return $this->view("titan::accounts.clients.show", compact('user'));
     }
 
     /**

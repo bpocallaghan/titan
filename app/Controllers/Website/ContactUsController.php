@@ -6,7 +6,7 @@ use App\Http\Requests;
 use Illuminate\Http\Request;
 use Bpocallaghan\Titan\Models\FeedbackContactUs;
 use Bpocallaghan\Titan\Events\ContactUsFeedback;
-use Titan\Controllers\Traits\GoogleCaptcha;
+use Bpocallaghan\Titan\Http\Controllers\Traits\GoogleCaptcha;
 
 class ContactUsController extends WebsiteController
 {
