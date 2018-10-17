@@ -6,12 +6,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
         <meta name="author" content="{!! config('app.author') !!}">
         <meta name="keywords" content="{!! config('app.keywords') !!}">
-        <meta name="description" content="{{ $HTMLDescription }}"/>
         <meta name="csrf-token" content="{{ csrf_token() }}">
+        <meta name="description" content="{{ isset($description) ? $description : config('app.description') }}"/>
 
-        @include ('partials.favicons')
+        @include('titan::partials.favicons')
 
-        <title>{{ $HTMLTitle }}</title>
+        <title>{{ isset($title) ? $title : config('app.name') }}</title>
 
         @if(config('app.debug') != 'local')
             <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
@@ -22,7 +22,7 @@
     </head>
 
     <body class="hold-transition skin-blue sidebar-mini">
-        <h1 class="hidden">{{ isset($HTMLTitle) ? $HTMLTitle : config('app.name') }}</h1>
+        <h1 class="hidden d-none">{{ isset($title) ? $title : config('app.name') }}</h1>
 
         <div class="wrapper">
             @include('titan::admin.partials.header')
@@ -60,7 +60,7 @@
             </footer>
         </div>
 
-        @include('titan::notify::notify')
+        @include('notify::notify')
         @include('titan::admin.partials.modals')
 
         <script type="text/javascript" charset="utf-8" src="/js/admin.js?v=1"></script>

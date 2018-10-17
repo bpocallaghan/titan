@@ -11,7 +11,7 @@
 
         @if (isset($navigation[$nav->id]))
             <ul class="treeview-menu">
-                @include ('admin.partials.navigation_list', ['collection' => $navigation[$nav->id]])
+                @include('titan::admin.partials.navigation_list', ['collection' => $navigation[$nav->id]])
             </ul>
         @endif
     </li>

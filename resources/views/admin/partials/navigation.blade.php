@@ -14,7 +14,7 @@
         <nav>
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">NAVIGATION</li>
-                @include ('admin.partials.navigation_list', ['collection' => $navigation['root']])
+                @include('titan::admin.partials.navigation_list', ['collection' => $navigation['root']])
             </ul>
         </nav>
     </section>
