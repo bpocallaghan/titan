@@ -40,6 +40,9 @@ class TitanServiceProvider extends ServiceProvider
         $this->registerCommand(DatabaseSeedCommand::class, 'db:seed');
 
         //dump('TitanServiceProvider');
+
+        // register EventServiceProvider
+        $this->app->register('Bpocallaghan\Titan\Providers\EventServiceProvider');
     }
 
     /**

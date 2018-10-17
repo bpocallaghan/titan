@@ -14,15 +14,15 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         // auth
-        'App\Events\UserRegistered' => [],
+        'Bpocallaghan\Titan\Events\UserRegistered' => [],
 
         // log actions
-        'App\Events\ActivityWasTriggered' => [
-            'App\Listeners\SaveActivity',
+        'Bpocallaghan\Titan\Events\ActivityWasTriggered' => [
+            'Bpocallaghan\Titan\Listeners\SaveActivity',
         ],
-        'App\Events\ContactUsFeedback' => [
-            'App\Listeners\EmailContactUsToClient',
-            'App\Listeners\EmailContactUsToAdmin',
+        'Bpocallaghan\Titan\Events\ContactUsFeedback' => [
+            'Bpocallaghan\Titan\Listeners\EmailContactUsToClient',
+            'Bpocallaghan\Titan\Listeners\EmailContactUsToAdmin',
         ],
     ];
 
