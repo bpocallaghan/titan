@@ -25,13 +25,6 @@
         "php": ">=7.0.0"
     },
     "autoload": {
-        "files": [
-            "app/Helpers/helpers.php",
-            "app/Helpers/view_helpers.php",
-            "app/Helpers/form_helpers.php",
-            "app/Helpers/admin_helpers.php",
-            "app/Helpers/upload_helpers.php"
-        ],
         "classmap": [
             "database/seeds"
         ],
