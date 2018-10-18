@@ -12,6 +12,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use Notifiable, SoftDeletes, UserHelper, UserRoles, UserAdmin;
+
     protected $appends = ['fullname'];
     /**
      * The attributes that are mass assignable.
@@ -50,7 +51,9 @@ class User extends Authenticatable
         'confirmation_token',
         'disabled_at'
     ];
+
     protected $dates = ['confirmed_at', 'deleted_at', 'logged_in_at', 'activated_at'];
+
     /**
      * Validation rules for this model
      */

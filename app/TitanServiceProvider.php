@@ -25,9 +25,6 @@ class TitanServiceProvider extends ServiceProvider
         $migrationsPath = $basePath . "database" . DIRECTORY_SEPARATOR . "migrations";
         $viewsPath = $basePath . "resources" . DIRECTORY_SEPARATOR . "views";
 
-        // map routes
-        $this->mapTitanRoutes();
-
         // load migrations
         $this->loadMigrationsFrom($migrationsPath);
 
@@ -39,10 +36,14 @@ class TitanServiceProvider extends ServiceProvider
         $this->registerCommand(PublishCommand::class, 'publish');
         $this->registerCommand(DatabaseSeedCommand::class, 'db:seed');
 
-        //dump('TitanServiceProvider');
+        // register RouteServiceProvider
+        $this->app->register('Bpocallaghan\Titan\Providers\RouteServiceProvider');
 
         // register EventServiceProvider
         $this->app->register('Bpocallaghan\Titan\Providers\EventServiceProvider');
+
+        // register HelperServiceProvider
+        $this->app->register('Bpocallaghan\Titan\Providers\HelperServiceProvider');
     }
 
     /**
@@ -59,26 +60,5 @@ class TitanServiceProvider extends ServiceProvider
         });
 
         $this->commands($path . $command);
-    }
-
-    /**
-     * Map the titan routes
-     */
-    private function mapTitanRoutes()
-    {
-        $namespace = "Bpocallaghan\\Titan\\Http\\Controllers";
-        // live package
-        $path = base_path("vendor/bpocallaghan/titan/routes/");
-        // developing package
-        $path = base_path("bpocallaghan/titan/routes/");
-
-        Route::middleware('web')
-            ->namespace($namespace)
-            ->group($path . "web.php");
-
-        Route::prefix('api')
-            ->middleware('api')
-            ->namespace($namespace)
-            ->group($path . "api.php");
     }
 }
