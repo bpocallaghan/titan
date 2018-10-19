@@ -11,6 +11,17 @@ use Bpocallaghan\Titan\Commands\DatabaseSeedCommand;
 class TitanServiceProvider extends ServiceProvider
 {
     /**
+     * Register bindings in the container.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        // register RouteServiceProvider
+        $this->app->register('Bpocallaghan\Titan\Providers\RouteServiceProvider');
+    }
+
+    /**
      * Bootstrap the application events.
      *
      * @return void
@@ -30,14 +41,11 @@ class TitanServiceProvider extends ServiceProvider
 
         $this->loadViewsFrom($viewsPath, "titan");
 
-        //dump($appPath);
-        //dump($migrationsPath);
-
         $this->registerCommand(PublishCommand::class, 'publish');
         $this->registerCommand(DatabaseSeedCommand::class, 'db:seed');
 
         // register RouteServiceProvider
-        $this->app->register('Bpocallaghan\Titan\Providers\RouteServiceProvider');
+        //$this->app->register('Bpocallaghan\Titan\Providers\RouteServiceProvider');
 
         // register EventServiceProvider
         $this->app->register('Bpocallaghan\Titan\Providers\EventServiceProvider');

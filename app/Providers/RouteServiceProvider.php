@@ -14,7 +14,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    protected $namespace = 'App\Http\Controllers';
+    protected $namespace = 'Bpocallaghan\Titan\Http\Controllers';
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -35,11 +35,12 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map()
     {
-        $this->mapApiRoutes();
+        $appPath = __DIR__ . DIRECTORY_SEPARATOR;
+        $path = $appPath . ".." . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "routes" . DIRECTORY_SEPARATOR;
 
-        $this->mapWebRoutes();
+        $this->mapApiRoutes($path);
 
-        $this->mapTitanRoutes();
+        $this->mapWebRoutes($path);
 
         //
     }
@@ -51,11 +52,11 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function mapWebRoutes()
+    protected function mapWebRoutes($path)
     {
         Route::middleware('web')
              ->namespace($this->namespace)
-             ->group(base_path('routes/web.php'));
+             ->group($path . ('web.php'));
     }
 
     /**
@@ -65,32 +66,11 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function mapApiRoutes()
+    protected function mapApiRoutes($path)
     {
         Route::prefix('api')
              ->middleware('api')
              ->namespace($this->namespace)
-             ->group(base_path('routes/api.php'));
-    }
-
-    /**
-     * Map the titan routes
-     */
-    protected function mapTitanRoutes()
-    {
-        $namespace = "Bpocallaghan\\Titan\\Http\\Controllers";
-        // live package
-        $path = base_path("vendor/bpocallaghan/titan/routes/");
-        // developing package
-        $path = base_path("bpocallaghan/titan/routes/");
-
-        Route::middleware('web')
-            ->namespace($namespace)
-            ->group($path . "web.php");
-
-        Route::prefix('api')
-            ->middleware('api')
-            ->namespace($namespace)
-            ->group($path . "api.php");
+             ->group($path . ('api.php'));
     }
 }

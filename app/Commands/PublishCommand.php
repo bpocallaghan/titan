@@ -82,13 +82,12 @@ class PublishCommand extends Command
             case 'helpers':
                 $this->copyHelpers();
                 break;
-            case 'routes':
-                $this->copyRouteProvider();
-                break;
             case 'public':
                 $this->copyPublic();
                 break;
-
+            case 'routes':
+                $this->copyRoutesAndProvider();
+                break;
         }
     }
 
@@ -102,6 +101,11 @@ class PublishCommand extends Command
         $this->copyFilesFromSource($this->appPath . 'Models', app_path('Models'));
 
         // copy VIEWS
+        // replace
+        // @include('titan::
+        // @extends('titan::
+        // $this->view('titan::
+
         $source = $this->basePath . "resources" . $this->ds . "views";
         $this->copyFilesFromSource($source, resource_path("views"));
 
@@ -109,22 +113,8 @@ class PublishCommand extends Command
         $this->copyFilesFromSource($this->appPath . "Controllers",
             app_path("Http{$this->ds}Controllers"));
 
-        // copy ROUTES
-        $this->copyFilesFromSource($this->basePath . "routes", base_path("routes"));
-
         // copy RouteServiceProvider
-        $this->copyRouteProvider();
-    }
-
-    /**
-     * Copy the route service provider
-     * The provider will point to routes in the vendor directory
-     */
-    private function copyRouteProvider()
-    {
-        // copy RouteServiceProvider
-        $source = $this->appPath . "Providers{$this->ds}RouteServiceProvider.php";
-        $this->copyFilesFromSource($source, app_path('Providers'));
+        $this->copyRoutesAndProvider();
     }
 
     /**
@@ -170,11 +160,6 @@ class PublishCommand extends Command
         $this->copyFilesFromSource($sourceDatabase . 'seeds', $destinationSeeds, $search, "");
     }
 
-    private function copyDatabaseSeeds()
-    {
-
-    }
-
     /**
      * Copy the events files
      * Copy all events, listeners and notifications
@@ -213,9 +198,26 @@ class PublishCommand extends Command
         $this->line("Remember to add 'App\Providers\HelperServiceProvider::class,' in your 'config/app.php' in 'providers'");
     }
 
+    /**
+     * Copy the public files
+     */
     private function copyPublic()
     {
         $this->copyFilesFromSource($this->basePath . 'public', base_path('public'));
+    }
+
+    /**
+     * Copy the route service provider
+     * The provider will point to routes in the vendor directory
+     */
+    private function copyRoutesAndProvider()
+    {
+        // copy ROUTES
+        $this->copyFilesFromSource($this->basePath . "routes", base_path("routes"));
+
+        // copy RouteServiceProvider
+        $source = $this->appPath . "Providers{$this->ds}RouteServiceProvider.php";
+        $this->copyFilesFromSource($source, app_path('Providers'), "namespace Bpocallaghan\Titan", "namespace App");
     }
 
     /**
