@@ -13,10 +13,11 @@ Update your project's `composer.json` file.
 composer require bpocallaghan/titan
 ```
 
+Remove the `create_users_table` migration file.
 ```bash
 php artisan migrate
 ```
-This will create all the tables needed.
+This will create all the tables needed (including the users table).
 
 ```bash
 php artisan titan:publish --files=public
@@ -28,10 +29,10 @@ This will copy all assets to your public directory.
  - sounds
  - uploads
  
- Update the config/auth.php
+ Update the config/auth.php (Line ~70)
  'model' => \Bpocallaghan\Titan\Models\User::class,
 
- ```bash
+```bash
 php artisan titan:db:seed
 ```
 This will seed the core tables to get started
@@ -40,6 +41,17 @@ This will seed the core tables to get started
  - banners
  - pages
  - navigation_admin
+ 
+Open `routes\web.php` and uncomment the `home` route.
+
+Open `app\Http\Kernel.php` and add the below to the end of `$routeMiddleware` list.
+```php
+'role'       => \Bpocallaghan\Titan\Http\Middleware\ValidateRole::class,
+'auth.admin' => \Bpocallaghan\Titan\Http\Middleware\AuthenticateAdmin::class,
+```
+This is to register the Admin Middlewares 
+- AuthenticateAdmin - If the user logging in has the `admin` role.
+- ValidateRole - Admin users can have multiple roles, filter the navigation on those roles.
 
 ## Commands
 The publish commands are used to copy the files from titan to your own application for customization.
@@ -92,6 +104,9 @@ php artisan titan:publish --files=routes
 This will copy all `routes`, and `RouteServiceProvider` to your application.
 
 ## TODO
+- change create_users migration to alter_users (one less step on installation)
+- move the packages to titan instead of application (speed up installation)
+- update User.php model to extend or include trait for helpers (speed up installation)
 - add titan:publish --type=banner (to copy only banner files to application)
 - create config file (don't load routes, etc)
 
