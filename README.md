@@ -1,11 +1,21 @@
 # Titan
 
-#### This version is under development.
-I am busy rewriting Titan and the Laravel Starter Project to be more robust and easier to maintain.
-
 A Laravel Website and Admin Framework for your everyday Websites build in Laravel.
-This project is the core framework for [Laravel Starter](https://github.com/bpocallaghan/laravel-admin-starter).
+This project is the core framework for [Laravel Starter](https://github.com/bpocallaghan/laravel-admin-starter). Please check this out for the detailed Features list and more.
 
+[Preview project here](http://bpocallaghan.co.za)
+- User: github@bpocallaghan.co.za
+- Password: github
+
+Titan is nicely packaged for you so that you only have to do the following;
+- install laravel
+- composer require titan package
+- *create database
+- *setup virtual host/ host file
+- run titan:install command
+- *open browser
+Then you have your Titan Admin Starter project with all the features ready to start your coding.
+ 
 ## Installation
 Update your project's `composer.json` file.
 

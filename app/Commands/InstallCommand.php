@@ -84,6 +84,22 @@ class InstallCommand extends Command
         $this->filesystem->put(app_path() . "{$this->ds}User.php", $stub);
         $this->info('app\User.php was updated');
 
+        // update config/app.php
+        $path = base_path() . "{$this->ds}config{$this->ds}app.php";
+        $stub = $this->filesystem->get($path);
+        $stub = str_replace('return [', "return [
+        
+    'description' => env('APP_DESCRIPTION', 'App Description'),
+    'author'      => env('APP_AUTHOR', 'App Author'),
+    'keywords'    => env('APP_KEYWORDS', 'laravel'),
+
+    'facebook_id'          => env('FACEBOOK_APP_ID', ''),
+    'recaptcha_public_key' => env('RECAPTCHA_PUBLIC_KEY', ''),
+    'google_analytics'     => env('GOOGLE_ANALYTICS', ''),
+    'google_map_key'       => env('GOOGLE_MAP_KEY', ''),", $stub);
+        $this->filesystem->put($path, $stub);
+        $this->info('config\app.php was updated');
+
         $this->line("User Credentials");
         $this->info("Email: admin@laravel.local");
         $this->info("Password: admin");
