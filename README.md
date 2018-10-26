@@ -14,6 +14,7 @@ Titan is nicely packaged for you so that you only have to do the following;
 - *setup virtual host/ host file
 - run titan:install command
 - *open browser
+
 Then you have your Titan Admin Starter project with all the features ready to start your coding.
  
 ## Installation
@@ -33,6 +34,7 @@ It will do the following:
  - Update `app\User.php`
  - Update `routes\web.php`
  - Update `app\Http\Kernel.php`
+ - Update `app\Http\Handler.php`
  - Update `config\app.php`
  - Update `.env`
 

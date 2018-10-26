@@ -97,6 +97,11 @@ class InstallCommand extends Command
         $this->filesystem->put(app_path() . "{$this->ds}Http{$this->ds}Kernel.php", $stub);
         $this->info('app\Http\Kernel.php was updated');
 
+        // update app/Exceptions/Handler.php
+        $stub = $this->filesystem->get("{$stubsPath}Handler.stub");
+        $this->filesystem->put(app_path() . "{$this->ds}Exceptions{$this->ds}Handler.php", $stub);
+        $this->info('app\Exceptions\Handler.php was updated');
+
         // replace app/User.php (rename namespace)
         $stubsPath = $this->basePath . "stubs{$this->ds}";
         $stub = $this->filesystem->get("{$stubsPath}User.stub");
