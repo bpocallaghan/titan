@@ -2,7 +2,7 @@
 
 namespace Bpocallaghan\Titan\Http\Controllers\Auth;
 
-use Bpocallaghan\Titan\Models\User;
+use App\User;
 use Auth;
 use Carbon\Carbon;
 use Bpocallaghan\Titan\Models\LogLogin;

@@ -6,7 +6,7 @@ use Bpocallaghan\Titan\Http\Controllers\Admin\AdminController;
 use Bpocallaghan\Titan\Mail\AdminInvitRegistration;
 use Bpocallaghan\Titan\Models\Role;
 use Bpocallaghan\Titan\Models\UserInvite;
-use Bpocallaghan\Titan\Models\User;
+use App\User;
 use Bpocallaghan\Titan\Models\UsersInvite;
 use Illuminate\Http\Request;
 use Mail;

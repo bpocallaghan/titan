@@ -2,7 +2,7 @@
 
 namespace Bpocallaghan\Titan\Http\Controllers\Auth;
 
-use Bpocallaghan\Titan\Models\User;
+use App\User;
 use Carbon\Carbon;
 use Bpocallaghan\Titan\Models\UserInvite;
 use Illuminate\Http\Request;

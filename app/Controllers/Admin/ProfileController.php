@@ -3,7 +3,7 @@
 namespace Bpocallaghan\Titan\Http\Controllers\Admin;
 
 use Image;
-use Bpocallaghan\Titan\Models\User;
+use App\User;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 

@@ -4,7 +4,7 @@ namespace Bpocallaghan\Titan\Http\Controllers\Api;
 
 use Bpocallaghan\Titan\Models\LogActivity;
 use Bpocallaghan\Titan\Models\Notification;
-use Bpocallaghan\Titan\Models\User;
+use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;

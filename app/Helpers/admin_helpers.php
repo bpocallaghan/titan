@@ -1,6 +1,6 @@
 <?php
 
-use Bpocallaghan\Titan\Models\User;
+use App\User;
 use Bpocallaghan\Titan\Models\Role;
 
 if (!function_exists('notify_admins')) {

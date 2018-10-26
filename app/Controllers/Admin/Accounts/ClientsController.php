@@ -4,7 +4,7 @@ namespace Bpocallaghan\Titan\Http\Controllers\Admin\Accounts;
 
 use Illuminate\Validation\Rule;
 use Password;
-use Bpocallaghan\Titan\Models\User;
+use App\User;
 use Bpocallaghan\Titan\Models\Role;
 use App\Http\Requests;
 use Illuminate\Http\Request;
