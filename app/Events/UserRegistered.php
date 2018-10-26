@@ -3,7 +3,7 @@
 namespace Bpocallaghan\Titan\Events;
 
 use Bpocallaghan\Titan\Models\UserInvite;
-use Bpocallaghan\Titan\Models\User;
+use App\User;
 use Carbon\Carbon;
 use Bpocallaghan\Titan\Models\Role;
 use Illuminate\Queue\SerializesModels;

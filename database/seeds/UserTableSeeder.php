@@ -1,6 +1,7 @@
 <?php
 namespace Bpocallaghan\Titan\Seeds;
 use App\User;
+use Bpocallaghan\Titan\Commands\InstallCommand;
 use Carbon\Carbon;
 use Bpocallaghan\Titan\Models\Role;
 use Illuminate\Database\Seeder;
@@ -25,9 +26,12 @@ class UserTableSeeder extends Seeder
             'confirmed_at' => Carbon::now()
         ]);
 
-        $this->addAllRolesToUser($user);
+        //-------------------------------------------------
+        // NOTE: WHEN you change the user credentials.
+        // Update InstallCommand.php
+        //-------------------------------------------------
 
-        dump("User: admin@laravel.local | Password: admin");
+        $this->addAllRolesToUser($user);
 
         // dummy users
         /*for ($i = 0; $i < 5; $i++) {

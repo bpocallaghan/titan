@@ -5,6 +5,7 @@ namespace Bpocallaghan\Titan;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use Bpocallaghan\Titan\Commands\InstallCommand;
 use Bpocallaghan\Titan\Commands\PublishCommand;
 use Bpocallaghan\Titan\Commands\DatabaseSeedCommand;
 
@@ -41,6 +42,7 @@ class TitanServiceProvider extends ServiceProvider
 
         $this->loadViewsFrom($viewsPath, "titan");
 
+        $this->registerCommand(InstallCommand::class, 'install');
         $this->registerCommand(PublishCommand::class, 'publish');
         $this->registerCommand(DatabaseSeedCommand::class, 'db:seed');
 
