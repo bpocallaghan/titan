@@ -13,11 +13,10 @@ Update your project's `composer.json` file.
 composer require bpocallaghan/titan
 ```
 
-Remove the `create_users_table` migration file.
 ```bash
 php artisan migrate
 ```
-This will create all the tables needed (including the users table).
+This will create all the tables needed (users table will be altered).
 
 ```bash
 php artisan titan:publish --files=public
@@ -104,7 +103,6 @@ php artisan titan:publish --files=routes
 This will copy all `routes`, and `RouteServiceProvider` to your application.
 
 ## TODO
-- change create_users migration to alter_users (one less step on installation)
 - move the packages to titan instead of application (speed up installation)
 - update User.php model to extend or include trait for helpers (speed up installation)
 - add titan:publish --type=banner (to copy only banner files to application)
