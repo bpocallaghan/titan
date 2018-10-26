@@ -14,22 +14,21 @@ composer require bpocallaghan/titan
 ```
 
 ```bash
+php artisan titan:install
+```
+It will do the following:
+ - `php artisan migrate`
+ - `php artisan titan:db:seed`
+ - `php artisan titan:publish --files=public`
+ - Update `app\User.php`
+ - Update `routes\web.php`
+ - Update `app\Http\Kernel.php`
+
+## Installation steps in Detail
+```bash
 php artisan migrate
 ```
 This will create all the tables needed (users table will be altered).
-
-```bash
-php artisan titan:publish --files=public
-```
-This will copy all assets to your public directory.
- - css
- - js
- - fonts
- - sounds
- - uploads
- 
- Update the config/auth.php (Line ~70)
- 'model' => \Bpocallaghan\Titan\Models\User::class,
 
 ```bash
 php artisan titan:db:seed
@@ -41,6 +40,16 @@ This will seed the core tables to get started
  - pages
  - navigation_admin
  
+```bash
+php artisan titan:publish --files=public
+```
+This will copy all assets to your public directory.
+ - css
+ - js
+ - fonts
+ - sounds
+ - uploads
+
 Open `routes\web.php` and uncomment the `home` route.
 
 Open `app\Http\Kernel.php` and add the below to the end of `$routeMiddleware` list.
@@ -112,3 +121,5 @@ This will copy all `routes`, and `RouteServiceProvider` to your application.
 - *activity
 - *google analytics
 - and more
+
+- install command, prompt for .env attributes (app info, db info, etc)
