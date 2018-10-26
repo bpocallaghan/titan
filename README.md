@@ -33,6 +33,8 @@ It will do the following:
  - Update `app\User.php`
  - Update `routes\web.php`
  - Update `app\Http\Kernel.php`
+ - Update `config\app.php`
+ - Update `.env`
 
 ## Installation steps in Detail
 ```bash
@@ -122,7 +124,6 @@ php artisan titan:publish --files=routes
 This will copy all `routes`, and `RouteServiceProvider` to your application.
 
 ## TODO
-- add php artisan titan:install to setup project 
 - add titan:publish --type=banner (to copy only banner files to application)
 - create config file (don't load routes, etc)
 
@@ -131,5 +132,3 @@ This will copy all `routes`, and `RouteServiceProvider` to your application.
 - *activity
 - *google analytics
 - and more
-
-- install command, prompt for .env attributes (app info, db info, etc)

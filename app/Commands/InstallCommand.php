@@ -52,6 +52,25 @@ class InstallCommand extends Command
         $this->appPath = $this->basePath . "app" . $this->ds;
     }
 
+    private function updateDotEnv($question, $prefix, $default = '')
+    {
+        $answer = $this->ask($question);
+        if(!is_null($answer)) {
+
+            $answer = trim($answer);
+            $quotes = boolval(strpos($answer, " ")) ? '"':'';
+
+            $search = "{$prefix}={$default}";
+            $replace = "{$prefix}={$quotes}{$answer}{$quotes}";
+
+            // update .env
+            $path = base_path() . "{$this->ds}.env";
+            $stub = $this->filesystem->get($path);
+            $stub = str_replace($search, $replace, $stub);
+            $this->filesystem->put($path, $stub);
+        }
+    }
+
     /**
      * Execute the command
      */
@@ -99,6 +118,33 @@ class InstallCommand extends Command
     'google_map_key'       => env('GOOGLE_MAP_KEY', ''),", $stub);
         $this->filesystem->put($path, $stub);
         $this->info('config\app.php was updated');
+
+        $this->line('The following will update your .env file.');
+
+        // add the extra environment variables to .env
+        $path = base_path() . "{$this->ds}.env";
+        $stub = $this->filesystem->get($path);
+        $stub = str_replace("APP_NAME=Laravel", "APP_AUTHOR=
+APP_DESCRIPTION=
+APP_KEYWORDS=
+
+ANALYTICS_VIEW_ID=
+GOOGLE_ANALYTICS=
+FACEBOOK_APP_ID=
+GOOGLE_MAP_KEY=
+RECAPTCHA_PUBLIC_KEY=
+RECAPTCHA_PRIVATE_KEY=
+
+APP_NAME=Laravel", $stub);
+        $this->filesystem->put($path, $stub);
+
+        // prompt to update .env
+        $this->updateDotEnv("What is your APP_NAME?", "APP_NAME", "Laravel");
+        $this->updateDotEnv("What is your APP_DESCRIPTION?", "APP_DESCRIPTION");
+        $this->updateDotEnv("What is your APP_KEYWORDS?", "APP_KEYWORDS");
+        $this->updateDotEnv("What is your APP_AUTHOR?", "APP_AUTHOR");
+
+        $this->info('.env was updated. (Extra environment variables were addted at the top)');
 
         $this->line("User Credentials");
         $this->info("Email: admin@laravel.local");
