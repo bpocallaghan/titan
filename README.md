@@ -126,6 +126,7 @@ php artisan titan:publish --files=routes
 This will copy all `routes`, and `RouteServiceProvider` to your application.
 
 ## TODO
+- install command, remove laravel installed files (auth controllers and views, public/svg)
 - add titan:publish --type=banner (to copy only banner files to application)
 - create config file (don't load routes, etc)
 

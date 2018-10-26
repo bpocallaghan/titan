@@ -23,7 +23,7 @@ class InstallCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Setup Titan in freshly installed Laravel project.';
+    protected $description = 'Setup Titan in a freshly installed Laravel project.';
 
     /**
      * @var Filesystem
@@ -79,6 +79,13 @@ class InstallCommand extends Command
         // php artisan migrate
         $this->call('migrate');
 
+        // replace app/User.php (rename namespace)
+        // User.php needs to be updated before db:seed (user.php helpers)
+        $stubsPath = $this->basePath . "stubs{$this->ds}";
+        $stub = $this->filesystem->get("{$stubsPath}User.stub");
+        $this->filesystem->put(app_path() . "{$this->ds}User.php", $stub);
+        $this->info('app\User.php was updated');
+
         // php artisan titan:db:seed
         $this->call('titan:db:seed');
 
@@ -101,12 +108,6 @@ class InstallCommand extends Command
         $stub = $this->filesystem->get("{$stubsPath}Handler.stub");
         $this->filesystem->put(app_path() . "{$this->ds}Exceptions{$this->ds}Handler.php", $stub);
         $this->info('app\Exceptions\Handler.php was updated');
-
-        // replace app/User.php (rename namespace)
-        $stubsPath = $this->basePath . "stubs{$this->ds}";
-        $stub = $this->filesystem->get("{$stubsPath}User.stub");
-        $this->filesystem->put(app_path() . "{$this->ds}User.php", $stub);
-        $this->info('app\User.php was updated');
 
         // update config/app.php
         $path = base_path() . "{$this->ds}config{$this->ds}app.php";
@@ -148,6 +149,7 @@ APP_NAME=Laravel", $stub);
         $this->updateDotEnv("What is your APP_DESCRIPTION?", "APP_DESCRIPTION");
         $this->updateDotEnv("What is your APP_KEYWORDS?", "APP_KEYWORDS");
         $this->updateDotEnv("What is your APP_AUTHOR?", "APP_AUTHOR");
+        $this->updateDotEnv("What is your APP_URL?", "APP_URL");
 
         $this->info('.env was updated. (Extra environment variables were addted at the top)');
 
