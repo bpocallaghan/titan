@@ -57,6 +57,13 @@ class DatabaseSeedCommand extends Command
     {
         $seed = new DatabaseSeeder();
         $seed->run();
+
+        $this->line("Seeding: RoleTableSeeder");
+        $this->line("Seeding: UserTableSeeder");
+        $this->line("Seeding: BannerTableSeeder");
+        $this->line("Seeding: PageTableSeeder");
+        $this->line("Seeding: NavigationAdminTableSeeder");
+        $this->info("Database seeding completed successfully.");
     }
 
     /**
