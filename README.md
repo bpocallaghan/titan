@@ -103,7 +103,6 @@ php artisan titan:publish --files=routes
 This will copy all `routes`, and `RouteServiceProvider` to your application.
 
 ## TODO
-- move the packages to titan instead of application (speed up installation)
 - update User.php model to extend or include trait for helpers (speed up installation)
 - add titan:publish --type=banner (to copy only banner files to application)
 - create config file (don't load routes, etc)
