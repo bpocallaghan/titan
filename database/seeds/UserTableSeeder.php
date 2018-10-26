@@ -1,6 +1,6 @@
 <?php
 namespace Bpocallaghan\Titan\Seeds;
-use Bpocallaghan\Titan\Models\User;
+use App\User;
 use Carbon\Carbon;
 use Bpocallaghan\Titan\Models\Role;
 use Illuminate\Database\Seeder;
@@ -10,52 +10,24 @@ class UserTableSeeder extends Seeder
     public function run(Faker\Generator $faker = null)
     {
         User::truncate();
-        //DB::delete('TRUNCATE role_user'); //Unnecessary in Laravel 5.6
-
-        //-------------------------------------------------
-        // Ben-Piet
-        //-------------------------------------------------
-        $user = User::create([
-            'firstname'    => 'Ben-Piet',
-            'lastname'     => 'O\'Callaghan',
-            'cellphone'    => '123456789',
-            'email'        => 'bpocallaghan@gmail.com',
-            'gender'       => 'ninja',
-            'password'     => bcrypt('password'),
-            'confirmed_at' => Carbon::now()
-        ]);
-
-        $this->addAllRolesToUser($user);
-
-        //-------------------------------------------------
-        // GitHub
-        //-------------------------------------------------
-        $user = User::create([
-            'firstname'    => 'Github',
-            'lastname'     => 'Administrator',
-            'cellphone'    => '123456789',
-            'email'        => 'github@bpocallaghan.co.za',
-            'gender'       => 'male',
-            'password'     => bcrypt('github'),
-            'confirmed_at' => Carbon::now()
-        ]);
-
-        $this->addAllRolesToUser($user);
+        \DB::delete('TRUNCATE role_user');
 
         //-------------------------------------------------
         // Default Admin
         //-------------------------------------------------
         $user = User::create([
-            'firstname'    => 'Admin',
-            'lastname'     => 'Laravel Starter',
+            'firstname'    => 'Laravel',
+            'lastname'     => 'Admin',
             'cellphone'    => '123456789',
-            'email'        => 'admin@laravel-admin.dev',
-            'gender'       => 'male',
+            'email'        => 'admin@laravel.local',
+            'gender'       => 'ninja',
             'password'     => bcrypt('admin'),
             'confirmed_at' => Carbon::now()
         ]);
 
         $this->addAllRolesToUser($user);
+
+        dump("User: admin@laravel.local | Password: admin");
 
         // dummy users
         /*for ($i = 0; $i < 5; $i++) {
