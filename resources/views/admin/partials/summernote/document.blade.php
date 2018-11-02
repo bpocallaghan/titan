@@ -76,7 +76,7 @@
 
                 // basic validation
                 if (name.val().length >= 2 && url.length > 2) {
-                    addLinkToSummernote("{{ $summernote or '.summernote' }}", name.val(), url, isNewWindow);
+                    addLinkToSummernote("{{ $summernote ?? '.summernote' }}", name.val(), url, isNewWindow);
                 }
 
                 // reset

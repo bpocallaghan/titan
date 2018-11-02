@@ -14,7 +14,7 @@
     @parent
     <script type="text/javascript" charset="utf-8">
         $(function () {
-            pageSummerNote('#content-content', {{ $height or '300' }});
+            pageSummerNote('#content-content', {{ $height ?? '300' }});
 
             function pageSummerNote(selector, height)
             {

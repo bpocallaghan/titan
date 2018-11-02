@@ -16,7 +16,7 @@
                 <section class="form-group {{ form_error_class('email', $errors) }}">
                     <label>Email Address</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" name="email" placeholder="Email" value="{{ $email or old('email') }}">
+                        <input type="text" class="form-control" name="email" placeholder="Email" value="{{ $email ?? old('email') }}">
                         <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
                     </div>
                     {!! form_error_message('email', $errors) !!}
