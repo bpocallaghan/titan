@@ -264,12 +264,3 @@ Route::group(['prefix' => 'ajax', 'namespace' => 'Ajax', 'middleware' => 'web'],
         Route::post('social-media', 'LogsController@socialMedia');
     });
 });
-
-/*
-|--------------------------------------------------------------------------
-| Website Dynamic Pages
-|--------------------------------------------------------------------------
-*/
-Route::group(['namespace' => 'Website'], function () {
-    Route::get('{slug1}/{slug2?}/{slug3?}', 'PagesController@index');
-});

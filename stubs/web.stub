@@ -14,3 +14,72 @@
 //Route::get('/', function () {
 //    return view('welcome');
 //});
+
+/*
+|------------------------------------------
+| Website
+|------------------------------------------
+*/
+Route::group(['namespace' => 'Website'], function () {
+    //Route::get('/', 'HomeController@index');
+});
+
+/*
+|------------------------------------------
+| Website Account
+|------------------------------------------
+*/
+Route::group(['middleware' => ['auth'], 'prefix' => 'account', 'namespace' => 'Website\Account'],
+    function () {
+
+    });
+
+/*
+|------------------------------------------
+| Authenticate User
+|------------------------------------------
+*/
+Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function () {
+    // logout (get or post)
+
+    Route::group(['middleware' => 'guest'], function () {
+        // login
+
+    });
+});
+
+/*
+|------------------------------------------
+| Admin (when authorized and admin)
+|------------------------------------------
+*/
+Route::group(['middleware' => ['auth', 'auth.admin'], 'prefix' => 'admin', 'namespace' => 'Admin'],
+    function () {
+
+    });
+
+/*
+|--------------------------------------------------------------------------
+| AJAX ROUTES
+|--------------------------------------------------------------------------
+*/
+Route::group(['prefix' => 'ajax', 'namespace' => 'Ajax', 'middleware' => 'web'], function () {
+    // logs
+    Route::group(['prefix' => 'log'], function () {
+
+    });
+});
+
+Route::group(['prefix' => 'tests', 'namespace' => 'Tests'], function () {
+    //Route::get('/email/{to?}', 'MailController@index');
+});
+
+/*
+|--------------------------------------------------------------------------
+| Website Dynamic Pages
+| This must be at the end of the file for the admin page builder
+|--------------------------------------------------------------------------
+*/
+Route::group(['namespace' => 'Website'], function () {
+    Route::get('{slug1}/{slug2?}/{slug3?}', 'PagesController@index');
+});
