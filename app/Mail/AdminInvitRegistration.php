@@ -36,6 +36,6 @@ class AdminInvitRegistration extends Mailable
     {
         return $this->to($this->userInvite->email)
             ->subject('Create your Administrator account - ' . config('app.name'))
-            ->markdown('emails.admin.invite');
+            ->markdown('titan::emails.admin.invite');
     }
 }

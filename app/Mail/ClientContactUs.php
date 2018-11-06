@@ -36,6 +36,6 @@ class ClientContactUs extends Mailable
     {
         return $this->subject('Contact Us - ' . config('app.name'))
             ->to($this->contactUs->email, $this->contactUs->fullname)
-            ->markdown('emails.contactus_client');
+            ->markdown('titan::emails.contactus_client');
     }
 }
