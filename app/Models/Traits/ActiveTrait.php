@@ -57,4 +57,16 @@ trait ActiveTrait
         return $query->whereRaw("(active_from IS NULL OR active_from <= '" . Carbon::now() . "')")
             ->whereRaw("(active_to IS NULL OR active_to >= '" . Carbon::now() . "')");
     }
+
+    /**
+     * Add filter to only get the active items based on the dates, if they are set
+     *
+     * @param $query
+     * @return mixed
+     */
+    public function scopeIsActive($query)
+    {
+        return $query->whereRaw("(active_from IS NULL OR active_from <= '" . Carbon::now() . "')")
+            ->whereRaw("(active_to IS NULL OR active_to >= '" . Carbon::now() . "')");
+    }
 }
