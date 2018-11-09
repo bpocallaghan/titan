@@ -22,8 +22,8 @@ class ContactUsController extends WebsiteController
         $attributes = request()->validate(FeedbackContactUs::$rules);
 
         // validate google captcha
-        //$response = $this->validateCaptcha($request);
-        //if ($response->isSuccess()) {
+        $response = $this->validateCaptcha($request);
+        if ($response->isSuccess()) {
 
             $row = FeedbackContactUs::create([
                 'firstname'    => $attributes['firstname'],
@@ -38,8 +38,8 @@ class ContactUsController extends WebsiteController
             event(new ContactUsFeedback($row));
 
             return json_response('Thank you for contacting us.');
-        //}
+        }
 
-        //return $this->captchaResponse($response);
+        return $this->captchaResponse($response);
     }
 }

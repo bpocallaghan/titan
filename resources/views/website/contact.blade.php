@@ -53,13 +53,11 @@
                         </div>
                     </div>
 
-                    @include('titan::website.partials.form.captcha')
-
                     @include('titan::website.partials.form.feedback')
 
                     <div class="row">
                         <div class="col-md-12 mb-5">
-                            <button type="submit" class="btn btn-primary btn-submit">Send
+                            <button id="g-recaptcha" type="submit" class="btn btn-primary btn-submit g-recaptcha">Send
                                 Message
                             </button>
                         </div>
@@ -85,6 +83,8 @@
             </div>
         </div>
     </section>
+
+    @include('titan::website.partials.form.captcha')
 @endsection
 
 @section('scripts')
@@ -92,26 +92,6 @@
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{ config('app.google_map_key') }}"></script>
     <script type="text/javascript" charset="utf-8">
         $(function () {
-            $('#form-contact-us').submit(function () {
-                return submitForm($(this));
-            });
-
-            /**
-             * Helper to submit the forms via ajax
-             * @param form
-             * @returns {boolean}
-             */
-            function submitForm($form)
-            {
-                var inputs = [];
-                if (!FORM.validateForm($form, inputs)) {
-                    return false;
-                }
-
-                FORM.sendFormToServer($form, $form.serialize());
-                return false;
-            }
-
             var map = initGoogleMap('js-map-contact-us', -22.9666717, 14.5019224, 14);
 //            addGoogleMapsMarker(map, -22.6228835, 17.0939617, false);
         });
