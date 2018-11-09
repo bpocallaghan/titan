@@ -7,7 +7,7 @@ use Bpocallaghan\Titan\Models\Page;
 use Bpocallaghan\Titan\Models\Banner;
 use App\Http\Requests;
 
-class WebsiteController extends BaseWebsiteController
+class WebsiteController extends TitanWebsiteController
 {
     protected $showPageBanner = true;
 

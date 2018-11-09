@@ -13,61 +13,13 @@
 
 /*
 |------------------------------------------
-| Localization
-|------------------------------------------
-*/
-Route::get('locale', function () {
-    return \App::getLocale();
-});
-
-Route::get('locale/{locale}', function ($locale) {
-    \Session::put('locale', $locale);
-
-    return redirect()->back();
-});
-
-Route::post('/language-chooser', 'LanguageController@changeLanguage');
-Route::post('/language/', [
-    'before' => 'csrf',
-    'as'     => 'language-chooser',
-    'uses'   => 'LanguageController@changeLanguage'
-]);
-
-/*
-|------------------------------------------
 | Website
 |------------------------------------------
 */
 Route::redirect('/home', '/');
 Route::group(['namespace' => 'Website'], function () {
-    Route::get('/', 'HomeController@index');
-    Route::get('/contact-us', 'ContactUsController@index');
-    Route::post('/contact-us/submit', 'ContactUsController@feedback');
-
-    // gallery
-    Route::get('/gallery', 'GalleryController@index');
-    Route::get('/gallery/{albumSlug}', 'GalleryController@showAlbum');
-
-    // blog / articles
-    Route::get('/blog', 'BlogController@index');
-    Route::get('/blog/{articleSlug}', 'BlogController@show');
-
-    // news and events
-    Route::get('/news-and-events', 'NewsEventController@index');
-    Route::get('/news-and-events/{newsSlug}', 'NewsEventController@show');
+    //Route::get('/', 'HomeController@index');
 });
-
-/*
-|------------------------------------------
-| Website Account
-|------------------------------------------
-*/
-Route::group(['middleware' => ['auth'], 'prefix' => 'account', 'namespace' => 'Website\Account'],
-    function () {
-        Route::get('/', 'AccountController@index')->name('account');
-        Route::get('/profile', 'ProfileController@index')->name('profile');
-        Route::post('/profile', 'ProfileController@update');
-    });
 
 /*
 |------------------------------------------
