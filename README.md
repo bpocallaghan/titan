@@ -87,7 +87,13 @@ php artisan titan:publish --files=events
 php artisan titan:publish --files=helpers
 php artisan titan:publish --files=public
 php artisan titan:publish --files=routes
+php artisan titan:publish --files=website
 ```
+
+```bash
+php artisan titan:publish --files=website
+```
+This will copy all `Website` related files to your application (views, controllers, assets).
 
 ```bash
 php artisan titan:publish --files=app

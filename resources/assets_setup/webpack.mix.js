@@ -75,6 +75,7 @@ if (COMPILE == 'website' || COMPILE == 'all') {
 }
 
 // admin assets
+/* // disabled for titan starter on install
 if (COMPILE == 'admin' || COMPILE == 'all') {
     var path = pathBase + '/admin/';
 
@@ -179,3 +180,4 @@ if (COMPILE == 'admin' || COMPILE == 'all') {
 
     ], public + '/js/admin.js');
 }
+*/

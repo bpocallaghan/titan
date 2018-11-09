@@ -101,22 +101,56 @@ class PublishCommand extends Command
     private function copyAllWebsiteFiles()
     {
         // routes
-        
-        // controllers
-        // copy CONTROLLERS
 
+        // VIEWS
+        $source = "{$this->basePath}resources{$this->ds}views{$this->ds}website";
+        $destination = resource_path("views{$this->ds}website");
+        //$this->copyFilesFromSource($source, $destination);
+
+        // WEBSITE master layout
+        $source = "{$this->basePath}resources{$this->ds}views{$this->ds}layouts{$this->ds}website.blade.php";
+        $destination = resource_path("views{$this->ds}layouts");
+        //$this->copyFilesFromSource($source, $destination);
+
+        // PARTIALS
+        $source = "{$this->basePath}resources{$this->ds}views{$this->ds}partials";
+        $destination = resource_path("views{$this->ds}partials");
+        //$this->copyFilesFromSource($source, $destination);
+
+        // CONTROLLERS
         $source = "{$this->appPath}Controllers{$this->ds}Website";
         $destination = app_path("Http{$this->ds}Controllers{$this->ds}Website");
 
         // copy files and replace namespace and views only
-        $this->copyFilesFromSource($source, $destination, 'namespace_views');
+        //$this->copyFilesFromSource($source, $destination, 'namespace_views');
 
-        // views
-        // events
-        // mails
-        // notifications
-        // assets
+        // EVENTS (todo, admin for now)
+        // MAILS (todo, admin for now)
+        // NOTIFICATIONS (todo, admin for now)
+
+        // ASSETS
+        $source = "{$this->basePath}resources{$this->ds}assets{$this->ds}";
+        $destination = resource_path("assets{$this->ds}");
+        // css
+        $this->copyFilesFromSource("{$source}css", "{$destination}css", false);
+        // fonts
+        $this->copyFilesFromSource("{$source}fonts", "{$destination}fonts", false);
+        // images
+        $this->copyFilesFromSource("{$source}images", "{$destination}images", false);
+        // js
+        $this->copyFilesFromSource("{$source}js", "{$destination}js", false);
+        // sass
+        $this->copyFilesFromSource("{$source}sass", "{$destination}sass", false);
+
         // webpack.js, packages.json
+        $base = $source = $this->basePath . "resources" . $this->ds . "assets_setup" . $this->ds;
+        $source = [
+            $base . "webpack.mix.js",
+            $base . "package.json",
+            $base . "package-lock.json",
+        ];
+        $this->copyFilesFromSource($source, base_path(), false);
+
         // public/assets
     }
 
