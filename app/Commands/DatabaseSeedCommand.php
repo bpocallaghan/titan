@@ -59,15 +59,15 @@ class DatabaseSeedCommand extends Command
         $seed->run();
 
         $this->line("Seeding: RoleTableSeeder");
-        $this->line("Seeding: UserTableSeeder");
+        //$this->line("Seeding: UserTableSeeder");
         $this->line("Seeding: BannerTableSeeder");
         $this->line("Seeding: PageTableSeeder");
         $this->line("Seeding: NavigationAdminTableSeeder");
         $this->info("Database seeding completed successfully.");
 
-        $this->line("User Credentials");
-        $this->info("Email: admin@laravel.local");
-        $this->info("Password: admin");
+        //$this->line("User Credentials");
+        //$this->info("Email: admin@laravel.local");
+        //$this->info("Password: admin");
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace Bpocallaghan\Titan\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Composer;
 use Illuminate\Console\GeneratorCommand;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Collection;
@@ -30,6 +31,11 @@ class SetupCommand extends Command
      */
     private $filesystem;
 
+    /**
+     * @var Composer
+     */
+    protected $composer;
+
     private $appPath;
 
     private $basePath;
@@ -41,11 +47,12 @@ class SetupCommand extends Command
      *
      * @param  \Illuminate\Filesystem\Filesystem $filesystem
      */
-    public function __construct(Filesystem $filesystem)
+    public function __construct(Filesystem $filesystem, Composer $composer)
     {
         parent::__construct();
 
         $this->ds = DIRECTORY_SEPARATOR;
+        $this->composer = $composer;
         $this->filesystem = $filesystem;
 
         $this->basePath = __DIR__ . $this->ds . '..' . $this->ds . '..' . $this->ds;
@@ -104,6 +111,9 @@ class SetupCommand extends Command
     'recaptcha_private_key' => env('RECAPTCHA_PRIVATE_KEY', ''),", $stub);
         $this->filesystem->put($path, $stub);
         $this->info('config\app.php was updated');
+
+        // composer dump autoload
+        //$this->composer->dumpAutoloads();
 
         $this->alert('Setup complete.');
     }

@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
         //\App\Models\Photo::truncate();
 
         $this->call(RoleTableSeeder::class);
-        $this->call(UserTableSeeder::class);
+        //$this->call(UserTableSeeder::class);
 
         $this->call(BannerTableSeeder::class);
 
