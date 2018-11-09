@@ -2,27 +2,44 @@
 
 namespace Bpocallaghan\Titan\Http\Controllers\Website;
 
-use App\Http\Requests;
-use Bpocallaghan\Titan\Models\NavigationWebsite;
-use Titan\Controllers\Traits\BreadcrumbWebsite;
+use Bpocallaghan\Titan\Models\Page;
+use App\Http\Controllers\Controller;
 
-class TitanWebsiteController extends TitanController
+class TitanWebsiteController extends Controller
 {
-    use BreadcrumbWebsite;
-
     protected $baseViewPath = 'website.';
 
-    protected $baseViewSubPath = '';
+    // html meta headers
+    protected $pageTitle = "";
 
-    protected $pageTitle;
+    protected $title = "";
 
-    protected $breadcrumb = '';
+    protected $description = "";
+
+    protected $image = '/images/share.jpg';
+
+    protected $parentPages = [];
+
+    protected $urlParentPages = [];
+
+    protected $page = false;
+
+    protected $navigation = [];
+
+    protected $breadcrumbItems = [];
 
     function __construct()
     {
-        $this->setSelectedNavigation();
+        $this->findCurrentPage();
 
-        $this->generateBreadcrumb();
+        $this->setPageBreadcrumb();
+
+        // as soon as controller is ready -  get the navigation
+        $this->middleware(function ($request, $next) {
+            $this->navigation = Page::getHeaderNavigation();
+
+            return $next($request);
+        });
     }
 
     /**
@@ -31,182 +48,196 @@ class TitanWebsiteController extends TitanController
      */
     protected function getPageTitle()
     {
-        return (strlen($this->pageTitle) < 2 ? $this->selectedNavigation['html_title'] : $this->pageTitle);
+        return (strlen($this->pageTitle) < 2 ? $this->page['title'] : $this->pageTitle);
     }
 
     /**
-     * Return / Render the view
-     * @param       $view
-     * @param array $data
-     * @return $this
-     */
-    protected function view($view, $data = [])
-    {
-        return view($this->baseViewPath . $this->baseViewSubPath . $view, $data)
-            ->with('HTMLTitle', $this->getTitle())
-            ->with('HTMLDescription', $this->getDescription())
-            ->with('HTMLImage', $this->getImage())
-            ->with('navigation', $this->generateNavigation())
-            ->with('breadcrumb', $this->breadcrumbHTML())
-            ->with('pageTitle', $this->getPageTitle())
-            ->with('selectedNavigation', $this->selectedNavigation);
-    }
-
-    /**
-     * Get the html title (check for crud reserve word)
+     * Get the HTML Title
      * @return string
      */
     protected function getTitle()
     {
-        $navigation = array_reverse($this->urlParentNavs);
+        $navigation = array_reverse($this->urlParentPages);
         $this->title = strlen($this->title) > 5 ? $this->title . ' - ' : '';
 
         foreach ($navigation as $key => $nav) {
-            $this->title .= $nav['html_title'] . ($key + 1 < count($navigation) ? ' - ' : '');
+            $this->title .= $nav['title'] . ($key + 1 < count($navigation) ? ' - ' : '');
         }
 
-        return parent::getTitle();
+        return trim($this->title . (strlen($this->title) < 2 ? '' : ' | ') . config('app.name'));
     }
 
     /**
-     * Get the html title (check for crud reserve word)
+     * Get the HTML Description
      * @return string
      */
     protected function getDescription()
     {
         // this just allows the controller to overide the description
         if (strlen($this->description) <= 5) {
-            $this->description = $this->selectedNavigation['html_description'];
+            $this->description = $this->page['description'];
         }
 
-        return parent::getDescription();
+        return trim($this->description . (strlen($this->description) < 2 ? '' : ' | ') . config('app.description'));
+    }
+
+    /**
+     * Get the HTML Share Image
+     *
+     * @return string
+     */
+    protected function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Return / Render the view
+     *
+     * @param            $path
+     * @param array      $data
+     * @return $this
+     */
+    protected function view($path, $data = [])
+    {
+        $view = $this->baseViewPath . $path;
+        // if view has package name (dont prefix)
+        //if(strpos($path, "::") !== false) {
+        //    $view = $path;
+        //}
+
+        // explode on package prefix
+        // format view path
+        $pieces = explode("::", $path);
+        if (count($pieces) >= 2) {
+            $view = $pieces[0] . "::";
+            $view .= $this->baseViewPath . $pieces[1];
+        }
+
+        return view($view, $data)
+            ->with('image', $this->getImage())
+            ->with('title', $this->getTitle())
+            ->with('description', $this->getDescription())
+            ->with('pageTitle', $this->getPageTitle())
+            ->with('page', $this->page)//->with('navigation', $this->navigation)
+            ->with('activeParents', $this->urlParentPages)
+            ->with('breadcrumbItems', $this->breadcrumbItems)
+            ->with('navigation', $this->navigation);
+    }
+
+    /**
+     * Get the slug from the url (url inside website)
+     *
+     * @param string $prefix
+     * @return string
+     */
+    protected function getCurrentUrl($prefix = '/')
+    {
+        //$url = substr(request()->url(), strlen(config('app.url')));
+        // prefix (request can be http://xx and app.url is https)
+        $url = request()->path();
+        $url = $prefix . ltrim($url, $prefix);
+
+        return $url;
+    }
+
+    /**
+     * Explode the url into slug pieces
+     *
+     * @return array
+     */
+    protected function getCurrentUrlSections()
+    {
+        return explode('/', $this->getCurrentUrl());
     }
 
     /**
      * Get the selected navigation
      * @return mixed
      */
-    protected function setSelectedNavigation()
+    protected function findCurrentPage()
     {
         $url = $this->getCurrentUrl();
         $sections = $this->getCurrentUrlSections();
 
         // laravel removes last / get home / dashboard
         if ($url === false) {
-            $nav = NavigationWebsite::where('slug', '/')->get()->first();
+            $page = Page::where('slug', '/')->get()->first();
         }
         else {
             // find nav with url - get last (parent can have same url)
-            $nav = NavigationWebsite::where('url', $url)
+            $page = Page::where('url', $url)
                 ->orderBy('is_hidden', 'DESC')
                 ->orderBy('url_parent_id')
-                ->orderBy('list_main_order')
+                ->orderBy('header_order')
                 ->get()
                 ->last();
         }
 
         // we assume some params / reserved word is at the end
-        if (!$nav && strlen($url) > 2) {
+        if (!$page && strlen($url) > 2) {
             // keep cutting off from url until we find him in the db
             foreach ($sections as $key => $slug) {
                 $url = substr($url, 0, strripos($url, '/'));
 
                 // find nav with url - get last (parent can have same url)
-                $nav = NavigationWebsite::whereUrl($url)->get()->last();
-                if ($nav) {
+                $page = Page::whereUrl($url)->get()->last();
+                if ($page) {
                     break;
                 }
             }
         }
 
         // when nothing - fall back to home
-        if (!$nav) {
-            $nav = NavigationWebsite::find(1);
-            if (config('app.env') == 'local' && !$nav) {
-                dd('Whoops. Navigation not found - please see if url is in database (navigation_website)');
+        if (!$page) {
+            $page = Page::find(1);
+            if (config('app.env') == 'local' && !$page) {
+                dd('Whoops. Page not found - please see if url is in the pages table');
             }
         }
 
         // set the selected navigation
-        $this->selectedNavigation = $nav;
+        $this->page = $page;
 
         // get all navigations -> ON parent_id
-        $this->parentNavs = $nav->getParentsAndYou();
+        $this->parentPages = $page->getParentsAndYou();
 
         // get all navigations -> ON url_parent_id
-        $this->urlParentNavs = $nav->getUrlParentsAndYou();
+        $this->urlParentPages = $page->getUrlParentsAndYou();
 
-        return $this->selectedNavigation;
+        $this->page->increment('views');
+
+        return $this->page;
     }
 
     /**
-     * Generate the Main Navigation's HTML + show Active
-     * @return string
+     * Init and Generate the website's breadcrumb nav bar
      */
-    protected function generateNavigation()
+    private function setPageBreadcrumb()
     {
-        $html = '';
-        $navigation = NavigationWebsite::mainNavigation();
+        $this->breadcrumbItems = collect();
+        $this->addBreadcrumbLink('Home', '/', 'home');
 
-        foreach ($navigation as $key => $nav) {
+        $prevTitle = 'Home';
+        foreach ($this->parentPages as $k => $page) {
 
-            $active = (array_search_value($nav->id, $this->urlParentNavs) ? 'active ' : '');
+            if ($page->title != $prevTitle) {
+                $url = (is_slug_url($page->slug) ? $page->slug : url($page->url));
+                $this->addBreadcrumbLink($page->title, $url);
+            }
 
-            $children = $this->generateNavigationChildren($nav);
-
-            $link = (strlen($children) < 2 ? url($nav->url) : '#');
-            $childrenClass = (strlen($children) < 2 ? '' : ' dropdown ');
-            $childrenClassAnchor = (strlen($children) < 2 ? '' : ' class="dropdown-toggle" data-toggle="dropdown" ');
-
-            $html .= '<li class="' . $active . $childrenClass . '"><a href="' . $link . '" ' . $childrenClassAnchor . '>';
-            $html .= $nav->title;
-            $html .= (strlen($children) < 2 ? '' : ' <b class="caret"></b>');
-            $html .= '</a>' . $children . '</li>';
+            $prevTitle = $page->title;
         }
-
-        return $html;
     }
 
     /**
-     * Recursive generate the menu for all the children of given $nav
-     * @param $parent
-     * @return string
+     * Add a link to the breadcrumb
+     * @param        $title
+     * @param        $url
+     * @param string $class
      */
-    private function generateNavigationChildren($parent)
+    public function addBreadcrumbLink($title, $url, $class = '')
     {
-        $html = '';
-        $navigation = NavigationWebsite::whereParentIdORM($parent->id);
-
-        $html .= '<ul class="dropdown-menu">';
-        foreach ($navigation as $key => $nav) {
-
-            $url = (is_slug_url($nav->slug) ? $nav->slug : url($nav->url));
-            $children = NavigationWebsite::whereParentIdORM($nav->id);
-
-            $html .= '<li>';
-            $html .= '<a tabindex="-1" href="' . (count($children) > 0 ? '#' : $url) . '">' . $nav->title . '</a>';
-
-            // if children
-            if (count($children) > 0) {
-                $html .= '<ul>';
-            }
-
-            foreach ($children as $c => $child) {
-                $url = (is_slug_url($child->slug) ? $child->slug : url($child->url));
-
-                $html .= '<li><a tabindex="-1" href="' . $url . '">' . $child->title . '</a></li>';
-            }
-
-            // if children
-            if (count($children) > 0) {
-                $html .= '</ul>';
-            }
-
-            $html .= '</li>';
-        }
-
-        $html .= '</ul>';
-
-        return (count($navigation) > 0 ? $html : '');
+        $this->breadcrumbItems->push((object) ['name' => $title, 'url' => $url, 'class' => $class]);
     }
 }

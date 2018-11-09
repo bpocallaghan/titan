@@ -88,7 +88,36 @@ class PublishCommand extends Command
             case 'routes':
                 $this->copyRoutesAndProvider();
                 break;
+            case 'website':
+                $this->copyAllWebsiteFiles();
+                break;
         }
+    }
+
+    /**
+     * Cope all front end related files
+     * Website routes, controllers, views, assets, webpack
+     */
+    private function copyAllWebsiteFiles()
+    {
+        // routes
+        
+        // controllers
+        // copy CONTROLLERS
+
+        $source = "{$this->appPath}Controllers{$this->ds}Website";
+        $destination = app_path("Http{$this->ds}Controllers{$this->ds}Website");
+
+        // copy files and replace namespace and views only
+        $this->copyFilesFromSource($source, $destination, 'namespace_views');
+
+        // views
+        // events
+        // mails
+        // notifications
+        // assets
+        // webpack.js, packages.json
+        // public/assets
     }
 
     /**
@@ -228,8 +257,32 @@ class PublishCommand extends Command
      * @param string $replace
      * @param bool   $allFolders
      */
-    private function copyFilesFromSource($source, $destination, $search = 'Bpocallaghan\Titan', $replace = "App", $allFolders = true)
+    private function copyFilesFromSource($source, $destination, $search = true, $replace = true, $allFolders = true)
     {
+        // search and replace the default
+        if($search === true && $replace === true) {
+            $search = [
+                'Bpocallaghan\Titan',
+                "('titan::"
+            ];
+            $replace = [
+                "App",
+                "('"
+            ];
+        }
+
+        // search and replace namespace prefix and views prefix
+        if($search === 'namespace_views' && $replace === true) {
+            $search = [
+                'namespace Bpocallaghan\Titan',
+                "('titan::"
+            ];
+            $replace = [
+                "namespace App",
+                "('"
+            ];
+        }
+        
         // destination
         $destination = $this->formatFilePath($destination . $this->ds);
 
