@@ -12,6 +12,7 @@ Titan is nicely packaged for you so that you only have to do the following;
 - composer require titan package
 - *create database
 - *setup virtual host/ host file
+- run titan:setup command
 - run titan:install command
 - *open browser
 
@@ -27,6 +28,7 @@ composer require bpocallaghan/titan
 ```bash
 php artisan titan:setup
 ```
+It will do the following:
  - `php artisan titan:publish --files=website`
  - Update `app\User.php`
  - Update `routes\web.php`
