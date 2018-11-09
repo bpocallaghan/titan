@@ -25,18 +25,22 @@ composer require bpocallaghan/titan
 ```
 
 ```bash
-php artisan titan:install
+php artisan titan:setup
 ```
-It will do the following:
- - `php artisan migrate`
- - `php artisan titan:db:seed`
- - `php artisan titan:publish --files=public`
+ - `php artisan titan:publish --files=website`
  - Update `app\User.php`
  - Update `routes\web.php`
  - Update `app\Http\Kernel.php`
  - Update `app\Http\Handler.php`
  - Update `config\app.php`
+ 
+```bash
+php artisan titan:install
+```
+It will do the following:
  - Update `.env`
+ - `php artisan migrate`
+ - `php artisan titan:db:seed`
 
 ## Installation steps in Detail
 ```bash
@@ -49,21 +53,18 @@ php artisan titan:db:seed
 ```
 This will seed the core tables to get started
  - roles
- - users
  - banners
  - pages
  - navigation_admin
  
-```bash
-php artisan titan:publish --files=public
-```
-This will copy all assets to your public directory.
- - css
- - js
- - fonts
- - sounds
- - uploads
-
+ ```bash
+ php artisan titan:publish --files=website
+ ```
+ This will copy all `Website` related files to your application.
+ - views, controllers and database seeds
+ - webpack.mix.js and packages.json
+ - resource/assets and public/assets (css, js, fonts, images)
+ 
 Open `routes\web.php` and uncomment the `home` route.
 
 Open `app\Http\Kernel.php` and add the below to the end of `$routeMiddleware` list.
