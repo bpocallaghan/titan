@@ -91,6 +91,11 @@ class PublishCommand extends Command
             case 'website':
                 $this->copyAllWebsiteFiles();
                 break;
+
+            // COPY COMPONENTS
+            case 'newsletter':
+                $this->copyNewsletter();
+                break;
         }
     }
 
@@ -288,6 +293,31 @@ class PublishCommand extends Command
         // copy RouteServiceProvider
         $source = $this->appPath . "Providers{$this->ds}RouteServiceProvider.php";
         $this->copyFilesFromSource($source, app_path('Providers'), "namespace Bpocallaghan\Titan", "namespace App");
+    }
+
+    /**
+     * Copy all newsletter related files to application
+     */
+    private function copyNewsletter()
+    {
+        // models
+        $source =  "{$this->appPath}Models{$this->ds}NewsletterSubscriber.php";
+        $this->copyFilesFromSource($source, app_path("Models"), 'namespace_views');
+
+        // controllers
+        $destination = app_path("Http{$this->ds}Controllers{$this->ds}Admin{$this->ds}Newsletter");
+        $source = "{$this->appPath}Controllers{$this->ds}Admin{$this->ds}Newsletter{$this->ds}SubscribersController.php";
+        $this->copyFilesFromSource($source, $destination, 'namespace_views');
+
+        // views
+        $destination = base_path("resources{$this->ds}views{$this->ds}admin{$this->ds}newsletters");
+        $source = "{$this->basePath}resources{$this->ds}views{$this->ds}admin{$this->ds}newsletters";
+        $this->copyFilesFromSource($source, $destination);
+
+        // migrations
+        $source = "{$this->basePath}database{$this->ds}migrations{$this->ds}2017_10_01_181435_create_newsletter_subscribers_table.php";
+        $this->copyFilesFromSource($source, database_path("migrations"));
+
     }
 
     /**
