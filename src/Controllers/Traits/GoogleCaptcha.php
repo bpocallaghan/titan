@@ -19,7 +19,7 @@ trait GoogleCaptcha
     private function validateCaptcha(Request $request)
     {
         // validate google captcha
-        $recaptcha = new ReCaptcha(env('RECAPTCHA_PRIVATE_KEY'));
+        $recaptcha = new ReCaptcha(config('app.recaptcha_private_key'));
         $response = $recaptcha->verify(input('g-recaptcha-response'), $request->getClientIp());
 
         return $response;
