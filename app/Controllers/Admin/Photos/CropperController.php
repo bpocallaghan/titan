@@ -91,6 +91,14 @@ class CropperController extends AdminController
         $width = intval(input('width'));
         $height = intval(input('height'));
 
+        // generate new name (bypass cache)
+        $photo->update([
+            'filename' => token() . "{$photo->extension}"
+        ]);
+
+        // save original image with new name
+        $originalImage->save($path . $photo->original_filename);
+
         // crop image on cropped area
         $imageTmp = $originalImage->crop($width, $height, $x, $y);
 
