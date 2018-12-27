@@ -151,6 +151,10 @@
                     if (response.error) {
                         notifyError(response.error.title, response.error.content);
                     } else {
+                        setTimeout(function() {
+                            location.reload();
+                        }, 1500)
+
                         notify('Cropped', 'The photo was successfully cropped.', 'success', 'fa fa-smile-o bounce animated', 5000);
                     }
                 });
