@@ -43,6 +43,13 @@ It will do the following:
  - Update `.env`
  - `php artisan migrate`
  - `php artisan titan:db:seed`
+ 
+ ```bash
+ (Optional)
+ php artisan vendor:publish --tag=laravel-notifications
+ ```
+ It will publish the mail blade files to your project for you to edit.
+ 
 
 ## Installation steps in Detail
 ```bash
