@@ -64,6 +64,14 @@ class CropResourceController extends AdminController
         $width = intval(input('width'));
         $height = intval(input('height'));
 
+        // generate new name (bypass cache)
+        $photoable->update([
+            'image' => token() . "{$photoable->extension}"
+        ]);
+
+        // save original image with new name
+        $originalImage->save($path . $photoable->original_filename);
+
         // crop image on cropped area
         $imageTmp = $originalImage->crop($width, $height, $x, $y);
 

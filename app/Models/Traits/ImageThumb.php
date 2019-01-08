@@ -14,6 +14,30 @@ trait ImageThumb
      * Get the thumb path (append -tn at the end)
      * @return mixed
      */
+    public function getThumbAttribute()
+    {
+        return $this->appendBeforeExtension(self::$thumbAppend);
+    }
+
+    /**
+     * Get the thumb path (append -tn at the end)
+     * @return mixed
+     * original is reserved (original modal data)
+     */
+    public function getOriginalFilenameAttribute()
+    {
+        return $this->appendBeforeExtension(self::$originalAppend);
+    }
+
+    public function getExtensionAttribute()
+    {
+        return substr($this->filename, strpos($this->filename, '.'));
+    }
+
+    /**
+     * Get the thumb path (append -tn at the end)
+     * @return mixed
+     */
     public function getImageThumbAttribute()
     {
         return $this->appendBeforeExtension(self::$thumbAppend);
