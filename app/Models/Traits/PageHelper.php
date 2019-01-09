@@ -243,13 +243,15 @@ trait PageHelper
         // about
         $items = Page::with('parent')
             ->where('is_hidden', 0)
-            ->whereIn('parent_id', [14])
-            ->orderBy('header_order')
+            ->where('is_footer', 1)
+            ->orderBy('footer_order')
             ->select('id', 'icon', 'name', 'title', 'description', 'slug', 'url', 'parent_id')
             ->get();
 
         $items = $items->groupBy(function ($item) {
-            return $item->parent->name;
+            if($item->parent != null ){
+                return $item->parent->name;
+            }
         });
 
         return $items;
