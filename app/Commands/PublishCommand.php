@@ -96,6 +96,11 @@ class PublishCommand extends Command
             case 'newsletter':
                 $this->copyNewsletter();
                 break;
+
+            // COPY AUTH FILES
+            case 'auth':
+                $this->copyAuthFiles();
+                break;
         }
     }
 
@@ -318,6 +323,22 @@ class PublishCommand extends Command
         $source = "{$this->basePath}database{$this->ds}migrations{$this->ds}2017_10_01_181435_create_newsletter_subscribers_table.php";
         $this->copyFilesFromSource($source, database_path("migrations"));
 
+    }
+
+    /**
+     * Copy all auth related files to application
+     */
+    private function copyAuthFiles()
+    {
+
+        // controllers
+        $this->copyFilesFromSource($this->appPath . "Controllers{$this->ds}Auth",
+            app_path("Http{$this->ds}Controllers{$this->ds}Auth"));
+
+        // views
+        $destination = base_path("resources{$this->ds}views{$this->ds}auth");
+        $source = "{$this->basePath}resources{$this->ds}views{$this->ds}auth";
+        $this->copyFilesFromSource($source, $destination);
     }
 
     /**
