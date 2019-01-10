@@ -330,6 +330,9 @@ class PublishCommand extends Command
      */
     private function copyAuthFiles()
     {
+        // models
+        $source =  "{$this->appPath}Models{$this->ds}UserInvite.php";
+        $this->copyFilesFromSource($source, app_path("Models"), 'namespace_views');
 
         // controllers
         $this->copyFilesFromSource($this->appPath . "Controllers{$this->ds}Auth",
