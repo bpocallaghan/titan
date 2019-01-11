@@ -67,3 +67,38 @@ if (!function_exists('photo_url')) {
         return config('app.url') . '/uploads/photos/' . $name;
     }
 }
+
+/**
+ * Fetch the website settings from session or database
+ */
+if (!function_exists('settings')) {
+
+    /**
+     * @param bool $forceNew
+     * @return \Illuminate\Session\SessionManager|\Illuminate\Session\Store|mixed
+     */
+    function settings($forceNew = false)
+    {
+        if (!$forceNew) {
+            // fetch settings from session
+            if (session()->has("titan.settings")) {
+                return session("titan.settings");
+            }
+        }
+
+        // fetch settings or create if not exist
+        $settings = \Bpocallaghan\Titan\Models\Settings::find(1);
+        if (is_null($settings)) {
+            $settings = \Bpocallaghan\Titan\Models\Settings::create([
+                'name'        => config('app.name'),
+                'description' => config('app.description'),
+                'author'      => config('app.author'),
+                'keywords'    => config('app.keywords'),
+            ]);
+        }
+
+        session()->put("titan.settings", $settings);
+
+        return $settings;
+    }
+}

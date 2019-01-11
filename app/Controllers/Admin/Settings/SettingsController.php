@@ -84,6 +84,8 @@ class SettingsController extends AdminController
 
         $setting = $this->updateEntry($setting, $attributes);
 
+        settings(true); // save new settings in session
+
         log_activity('Setting Updated', 'A Setting was successfully updated', $setting);
 
         return redirect_to_resource();

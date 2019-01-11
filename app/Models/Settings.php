@@ -9,9 +9,8 @@ use Bpocallaghan\Titan\Models\TitanCMSModel;
  * Class Setting
  * @mixin \Eloquent
  */
-class Settings extends TitanCMSModel
+class Settings extends Model
 {
-
     protected $table = 'settings';
 
     protected $guarded = ['id'];
