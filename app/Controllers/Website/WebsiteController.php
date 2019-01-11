@@ -48,6 +48,8 @@ class WebsiteController extends TitanWebsiteController
      */
     protected function view($view, $data = [])
     {
+        $settings = Settings::find(1);
+
         return parent::view($view, $data)//->with('navigationLeft', $this->navigationLeft)
             //->with('navigationRight', $this->navigationRight)
             ->with('footerNavigation', $this->footerNavigation)
@@ -55,6 +57,7 @@ class WebsiteController extends TitanWebsiteController
             ->with('popularPages', $this->popularPages)
             ->with('activePageTiers', $this->activePageTiers)
             ->with('banners', $this->getBanners())
+            ->with('settings', $settings)
             ->with('showPageBanner', $this->showPageBanner);
     }
 
