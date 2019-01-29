@@ -73,6 +73,9 @@ class PublishCommand extends Command
             case 'assets':
                 $this->copyAssets();
                 break;
+            case 'config':
+                $this->copyConfig();
+                break;
             case 'database':
                 $this->copyDatabase();
                 break;
@@ -215,6 +218,16 @@ class PublishCommand extends Command
             $base . "package-lock.json",
         ];
         $this->copyFilesFromSource($source, base_path(), false);
+    }
+
+    /**
+     * Copy the config file
+     */
+    private function copyConfig()
+    {
+        // copy config
+        $this->filesystem->copy($this->basePath . "config/config.php", config_path('titan.php'));
+        $this->line("Config Copied: " . config_path('titan.php'));
     }
 
     /**

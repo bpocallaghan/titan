@@ -92,6 +92,7 @@ For example, you need to add or change a field in a table or update text or desi
 ```bash
 php artisan titan:publish --files=app
 php artisan titan:publish --files=assets
+php artisan titan:publish --files=config
 php artisan titan:publish --files=database
 php artisan titan:publish --files=events
 php artisan titan:publish --files=helpers
@@ -115,6 +116,12 @@ This will also copy all `routes` and `RouteServiceProvider` to your application.
 php artisan titan:publish --files=assets
 ```
 This will copy all `assets (css, js, fonts, images)` and `webpack.js, package.json` to your application.
+
+```bash
+php artisan titan:publish --files=config
+```
+This will copy the config file of titan to your application.
+You can change the admin skin (blue, red, green, etc)
 
 ```bash
 php artisan titan:publish --files=database

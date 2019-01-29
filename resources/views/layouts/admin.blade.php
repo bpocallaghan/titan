@@ -21,7 +21,7 @@
         @yield('styles')
     </head>
 
-    <body class="hold-transition skin-blue sidebar-mini">
+    <body class="hold-transition skin-{{ config('titan.admin_skin') }} sidebar-mini">
         <h1 class="hidden d-none">{{ isset($title) ? $title : config('app.name') }}</h1>
 
         <div class="wrapper">
