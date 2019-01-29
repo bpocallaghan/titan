@@ -38,6 +38,10 @@ class TitanServiceProvider extends ServiceProvider
         $migrationsPath = $basePath . "database" . DIRECTORY_SEPARATOR . "migrations";
         $viewsPath = $basePath . "resources" . DIRECTORY_SEPARATOR . "views";
 
+        // merge config
+        $configPath = $basePath . '/config/config.php';
+        $this->mergeConfigFrom($configPath, 'titan');
+
         // load migrations
         $this->loadMigrationsFrom($migrationsPath);
 
