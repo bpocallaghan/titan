@@ -13,11 +13,12 @@
 
         <title>{{ isset($title) ? $title : config('app.name') }}</title>
 
-        @if(config('app.debug') != 'local')
+        @if(config('titan.admin_fonts'))
             <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
         @endif
 
         <link rel="stylesheet" href="/css/admin.css?v=1">
+
         @yield('styles')
     </head>
 
@@ -72,7 +73,7 @@
 
         @yield('scripts')
 
-        @if(config('app.env') != 'local')
+        @if(config('titan.admin_google_analytics'))
             @include('titan::partials.analytics')
         @endif
     </body>
