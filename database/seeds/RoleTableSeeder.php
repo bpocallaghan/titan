@@ -33,12 +33,28 @@ class RoleTableSeeder extends Seeder
             'keyword' => 'base_admin',
         ]);
 
-        // super
+        // admin
         Role::create([
             'icon'    => 'user-secret',
             'name'    => 'Admin',
             'slug'    => '/admin',
             'keyword' => 'admin',
+        ]);
+
+        // admin_super
+        Role::create([
+            'icon'    => 'user-secret',
+            'name'    => 'Admin',
+            'slug'    => '/admin',
+            'keyword' => 'admin_super',
+        ]);
+
+        // admin_notify
+        Role::create([
+            'icon'    => 'comments',
+            'name'    => 'Admin Notifications',
+            'slug'    => '/admin',
+            'keyword' => 'admin_notify',
         ]);
 
         // developer
