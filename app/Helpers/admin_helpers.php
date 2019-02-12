@@ -20,3 +20,13 @@ if (!function_exists('notify_admins')) {
         }
     }
 }
+
+if (!function_exists('notify_users_by_role')) {
+    function notify_users_by_role($class, $argument, $role = "admin")
+    {
+        $users = User::whereRole($role)->get();
+        foreach ($users as $k => $user) {
+            $user->notify(new $class($argument));
+        }
+    }
+}
