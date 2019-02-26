@@ -25,6 +25,9 @@ class TitanAdminController extends TitanController
         $this->middleware(function ($request, $next) {
             $this->navigation = NavigationAdmin::getAllByParentGrouped();
 
+            $this->setPagecrumb();
+            $this->setBreadcrumb();
+
             return $next($request);
         });
     }
@@ -59,80 +62,79 @@ class TitanAdminController extends TitanController
      */
     protected function view($view, $data = [])
     {
-        $this->breadcrumb = $this->getBreadCrumb();
-        $this->pagecrumb = $this->getPageCrumb();
-
         return parent::view($view, $data)
-            ->with('navigation', $this->navigation)
-            ->with('selectedNavigationParents', $this->urlParentNavs)
-            ->with('breadcrumb', $this->breadcrumb)
-            ->with('pagecrumb', $this->pagecrumb)
             ->with('resource', $this->resource)
-            ->with('selectedNavigation', $this->selectedNavigation);
+            ->with('navigation', $this->navigation)
+            ->with('pagecrumbItems', $this->pagecrumbItems)
+            ->with('breadcrumbItems', $this->breadcrumbItems)
+            ->with('selectedNavigation', $this->selectedNavigation)
+            ->with('selectedNavigationParents', $this->urlParentNavs);
     }
 
     /**
      * Generate the breadcrumbs
-     * TODO: check for reserved words and some parent links are only for show (not
-     * clickable)
-     *
      * @return string
      */
-    protected function getBreadCrumb()
+    protected function setBreadcrumb()
     {
-        $navigation = $this->urlParentNavs;
         $url = config('app.url');
-        $html = '<ol class="breadcrumb">';
+        $navItems = $this->urlParentNavs;
 
-        // for dashboard, only add home
-        if (count($navigation) == 1 && $navigation[0]->title == 'Dashboard') {
-            $html .= '<li><a href="' . $url . '"><i class="fa fa-home"></i> Dashboard</a></li>';
-        }
-        else {
-            foreach ($navigation as $key => $nav) {
-                $html .= '<li>';
-                $icon = (strlen($nav->icon) > 2 ? '<i class="fa fa-' . $nav->icon . '"></i> ' : '');
-                $html .= '<a href="' . url($nav->url) . '">' . $icon . '' . $nav->title . '</a>';
-                $html .= '</li>';
-            }
+        $this->breadcrumbItems = collect();
 
-            // TODO: show edit / create, etc icon ?
-            if ($word = $this->checkIfReservedWordInUrl()) {
-                $html .= '<li>';
-                $html .= ucfirst($word);
-                $html .= '</li>';
-            };
+        // add nav items
+        foreach ($navItems as $k => $page) {
+            $this->addBreadcrumbLink($page->title, $page->url, $page->icon);
         }
 
-        return $html . '</ol>';
+        // reserved word (create, edit, show)
+        if ($word = $this->checkIfReservedWordInUrl()) {
+            $this->addBreadcrumbLink(ucfirst($word));
+        }
     }
 
-    public function getPageCrumb()
+    /**
+     * Add bread crumb items
+     * @param        $name
+     * @param string $url
+     * @param string $icon
+     */
+    public function addBreadcrumbLink($name, $url = '', $icon = '')
     {
-        $navigation = $this->urlParentNavs;
-        $html = '<h1>';
+        $this->breadcrumbItems->push((object) ['name' => $name, 'url' => $url, 'icon' => $icon]);
+    }
 
-        // for dashboard, only add home
-        if (count($navigation) == 1 && $navigation[0]->title == 'Dashboard') {
-            $html .= '<i class="fa fa-home"></i> Dashboard';
-        }
-        else {
-            //foreach ($navigation as $key => $nav) {
-            //    $html .= '<li>';
-            //    $html .= '<i class="fa fa-' . $nav->icon . '"></i> ' . $nav->title;
-            //    $html .= '</li>';
-            //}
-            $html .= '<i class="fa fa-' . $this->selectedNavigation->icon . '"></i> ' . $this->selectedNavigation->title;
+    /**
+     * Set page crumbs
+     */
+    public function setPagecrumb()
+    {
+        $url = config('app.url');
+        $navItems = $this->urlParentNavs;
 
-            // TODO: show edit / create, etc icon ?
-            if ($word = $this->checkIfReservedWordInUrl()) {
-                $html .= '<small>';
-                $html .= ucfirst($word);
-                $html .= '</small>';
-            };
+        $this->pagecrumbItems = collect();
+
+        // add nav item
+        if ($this->selectedNavigation) {
+            $this->addPagecrumbLink($this->selectedNavigation->title,
+                $this->selectedNavigation->url, $this->selectedNavigation->icon);
         }
 
-        return $html . '</h1>';
+        // reserved word (create, edit, show)
+        if ($word = $this->checkIfReservedWordInUrl()) {
+            $this->addPagecrumbLink(ucfirst($word));
+        }
+    }
+
+    /**
+     * Add page crumb items
+     * @param        $name
+     * @param string $url
+     * @param string $icon
+     */
+    public function addPagecrumbLink($name, $url = '', $icon = '')
+    {
+        $this->pagecrumbItems->push((object) ['name' => $name, 'url' => $url, 'icon' => $icon]);
     }
 
     /**

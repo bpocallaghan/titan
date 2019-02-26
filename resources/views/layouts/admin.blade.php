@@ -33,9 +33,9 @@
             <div class="content-wrapper">
                 <h2 class="hidden">Breadcrumb</h2>
                 <section class="content-header">
-                    {!! $pagecrumb !!}
+                    @include('titan::admin.partials.pagecrumb')
 
-                    {!! $breadcrumb !!}
+                    @include('titan::admin.partials.breadcrumb')
                 </section>
 
                 <section class="content">
