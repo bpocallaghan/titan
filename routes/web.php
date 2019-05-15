@@ -108,9 +108,7 @@ Route::group(['middleware' => ['auth', 'auth.admin'], 'prefix' => 'admin', 'name
 
         // blog
         Route::group(['prefix' => 'blog', 'namespace' => 'Blog'], function () {
-            Route::get('/', function () {
-                return redirect('/admin/blog/articles');
-            });
+            Route::redirect('/', '/admin/blog/articles');
             Route::resource('categories', 'CategoriesController');
             Route::resource('articles', 'ArticlesController');
         });
