@@ -19,6 +19,14 @@ class TitanServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // merge config on register (before routes file)
+        $appPath = __DIR__ . DIRECTORY_SEPARATOR;
+        $basePath = $appPath . ".." . DIRECTORY_SEPARATOR;
+
+        // merge config
+        $configPath = $basePath . '/config/config.php';
+        $this->mergeConfigFrom($configPath, 'titan');
+
         // register RouteServiceProvider
         $this->app->register('Bpocallaghan\Titan\Providers\RouteServiceProvider');
     }
@@ -39,8 +47,8 @@ class TitanServiceProvider extends ServiceProvider
         $viewsPath = $basePath . "resources" . DIRECTORY_SEPARATOR . "views";
 
         // merge config
-        $configPath = $basePath . '/config/config.php';
-        $this->mergeConfigFrom($configPath, 'titan');
+        //$configPath = $basePath . '/config/config.php';
+        //$this->mergeConfigFrom($configPath, 'titan');
 
         // load migrations
         $this->loadMigrationsFrom($migrationsPath);
