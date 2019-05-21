@@ -96,6 +96,14 @@ Route::group(['middleware' => ['auth', 'auth.admin'], 'prefix' => 'admin', 'name
                 Route::post('testimonials/order', 'OrderController@updateOrder');
                 Route::resource('testimonials', 'TestimonialsController');
             });
+
+            // faq
+            Route::group(['namespace' => 'FAQ'], function () {
+                Route::resource('/faqs/categories', 'CategoriesController');
+                Route::get('faqs/order', 'OrderController@index');
+                Route::post('faqs/order', 'OrderController@updateOrder');
+                Route::resource('/faqs', 'FAQsController');
+            });
         });
 
         // pages order
