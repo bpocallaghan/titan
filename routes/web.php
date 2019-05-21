@@ -89,6 +89,13 @@ Route::group(['middleware' => ['auth', 'auth.admin'], 'prefix' => 'admin', 'name
             Route::get('/banners/order', 'BannersOrderController@index');
             Route::post('/banners/order', 'BannersOrderController@update');
             Route::resource('banners', 'BannersController');
+
+            // testimonials
+            Route::group(['namespace' => 'Testimonials'], function () {
+                Route::get('testimonials/order', 'OrderController@index');
+                Route::post('testimonials/order', 'OrderController@updateOrder');
+                Route::resource('testimonials', 'TestimonialsController');
+            });
         });
 
         // pages order
