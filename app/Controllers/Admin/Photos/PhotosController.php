@@ -2,6 +2,7 @@
 
 namespace Bpocallaghan\Titan\Http\Controllers\Admin\Photos;
 
+use Bpocallaghan\Titan\Models\Product;
 use Image;
 use Redirect;
 use Bpocallaghan\Titan\Models\News;
@@ -74,6 +75,16 @@ class PhotosController extends AdminController
     public function showArticlePhotos(Article $article)
     {
         return $this->showPhotoable($article, $article->photos);
+    }
+
+    /**
+     * Show the article's photos
+     * @param Product $product
+     * @return mixed
+     */
+    public function showProductPhotos(Product $product)
+    {
+        return $this->showPhotoable($product, $product->photos);
     }
 
     /**

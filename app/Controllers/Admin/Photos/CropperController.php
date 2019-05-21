@@ -58,6 +58,17 @@ class CropperController extends AdminController
     }
 
     /**
+     * @param Product $product
+     * @param Photo   $photo
+     * @return this
+     */
+    public function showProductPhoto(Product $product, Photo $photo)
+    {
+        return $this->showCropper($product, $photo);
+    }
+
+
+    /**
      * Crop a photo
      * @param Photo $photo
      * @return \Illuminate\Http\JsonResponse
