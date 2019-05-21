@@ -134,6 +134,22 @@ Route::group(['middleware' => ['auth', 'auth.admin'], 'prefix' => 'admin', 'name
             Route::resource('categories', 'CategoriesController');
         });
 
+        // shop / products
+        Route::group(['prefix' => 'shop', 'namespace' => 'Shop'], function () {
+            Route::get('categories/order', 'CategoriesOrderController@index');
+            Route::post('categories/order', 'CategoriesOrderController@updateListOrder');
+            Route::resource('categories', 'CategoriesController');
+            Route::resource('products', 'ProductsController');
+            Route::resource('status', 'StatusesController');
+
+            Route::get('checkouts', 'CheckoutsController@index');
+            Route::get('checkouts/{checkout}', 'CheckoutsController@show');
+            Route::get('transactions', 'TransactionsController@index');
+            Route::get('transactions/{transaction}', 'TransactionsController@show');
+            Route::get('transactions/{transaction}/print/{format?}', 'TransactionsController@printOrder');
+            Route::post('transactions/{transaction}/status', 'TransactionsController@updateStatus');
+        });
+
         // gallery / photos
         Route::group(['prefix' => 'photos', 'namespace' => 'Photos'], function () {
             Route::get('/', 'PhotosController@index');
@@ -145,6 +161,7 @@ Route::group(['middleware' => ['auth', 'auth.admin'], 'prefix' => 'admin', 'name
             // photoables
             Route::get('/news/{news}', 'PhotosController@showNewsPhotos');
             Route::get('/articles/{article}', 'PhotosController@showArticlePhotos');
+            Route::get('/products/{product}', 'PhotosController@showProductPhotos');
 
             Route::resource('/albums', 'AlbumsController', ['except' => 'show']);
             Route::get('/albums/{album}', 'PhotosController@showAlbumPhotos');
@@ -153,6 +170,7 @@ Route::group(['middleware' => ['auth', 'auth.admin'], 'prefix' => 'admin', 'name
             Route::post('/crop/{photo}', 'CropperController@cropPhoto');
             Route::get('/news/{news}/crop/{photo}', 'CropperController@showNewsPhoto');
             Route::get('/albums/{album}/crop/{photo}', 'CropperController@showAlbumsPhoto');
+            Route::get('/products/{product}/crop/{photo}', 'CropperController@showProductPhoto');
             Route::get('/articles/{article}/crop/{photo}', 'CropperController@showArticlesPhoto');
 
             // resource image crop
