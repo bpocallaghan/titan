@@ -34,7 +34,7 @@ return [
     */
 
     'routes' => [
-        // 'auth',
+        'auth',
         'admin',
         'ajax',
     ],
