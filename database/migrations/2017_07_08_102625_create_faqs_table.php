@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTestimonialsTable extends Migration
+class CreateFaqsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +12,16 @@ class CreateTestimonialsTable extends Migration
      */
     public function up()
     {
-        Schema::create('testimonials', function (Blueprint $table) {
+        Schema::create('faqs', function (Blueprint $table) {
             $table->increments('id')->unique()->index();
-            $table->string('customer');
-            $table->string('link')->nullable();
-            $table->string('image')->nullable();
-            $table->text('description');
-            $table->unsignedInteger('list_order')->default(999);
+            $table->string('question')->index();
+            $table->string('slug')->index();
+            $table->text('answer');
+            $table->unsignedBigInteger('total_read')->default(0);
+            $table->unsignedBigInteger('helpful_yes')->default(0);
+            $table->unsignedBigInteger('helpful_no')->default(0);
+            $table->unsignedBigInteger('category_id')->index();
+            $table->unsignedBigInteger('list_order')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->integer('created_by')->unsigned();
@@ -34,6 +37,6 @@ class CreateTestimonialsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('testimonials');
+        Schema::drop('faqs');
     }
 }
