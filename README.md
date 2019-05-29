@@ -46,7 +46,10 @@ It will do the following:
  
  ```bash
  (Optional)
+ Mail Layout
  php artisan vendor:publish --tag=laravel-notifications
+ Mail Component
+ php artisan vendor:publish --tag=laravel-mail
  ```
  It will publish the mail blade files to your project for you to edit.
  

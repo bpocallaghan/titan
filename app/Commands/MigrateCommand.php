@@ -98,6 +98,15 @@ class MigrateCommand extends Command
                     $sourceBase . "2017_07_08_094112_create_faq_categories_table.php",
                 ];
                 break;
+            case 'locations':
+                $source = [
+                    $sourceBase . "2018_07_17_084120_create_suburbs_table.php",
+                    $sourceBase . "2018_07_17_114058_create_cities_table.php",
+                    $sourceBase . "2018_07_17_124039_create_provinces_table.php",
+                    $sourceBase . "2018_07_17_183710_create_countries_table.php",
+                    $sourceBase . "2018_07_17_202746_create_continents_table.php",
+                ];
+                break;
             case 'news':
                 $source = [
                     $sourceBase . "2017_09_25_175125_create_news_table.php",

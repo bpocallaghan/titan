@@ -235,6 +235,15 @@ Route::group(['middleware' => ['auth', 'auth.admin'], 'prefix' => 'admin', 'name
             Route::post('navigation/order', 'NavigationOrderController@updateOrder');
             Route::get('navigation/datatable', 'NavigationController@getTableData');
             Route::resource('navigation', 'NavigationController');
+
+            // locations
+            Route::group(['prefix' => 'locations', 'namespace' => 'Locations'], function () {
+                Route::resource('cities', 'CitiesController');
+                Route::resource('suburbs', 'SuburbsController');
+                Route::resource('provinces', 'ProvincesController');
+                Route::resource('countries', 'CountriesController');
+                Route::resource('continents', 'ContinentsController');
+            });
         });
     });
 
