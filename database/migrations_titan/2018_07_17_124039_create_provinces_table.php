@@ -14,7 +14,7 @@ class CreateProvincesTable extends Migration
     {
         Schema::create('provinces', function (Blueprint $table) {
             $table->increments('id')->unique()->index();
-            $table->string('title');
+            $table->string('name');
             $table->string('slug');
             $table->smallInteger('zoom_level')->nullable();
             $table->string('latitude', '50')->nullable();

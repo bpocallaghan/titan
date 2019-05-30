@@ -5,14 +5,11 @@ namespace Bpocallaghan\Titan\Http\Controllers\Admin\Settings\Locations;
 use Redirect;
 use App\Http\Requests;
 use Illuminate\Http\Request;
-use Bpocallaghan\Titan\Models\City;
-use Bpocallaghan\Titan\Models\Suburb;
 use Bpocallaghan\Titan\Models\Country;
 use Bpocallaghan\Titan\Models\Province;
-use Bpocallaghan\Titan\Models\Continent;
 use Bpocallaghan\Titan\Http\Controllers\Admin\AdminController;
 
-class ProvincesController extends TitanAdminController
+class ProvincesController extends AdminController
 {
     /**
      * Display a listing of province.

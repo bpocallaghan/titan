@@ -6,13 +6,10 @@ use Redirect;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Bpocallaghan\Titan\Models\City;
-use Bpocallaghan\Titan\Models\Suburb;
-use Bpocallaghan\Titan\Models\Country;
 use Bpocallaghan\Titan\Models\Province;
-use Bpocallaghan\Titan\Models\Continent;
 use Bpocallaghan\Titan\Http\Controllers\Admin\AdminController;
 
-class CitiesController extends TitanAdminController
+class CitiesController extends AdminController
 {
     /**
      * Display a listing of city.
