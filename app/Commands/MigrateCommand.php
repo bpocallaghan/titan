@@ -92,6 +92,11 @@ class MigrateCommand extends Command
                     $sourceBase . "2017_07_10_152224_create_article_categories_table.php",
                 ];
                 break;
+            case 'documents':
+                $source = [
+                    $sourceBase . "2017_10_20_100622_create_document_categories_table.php",
+                ];
+                break;
             case 'faq':
                 $source = [
                     $sourceBase . "2017_07_08_102625_create_faqs_table.php",
@@ -124,14 +129,9 @@ class MigrateCommand extends Command
                     $sourceBase . "2017_09_26_090011_create_photo_tag_pivot_table.php",
                 ];
                 break;
-            case 'testimonial':
+            case 'testimonials':
                 $source = [
                     $sourceBase . "2017_06_20_114920_create_testimonials_table.php",
-                ];
-                break;
-            case 'documents':
-                $source = [
-                    $sourceBase . "2017_10_20_100622_create_document_categories_table.php",
                 ];
                 break;
             case 'shop':

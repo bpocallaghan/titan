@@ -14,6 +14,7 @@ Titan is nicely packaged for you so that you only have to do the following;
 - *setup virtual host/ host file
 - run titan:setup command
 - run titan:install command
+- run titan:migrate command (optional)
 - *open browser
 
 Then you have your Titan Admin Starter project with all the features ready to start your coding.
@@ -45,6 +46,13 @@ It will do the following:
  - `php artisan titan:db:seed`
  
  ```bash
+ php artisan titan:migrate --name=
+ ```
+ It will do the following:
+  - Specify the 'table types' you would like to migrate
+  - `blog, documents, faq, locations, news, nesletter_subscribers, photos, testimonials, shop`
+ 
+ ```bash
  (Optional)
  Mail Layout
  php artisan vendor:publish --tag=laravel-notifications
@@ -58,7 +66,7 @@ It will do the following:
 ```bash
 php artisan migrate
 ```
-This will create all the tables needed (users table will be altered).
+This will create the 'core/minimum' tables needed (users table will be altered). You can run `php artisan migrate --name=blog` to include the migration tables.
 
 ```bash
 php artisan titan:db:seed
