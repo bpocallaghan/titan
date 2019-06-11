@@ -67,7 +67,6 @@ class CropperController extends AdminController
         return $this->showCropper($product, $photo);
     }
 
-
     /**
      * Crop a photo
      * @param Photo $photo
