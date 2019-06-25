@@ -35,4 +35,26 @@ trait Photoable
     {
         return $this->morphMany(Photo::class, 'photoable');
     }
+
+    /**
+     * Scope filter to only allow where has photos
+     *
+     * @param $query
+     * @return mixed
+     */
+    public function scopeHasCoverPhoto($query)
+    {
+        return $query->whereHas('photos');
+    }
+
+    /**
+     * Scope filter to only allow where has photos
+     *
+     * @param $query
+     * @return mixed
+     */
+    public function scopeHasPhotos($query)
+    {
+        return $query->whereHas('photos');
+    }
 }
