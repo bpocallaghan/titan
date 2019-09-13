@@ -36,7 +36,7 @@ class Transaction extends TitanCMSModel
      */
     private function getUniqueReference()
     {
-        $random = strtoupper(str_random(3));
+        $random = strtoupper(\Illuminate\Support\Str::random(3));
         $token = "SHOP-{$random}-{$this->order_number}";
         if (self::where('reference', $token)->first()) {
             return $this->getUniqueReference();

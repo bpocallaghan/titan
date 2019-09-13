@@ -59,7 +59,7 @@ trait SlugUniqueModels
      */
     private function makeSlugUnique($slug)
     {
-        $slug = str_slug($slug);
+        $slug = \Illuminate\Support\Str::slug($slug);
 
         // check updating
         $slugUpdate = $this->checkUpdatingSlug($slug);

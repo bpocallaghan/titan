@@ -87,7 +87,7 @@ class Page extends TitanCMSModel
      */
     public function banners()
     {
-        return $this->belongsToMany(Banner::class)->active()->orderBy('list_order');
+        return $this->belongsToMany(Banner::class)->active()->orderBy('created_at', 'DESC');
     }
 
     /**

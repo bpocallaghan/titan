@@ -7,7 +7,7 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">
                         <span><i class="fa fa-users"></i></span>
-                        <span>List All {{ ucfirst(str_plural($resource)) }}</span>
+                        <span>List All {{ ucfirst(\Illuminate\Support\Str::plural($resource)) }}</span>
                     </h3>
                 </div>
 
