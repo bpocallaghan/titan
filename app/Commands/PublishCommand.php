@@ -98,13 +98,14 @@ class PublishCommand extends Command
                 break;
 
             // COPY COMPONENTS
+            case 'auth':
+                $this->copyAuthFiles();
+                break;
             case 'newsletter':
                 $this->copyNewsletter();
                 break;
-
-            // COPY AUTH FILES
-            case 'auth':
-                $this->copyAuthFiles();
+            case 'products':
+                $this->copyProducts();
                 break;
         }
     }
@@ -316,6 +317,25 @@ class PublishCommand extends Command
     }
 
     /**
+     * Copy all auth related files to application
+     */
+    private function copyAuthFiles()
+    {
+        // models
+        $source =  "{$this->appPath}Models{$this->ds}UserInvite.php";
+        $this->copyFilesFromSource($source, app_path("Models"), 'namespace_views');
+
+        // controllers
+        $this->copyFilesFromSource($this->appPath . "Controllers{$this->ds}Auth",
+            app_path("Http{$this->ds}Controllers{$this->ds}Auth"));
+
+        // views
+        $destination = base_path("resources{$this->ds}views{$this->ds}auth");
+        $source = "{$this->basePath}resources{$this->ds}views{$this->ds}auth";
+        $this->copyFilesFromSource($source, $destination);
+    }
+
+    /**
      * Copy all newsletter related files to application
      */
     private function copyNewsletter()
@@ -337,25 +357,63 @@ class PublishCommand extends Command
         // migrations
         $source = "{$this->basePath}database{$this->ds}migrations{$this->ds}2017_10_01_181435_create_newsletter_subscribers_table.php";
         $this->copyFilesFromSource($source, database_path("migrations"));
-
     }
 
-    /**
-     * Copy all auth related files to application
-     */
-    private function copyAuthFiles()
+    public function copyProducts()
     {
+        // migrations
+        $base = "{$this->basePath}database{$this->ds}migrations_titan{$this->ds}";
+        $source = [
+            $base . "2019_05_21_090404_create_product_categories_table.php",
+            $base . "2019_05_21_095926_create_product_statuses_table.php",
+            $base . "2019_05_21_112451_create_products_table.php",
+        ];
+        //$this->copyFilesFromSource($source, database_path("migrations"));
+
         // models
-        $source =  "{$this->appPath}Models{$this->ds}UserInvite.php";
-        $this->copyFilesFromSource($source, app_path("Models"), 'namespace_views');
+        $base = "{$this->appPath}Models{$this->ds}";
+        $source = [
+            $base . "Product.php",
+            $base . "ProductStatus.php",
+            $base . "ProductCategory.php",
+        ];
+        //$this->copyFilesFromSource($source, app_path("Models"), 'namespace_views');
 
         // controllers
-        $this->copyFilesFromSource($this->appPath . "Controllers{$this->ds}Auth",
-            app_path("Http{$this->ds}Controllers{$this->ds}Auth"));
+        $destination = app_path("Http{$this->ds}Controllers{$this->ds}Admin{$this->ds}Products");
+        $base = "{$this->appPath}Controllers{$this->ds}Admin{$this->ds}Shop{$this->ds}";
+        $source = [
+            $base . "ProductsController.php",
+            $base . "StatusesController.php",
+            $base . "CategoriesController.php",
+            $base . "CategoriesOrderController.php",
+        ];
+        //$this->copyFilesFromSource($source, $destination, 'namespace_views');
 
         // views
-        $destination = base_path("resources{$this->ds}views{$this->ds}auth");
-        $source = "{$this->basePath}resources{$this->ds}views{$this->ds}auth";
+        $destination = base_path("resources{$this->ds}views{$this->ds}admin{$this->ds}products");
+        $base = "{$this->basePath}resources{$this->ds}views{$this->ds}admin{$this->ds}shop{$this->ds}";
+        $source = [
+            //$base . "product_list.blade.php",
+            $base . "products{$this->ds}index.blade.php",
+            $base . "products{$this->ds}show.blade.php",
+            $base . "products{$this->ds}create_edit.blade.php",
+        ];
+        $this->copyFilesFromSource($source, $destination);
+
+        $destination = base_path("resources{$this->ds}views{$this->ds}admin{$this->ds}products{$this->ds}statuses");
+        $source = [
+            $base . "statuses{$this->ds}index.blade.php",
+            $base . "statuses{$this->ds}create_edit.blade.php",
+        ];
+        $this->copyFilesFromSource($source, $destination);
+
+        $destination = base_path("resources{$this->ds}views{$this->ds}admin{$this->ds}products{$this->ds}categories");
+        $source = [
+            $base . "categories{$this->ds}index.blade.php",
+            $base . "categories{$this->ds}order.blade.php",
+            $base . "categories{$this->ds}create_edit.blade.php",
+        ];
         $this->copyFilesFromSource($source, $destination);
     }
 
