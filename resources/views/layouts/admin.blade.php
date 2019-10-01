@@ -13,15 +13,16 @@
 
         <title>{{ isset($title) ? $title : config('app.name') }}</title>
 
-        @if(config('app.debug') != 'local')
+        @if(config('titan.admin_fonts'))
             <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
         @endif
 
         <link rel="stylesheet" href="/css/admin.css?v=1">
+
         @yield('styles')
     </head>
 
-    <body class="hold-transition skin-blue sidebar-mini">
+    <body class="hold-transition skin-{{ config('titan.admin_skin') }} sidebar-mini">
         <h1 class="hidden d-none">{{ isset($title) ? $title : config('app.name') }}</h1>
 
         <div class="wrapper">
@@ -32,9 +33,9 @@
             <div class="content-wrapper">
                 <h2 class="hidden">Breadcrumb</h2>
                 <section class="content-header">
-                    {!! $pagecrumb !!}
+                    @include('titan::admin.partials.pagecrumb')
 
-                    {!! $breadcrumb !!}
+                    @include('titan::admin.partials.breadcrumb')
                 </section>
 
                 <section class="content">
@@ -72,7 +73,7 @@
 
         @yield('scripts')
 
-        @if(config('app.env') != 'local')
+        @if(config('titan.admin_google_analytics'))
             @include('titan::partials.analytics')
         @endif
     </body>

@@ -125,11 +125,12 @@ class OrderController extends TitanAdminController
     {
         $row = Page::find($id);
         $row->parent_id = $parentId;
-        if ($row->url_parent_id != 0) {
-            $row->url_parent_id = $parentId; // update the url parent id as well
-        }
+        //if ($row->url_parent_id != 0) {
+            // update the url parent id as well
+            $row->url_parent_id = $parentId;
+        //}
 
-        //$row->updateUrl();
+        $row->updateUrl();
         $row[$this->orderProperty] = $listOrder;
         $row->save();
 

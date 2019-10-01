@@ -20,6 +20,8 @@ class Document extends Model
 
     protected $guarded = ['id'];
 
+    public $appends = ["url"];
+
     /**
      * Validation rules for this model
      */

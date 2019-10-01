@@ -26,30 +26,32 @@ Route::group(['namespace' => 'Website'], function () {
 | Authenticate User
 |------------------------------------------
 */
-Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function () {
-    // logout (get or post)
-    Route::any('logout', 'LoginController@logout')->name('logout');
+if (in_array('auth', config('titan.routes'))) {
+    Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function () {
+        // logout (get or post)
+        Route::any('logout', 'LoginController@logout')->name('logout');
 
-    Route::group(['middleware' => 'guest'], function () {
-        // login
-        Route::get('login', 'LoginController@showLoginForm')->name('login');
-        Route::post('login', 'LoginController@login');
+        Route::group(['middleware' => 'guest'], function () {
+            // login
+            Route::get('login', 'LoginController@showLoginForm')->name('login');
+            Route::post('login', 'LoginController@login');
 
-        // registration
-        Route::get('register/{token?}', 'RegisterController@showRegistrationForm')
-            ->name('register');
-        Route::post('register', 'RegisterController@register');
-        Route::get('register/confirm/{token}', 'RegisterController@confirmAccount');
+            // registration
+            Route::get('register/{token?}', 'RegisterController@showRegistrationForm')
+                ->name('register');
+            Route::post('register', 'RegisterController@register');
+            Route::get('register/confirm/{token}', 'RegisterController@confirmAccount');
 
-        // password reset
-        Route::get('password/forgot', 'ForgotPasswordController@showLinkRequestForm')
-            ->name('forgot-password');
-        Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail');
-        Route::get('password/reset/{token}', 'ResetPasswordController@showResetForm')
-            ->name('password.reset');
-        Route::post('password/reset', 'ResetPasswordController@reset');
+            // password reset
+            Route::get('password/forgot', 'ForgotPasswordController@showLinkRequestForm')
+                ->name('forgot-password');
+            Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail');
+            Route::get('password/reset/{token}', 'ResetPasswordController@showResetForm')
+                ->name('password.reset');
+            Route::post('password/reset', 'ResetPasswordController@reset');
+        });
     });
-});
+}
 
 /*
 |------------------------------------------
@@ -87,6 +89,21 @@ Route::group(['middleware' => ['auth', 'auth.admin'], 'prefix' => 'admin', 'name
             Route::get('/banners/order', 'BannersOrderController@index');
             Route::post('/banners/order', 'BannersOrderController@update');
             Route::resource('banners', 'BannersController');
+
+            // testimonials
+            Route::group(['namespace' => 'Testimonials'], function () {
+                Route::get('testimonials/order', 'OrderController@index');
+                Route::post('testimonials/order', 'OrderController@updateOrder');
+                Route::resource('testimonials', 'TestimonialsController');
+            });
+
+            // faq
+            Route::group(['namespace' => 'FAQ'], function () {
+                Route::resource('/faqs/categories', 'CategoriesController');
+                Route::get('faqs/order', 'OrderController@index');
+                Route::post('faqs/order', 'OrderController@updateOrder');
+                Route::resource('/faqs', 'FAQsController');
+            });
         });
 
         // pages order
@@ -106,9 +123,7 @@ Route::group(['middleware' => ['auth', 'auth.admin'], 'prefix' => 'admin', 'name
 
         // blog
         Route::group(['prefix' => 'blog', 'namespace' => 'Blog'], function () {
-            Route::get('/', function () {
-                return redirect('/admin/blog/articles');
-            });
+            Route::redirect('/', '/admin/blog/articles');
             Route::resource('categories', 'CategoriesController');
             Route::resource('articles', 'ArticlesController');
         });
@@ -117,6 +132,22 @@ Route::group(['middleware' => ['auth', 'auth.admin'], 'prefix' => 'admin', 'name
         Route::group(['prefix' => 'news-and-events', 'namespace' => 'NewsEvents'], function () {
             Route::resource('news', 'NewsController');
             Route::resource('categories', 'CategoriesController');
+        });
+
+        // shop / products
+        Route::group(['prefix' => 'shop', 'namespace' => 'Shop'], function () {
+            Route::get('categories/order', 'CategoriesOrderController@index');
+            Route::post('categories/order', 'CategoriesOrderController@updateListOrder');
+            Route::resource('categories', 'CategoriesController');
+            Route::resource('products', 'ProductsController');
+            Route::resource('status', 'StatusesController');
+
+            Route::get('checkouts', 'CheckoutsController@index');
+            Route::get('checkouts/{checkout}', 'CheckoutsController@show');
+            Route::get('transactions', 'TransactionsController@index');
+            Route::get('transactions/{transaction}', 'TransactionsController@show');
+            Route::get('transactions/{transaction}/print/{format?}', 'TransactionsController@printOrder');
+            Route::post('transactions/{transaction}/status', 'TransactionsController@updateStatus');
         });
 
         // gallery / photos
@@ -130,6 +161,7 @@ Route::group(['middleware' => ['auth', 'auth.admin'], 'prefix' => 'admin', 'name
             // photoables
             Route::get('/news/{news}', 'PhotosController@showNewsPhotos');
             Route::get('/articles/{article}', 'PhotosController@showArticlePhotos');
+            Route::get('/products/{product}', 'PhotosController@showProductPhotos');
 
             Route::resource('/albums', 'AlbumsController', ['except' => 'show']);
             Route::get('/albums/{album}', 'PhotosController@showAlbumPhotos');
@@ -138,6 +170,7 @@ Route::group(['middleware' => ['auth', 'auth.admin'], 'prefix' => 'admin', 'name
             Route::post('/crop/{photo}', 'CropperController@cropPhoto');
             Route::get('/news/{news}/crop/{photo}', 'CropperController@showNewsPhoto');
             Route::get('/albums/{album}/crop/{photo}', 'CropperController@showAlbumsPhoto');
+            Route::get('/products/{product}/crop/{photo}', 'CropperController@showProductPhoto');
             Route::get('/articles/{article}/crop/{photo}', 'CropperController@showArticlesPhoto');
 
             // resource image crop
@@ -202,6 +235,15 @@ Route::group(['middleware' => ['auth', 'auth.admin'], 'prefix' => 'admin', 'name
             Route::post('navigation/order', 'NavigationOrderController@updateOrder');
             Route::get('navigation/datatable', 'NavigationController@getTableData');
             Route::resource('navigation', 'NavigationController');
+
+            // locations
+            Route::group(['prefix' => 'locations', 'namespace' => 'Locations'], function () {
+                Route::resource('cities', 'CitiesController');
+                Route::resource('suburbs', 'SuburbsController');
+                Route::resource('provinces', 'ProvincesController');
+                Route::resource('countries', 'CountriesController');
+                Route::resource('continents', 'ContinentsController');
+            });
         });
     });
 

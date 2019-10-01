@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Bpocallaghan\Titan\Commands\SetupCommand;
+use Bpocallaghan\Titan\Commands\MigrateCommand;
 use Bpocallaghan\Titan\Commands\InstallCommand;
 use Bpocallaghan\Titan\Commands\PublishCommand;
 use Bpocallaghan\Titan\Commands\DatabaseSeedCommand;
@@ -19,6 +20,14 @@ class TitanServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // merge config on register (before routes file)
+        $appPath = __DIR__ . DIRECTORY_SEPARATOR;
+        $basePath = $appPath . ".." . DIRECTORY_SEPARATOR;
+
+        // merge config
+        $configPath = $basePath . '/config/config.php';
+        $this->mergeConfigFrom($configPath, 'titan');
+
         // register RouteServiceProvider
         $this->app->register('Bpocallaghan\Titan\Providers\RouteServiceProvider');
     }
@@ -38,12 +47,17 @@ class TitanServiceProvider extends ServiceProvider
         $migrationsPath = $basePath . "database" . DIRECTORY_SEPARATOR . "migrations";
         $viewsPath = $basePath . "resources" . DIRECTORY_SEPARATOR . "views";
 
+        // merge config
+        //$configPath = $basePath . '/config/config.php';
+        //$this->mergeConfigFrom($configPath, 'titan');
+
         // load migrations
         $this->loadMigrationsFrom($migrationsPath);
 
         $this->loadViewsFrom($viewsPath, "titan");
 
         $this->registerCommand(SetupCommand::class, 'setup');
+        $this->registerCommand(MigrateCommand::class, 'migrate');
         $this->registerCommand(InstallCommand::class, 'install');
         $this->registerCommand(PublishCommand::class, 'publish');
         $this->registerCommand(DatabaseSeedCommand::class, 'db:seed');

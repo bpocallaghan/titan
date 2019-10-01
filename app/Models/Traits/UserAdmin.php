@@ -22,7 +22,7 @@ trait UserAdmin
      */
     public function isSuperAdmin()
     {
-        return $this->hasRole(Role::$ADMIN);
+        return $this->hasRole(Role::$ADMIN_SUPER);
     }
 
     /**

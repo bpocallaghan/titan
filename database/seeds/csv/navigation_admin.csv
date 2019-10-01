@@ -1,11 +1,11 @@
 id,title,description,slug,url,icon,help_index_title,help_index_content,help_create_title,help_create_content,help_edit_title,help_edit_content,list_order,is_hidden,parent_id,url_parent_id,roles
 1,Dashboard,Dashboard,/,/admin,dashboard,,,,,,,1,0,0,0,2
-2,Analytics,Google Analytics,analytics,/admin/analytics,line-chart,,,,,,,13,0,0,0,"3,6"
-3,Summary,,,/admin/analytics,star-half-o,,,,,,,2,0,2,2,"3,6"
-4,Devices,,devices,/admin/analytics/devices,tablet,,,,,,,1,0,2,2,"3,6"
-5,Demographics,,demographics,/admin/analytics/demographics,female,,,,,,,4,0,2,2,"3,6"
-6,Visits and Referrals,,visits-and-referrals,/admin/analytics/visits-and-referrals,cloud,,,,,,,5,0,2,2,"3,6"
-7,Interests,,interests,/admin/analytics/interests,heart,,,,,,,3,0,2,2,"3,6"
+2,Analytics,Google Analytics,analytics,/admin/analytics,line-chart,,,,,,,13,0,0,0,3,6
+3,Summary,,,/admin/analytics,star-half-o,,,,,,,2,0,2,2,3,6
+4,Devices,,devices,/admin/analytics/devices,tablet,,,,,,,1,0,2,2,3,6
+5,Demographics,,demographics,/admin/analytics/demographics,female,,,,,,,4,0,2,2,3,6
+6,Visits and Referrals,,visits-and-referrals,/admin/analytics/visits-and-referrals,cloud,,,,,,,5,0,2,2,3,6
+7,Interests,,interests,/admin/analytics/interests,heart,,,,,,,3,0,2,2,3,6
 8,Latest Activity,Latest Activity,latest-activity,/admin/latest-activity,history,,,,,,,2,0,0,0,4
 9,Website,,website,/admin/latest-activity/website,home,,,,,,,1,0,8,8,4
 10,Admin,Admin,admin,/admin/latest-activity/admin,lock,,,,,,,2,0,8,8,4
@@ -41,3 +41,8 @@ id,title,description,slug,url,icon,help_index_title,help_index_content,help_crea
 40,Documents,Documents,documents,/admin/documents,files-o,,,,,,,12,0,0,0,4
 41,Categories,Categories,categories,/admin/documents/categories,cubes,,,,,,,1,0,40,40,4
 42,Documents,Documents,,/admin/documents,file-o,,,,,,,2,0,40,40,4
+43,Shop,Shop,shop,/admin/shop,shopping-cart,,,,,,,10,0,0,0,4,
+44,Categories,Categories,categories,/admin/shop/categories,cubes,,,,,,,2,0,43,43,4,
+45,Status,Status,status,/admin/shop/status,star-half-o,,,,,,,1,0,43,43,4,
+46,Products,Products,products,/admin/shop/products,dropbox,,,,,,,3,0,43,43,4,
+47,Transactions,Transactions,transactions,/admin/shop/transactions,credit-card,,,,,,,4,0,43,43,4,

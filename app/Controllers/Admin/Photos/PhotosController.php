@@ -4,12 +4,13 @@ namespace Bpocallaghan\Titan\Http\Controllers\Admin\Photos;
 
 use Image;
 use Redirect;
+use App\Http\Requests;
+use Illuminate\Http\Request;
 use Bpocallaghan\Titan\Models\News;
 use Bpocallaghan\Titan\Models\Photo;
-use App\Http\Requests;
+use Bpocallaghan\Titan\Models\Product;
 use Bpocallaghan\Titan\Models\Article;
 use Bpocallaghan\Titan\Models\PhotoAlbum;
-use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Bpocallaghan\Titan\Models\Traits\ImageThumb;
 use Bpocallaghan\Titan\Http\Controllers\Admin\AdminController;
@@ -74,6 +75,16 @@ class PhotosController extends AdminController
     public function showArticlePhotos(Article $article)
     {
         return $this->showPhotoable($article, $article->photos);
+    }
+
+    /**
+     * Show the article's photos
+     * @param Product $product
+     * @return mixed
+     */
+    public function showProductPhotos(Product $product)
+    {
+        return $this->showPhotoable($product, $product->photos);
     }
 
     /**

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 
@@ -89,7 +89,7 @@ if (!function_exists('input')) {
      */
     function input($key = '', $default = null)
     {
-        return (Input::has($key) ? Input::get($key) : $default);
+        return (Request::has($key) ? Request::input($key) : $default);
     }
 }
 

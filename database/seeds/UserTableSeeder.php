@@ -58,7 +58,7 @@ class UserTableSeeder extends Seeder
     private function addAllRolesToUser($user)
     {
         // only 2 - to 5 are needed
-        $roles = Role::whereBetween('id', [2, 5])
+        $roles = Role::whereBetween('id', [2, 7])
             ->pluck('keyword', 'id')
             ->values();
 

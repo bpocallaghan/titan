@@ -14,6 +14,7 @@ Titan is nicely packaged for you so that you only have to do the following;
 - *setup virtual host/ host file
 - run titan:setup command
 - run titan:install command
+- run titan:migrate command (optional)
 - *open browser
 
 Then you have your Titan Admin Starter project with all the features ready to start your coding.
@@ -45,8 +46,18 @@ It will do the following:
  - `php artisan titan:db:seed`
  
  ```bash
+ php artisan titan:migrate --name=
+ ```
+ It will do the following:
+  - Specify the 'table types' you would like to migrate
+  - `blog, documents, faq, locations, news, nesletter_subscribers, photos, testimonials, shop`
+ 
+ ```bash
  (Optional)
+ Mail Layout
  php artisan vendor:publish --tag=laravel-notifications
+ Mail Component
+ php artisan vendor:publish --tag=laravel-mail
  ```
  It will publish the mail blade files to your project for you to edit.
  
@@ -55,7 +66,7 @@ It will do the following:
 ```bash
 php artisan migrate
 ```
-This will create all the tables needed (users table will be altered).
+This will create the 'core/minimum' tables needed (users table will be altered). You can run `php artisan migrate --name=blog` to include the migration tables.
 
 ```bash
 php artisan titan:db:seed
@@ -92,6 +103,7 @@ For example, you need to add or change a field in a table or update text or desi
 ```bash
 php artisan titan:publish --files=app
 php artisan titan:publish --files=assets
+php artisan titan:publish --files=config
 php artisan titan:publish --files=database
 php artisan titan:publish --files=events
 php artisan titan:publish --files=helpers
@@ -115,6 +127,12 @@ This will also copy all `routes` and `RouteServiceProvider` to your application.
 php artisan titan:publish --files=assets
 ```
 This will copy all `assets (css, js, fonts, images)` and `webpack.js, package.json` to your application.
+
+```bash
+php artisan titan:publish --files=config
+```
+This will copy the config file of titan to your application.
+You can change the admin skin (blue, red, green, etc)
 
 ```bash
 php artisan titan:publish --files=database
