@@ -10,7 +10,11 @@ if (!function_exists('notify_admins')) {
             $admins = User::where('email', $forceEmail)->get();
         }
         else {
+<<<<<<< HEAD
+            $admins = User::whereRole(Role::$ADMIN_SUPER)->get();
+=======
             $admins = User::whereRole(Role::$ADMIN_NOTIFY)->get();
+>>>>>>> 9c2152ebf10d1698393b412622c7ce2a3fbd33a5
         }
 
         if ($admins) {
