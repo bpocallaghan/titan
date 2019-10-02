@@ -139,6 +139,12 @@ class PublishCommand extends Command
         // copy files and replace namespace and views only
         $this->copyFilesFromSource($source, $destination, 'namespace_views');
 
+        // databaseseeder
+        $search = "{$this->baseNamespace}\Migrations;";
+        $source = "{$this->basePath}database{$this->ds}migrations{$this->ds}DatabaseSeeder.php";
+        $destination = database_path("seeds");
+        $this->copyFilesFromSource($source, $destination, $search, "");
+
         // SEEDS
         $search = "{$this->baseNamespace}\Seeds;";
         $source = "{$this->basePath}database{$this->ds}seeds{$this->ds}UsersTableSeeder.php";
