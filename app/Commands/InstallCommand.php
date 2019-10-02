@@ -3,9 +3,10 @@
 namespace Bpocallaghan\Titan\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Console\GeneratorCommand;
-use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Composer;
 use Illuminate\Support\Collection;
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Console\GeneratorCommand;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Finder\SplFileInfo;
 
@@ -30,6 +31,11 @@ class InstallCommand extends Command
      */
     private $filesystem;
 
+    /**
+     * @var Composer
+     */
+    protected $composer;
+
     private $appPath;
 
     private $basePath;
@@ -41,11 +47,12 @@ class InstallCommand extends Command
      *
      * @param  \Illuminate\Filesystem\Filesystem $filesystem
      */
-    public function __construct(Filesystem $filesystem)
+    public function __construct(Filesystem $filesystem, Composer $composer)
     {
         parent::__construct();
 
         $this->ds = DIRECTORY_SEPARATOR;
+        $this->composer = $composer;
         $this->filesystem = $filesystem;
 
         $this->basePath = __DIR__ . $this->ds . '..' . $this->ds . '..' . $this->ds;
@@ -76,6 +83,11 @@ class InstallCommand extends Command
      */
     public function handle()
     {
+        $this->line('Busy running "composer dump-autoload" to index the files. Please wait a few seconds.');
+        
+        // composer dump autoload
+        $this->composer->dumpAutoloads();
+
         $this->line('The following will update your .env file.');
 
         // add the extra environment variables to .env
@@ -107,11 +119,11 @@ APP_NAME=Laravel", $stub);
         // php artisan migrate
         $this->call('migrate');
 
-        // php artisan db:seed
-        $this->call('db:seed');
-
         // php artisan titan:db:seed
         $this->call('titan:db:seed');
+
+        // php artisan db:seed
+        $this->call('db:seed');
 
         $this->alert('Installation complete.');
     }
