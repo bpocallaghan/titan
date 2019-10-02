@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePhotosTable extends Migration
+class CreateDocumentCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,10 @@ class CreatePhotosTable extends Migration
      */
     public function up()
     {
-        Schema::create('photos', function (Blueprint $table) {
+        Schema::create('document_categories', function (Blueprint $table) {
             $table->increments('id')->unique()->index();
-            $table->boolean('is_cover')->default(false);
-            $table->string('name');
-            $table->string('filename');
-            $table->bigInteger('photoable_id')->unsigned()->index();
-            $table->string('photoable_type')->index();
-            $table->integer('list_order')->default(999);
+            $table->string('name')->index();
+            $table->string('slug');
             $table->timestamps();
             $table->softDeletes();
             $table->integer('created_by')->unsigned();
@@ -35,6 +31,6 @@ class CreatePhotosTable extends Migration
      */
     public function down()
     {
-        Schema::drop('photos');
+        Schema::drop('document_categories');
     }
 }

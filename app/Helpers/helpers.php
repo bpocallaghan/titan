@@ -10,7 +10,7 @@ if (!function_exists('user')) {
      * Get the logged in user
      *
      * @param string $guard
-     * @return \App\Models\User|null
+     * @return \App\User|null
      */
     function user($guard = 'web')
     {

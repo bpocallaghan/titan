@@ -69,10 +69,12 @@
                             @include('titan::admin.pages.components.form_content')
 
                             @if(isset($item) && $item->media)
-                                <div>
-                                    <a target="_blank" href="{{ $item->imageUrl }}">
+                                <div id="media-box">
+                                    <a style="display:inline-block;" target="_blank" href="{{ $item->imageUrl }}">
                                         <img src="{{ $item->thumb_url }}"/>
+                                        <button title="Remove media" class="btn btn-danger btn-xs btn-delete-row pull-right" id="form-delete-row{{ $item->id }}" data-id="{{ $item->id }}" data-page-id="{{ $item->page_id }}"><i class="fa fa-times"></i></button>
                                     </a>
+
                                 </div>
                             @endif
                         </fieldset>
@@ -96,8 +98,39 @@
         </div>
     </div>
     @if(isset($item))
+        @include('titan::admin.photos.videos.videoable', ['videoable' => $item, 'videos' => $item->videos])
+
         @include('titan::admin.photos.photoable', ['photoable' => $item, 'photos' => $item->photos])
 
         @include('titan::admin.documents.documentable', ['documentable' => $item, 'documents' => $item->documents])
     @endif
+@endsection
+
+@section('scripts')
+    @parent
+    <script type="text/javascript" charset="utf-8">
+        $(function () {
+            $('.btn-delete-row').on('click', function (e) {
+                e.preventDefault();
+
+                $id = $(this).attr('data-id');
+                $page_id = $(this).attr('data-page-id');
+
+                $.ajax({
+                    type: 'POST',
+                    url: "/admin/pages/"+ $page_id + "/sections/content/" + $id + "/removeMedia",
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.error) {
+                            notifyError(data.error.title, data.error.content);
+                        } else {
+                            notify('Successfully', 'The media was successfully removed.', null, null, 5000);
+                        }
+
+                        $('body').find('#media-box').html('');
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

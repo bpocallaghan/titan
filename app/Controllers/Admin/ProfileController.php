@@ -5,6 +5,7 @@ namespace Bpocallaghan\Titan\Http\Controllers\Admin;
 use Image;
 use App\User;
 use App\Http\Requests;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 
 class ProfileController extends AdminController
@@ -33,7 +34,7 @@ class ProfileController extends AdminController
 
         // submit without a file
         if (is_null($request->file('photo'))) {
-            $this->validate($request, array_except(User::$rulesProfile, 'photo'));
+            $this->validate($request, Arr::except(User::$rulesProfile, 'photo'));
         }
         else {
             $this->validate($request, User::$rulesProfile);
@@ -50,6 +51,7 @@ class ProfileController extends AdminController
             'cellphone',
             'telephone',
             'born_at',
+            'gender',
             'image'
         ]));
 

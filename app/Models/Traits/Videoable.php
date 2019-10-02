@@ -2,33 +2,10 @@
 
 namespace Bpocallaghan\Titan\Models\Traits;
 
-use Bpocallaghan\Titan\Models\Photo;
 use Bpocallaghan\Titan\Models\Video;
 
-trait Photoable
+trait Videoable
 {
-    /**
-     * Get the cover photo attribute
-     * @return bool
-     */
-    public function getCoverPhotoAttribute()
-    {
-        $photos = $this->photos;
-        if ($photos->count() >= 1) {
-            // get the cover photo
-            $photo = $photos->where('is_cover', true)->first();
-            if ($photo) {
-                return $photo;
-            }
-
-            // no photo marked as cover - return first
-            return $photos->first();
-        }
-
-        // no photos uploaded yet
-        return false;
-    }
-
     /**
      * Get the cover photo attribute
      * @return bool
@@ -52,11 +29,14 @@ trait Photoable
     }
 
     /**
-     * Get all of the album's photos.
+     * Scope filter to only allow where has photos
+     *
+     * @param $query
+     * @return mixed
      */
-    public function photos()
+    public function scopeHasCoverVideo($query)
     {
-        return $this->morphMany(Photo::class, 'photoable');
+        return $query->whereHas('videos');
     }
 
     /**
@@ -65,20 +45,9 @@ trait Photoable
      * @param $query
      * @return mixed
      */
-    public function scopeHasCoverPhoto($query)
+    public function scopeHasVideos($query)
     {
-        return $query->whereHas('photos');
-    }
-
-    /**
-     * Scope filter to only allow where has photos
-     *
-     * @param $query
-     * @return mixed
-     */
-    public function scopeHasPhotos($query)
-    {
-        return $query->whereHas('photos');
+        return $query->whereHas('videos');
     }
 
     /**

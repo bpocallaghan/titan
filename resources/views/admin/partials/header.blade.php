@@ -3,7 +3,7 @@
     <h3 class="hidden">Logo</h3>
     <a href="/" class="logo">
         <span class="logo-mini"><img src="/images/logo-mini.png" style="width: 100%;"/></span>
-        <span class="logo-lg"><img src="/images/logo.png" style="width: 100%;"/></span>
+        <span class="logo-lg"><img src="/images/logo-admin.png" style="width: 100%;"/></span>
     </a>
 
     <h3 class="hidden">Header Top Actions</h3>
@@ -45,7 +45,7 @@
 
                             </ul>
                         </li>
-                        <li class="footer"><a href="/admin/history/website">See All Activities</a>
+                        <li class="footer"><a href="/admin/latest-activity/website">See All Activities</a>
                         </li>
                     </ul>
                 </li>

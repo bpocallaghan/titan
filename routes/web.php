@@ -118,8 +118,14 @@ Route::group(['middleware' => ['auth', 'auth.admin'], 'prefix' => 'admin', 'name
 
             // page components
             Route::resource('/{page}/sections/content', 'PageContentController');
+            //remove content media
+            Route::post('/{page}/sections/content/{content}/removeMedia', 'PageContentController@removeMedia');
+
         });
         Route::resource('pages', 'Pages\PagesController');
+        // order page content photos
+        Route::get('/pages/{page}/sections/content/{content}/edit/order', 'Photos\PhotosOrderController@showPageContentPhotos');
+        Route::get('/pages/{page}/sections/content/{content}/edit/videos/order', 'Photos\VideosOrderController@showPageContentVideos');
 
         // blog
         Route::group(['prefix' => 'blog', 'namespace' => 'Blog'], function () {
@@ -166,6 +172,12 @@ Route::group(['middleware' => ['auth', 'auth.admin'], 'prefix' => 'admin', 'name
             Route::resource('/albums', 'AlbumsController', ['except' => 'show']);
             Route::get('/albums/{album}', 'PhotosController@showAlbumPhotos');
 
+            //photos order
+            Route::get('/news/{news}/order', 'PhotosOrderController@showNewsPhotos');
+            Route::get('/articles/{article}/order', 'PhotosOrderController@showArticlePhotos');
+            Route::get('/albums/{album}/order', 'PhotosOrderController@showAlbumPhotos');
+            Route::post('/order', 'PhotosOrderController@update');
+
             // croppers
             Route::post('/crop/{photo}', 'CropperController@cropPhoto');
             Route::get('/news/{news}/crop/{photo}', 'CropperController@showNewsPhoto');
@@ -176,6 +188,22 @@ Route::group(['middleware' => ['auth', 'auth.admin'], 'prefix' => 'admin', 'name
             // resource image crop
             Route::post('/crop-resource', 'CropResourceController@cropPhoto');
             Route::get('/banners/{banner}/crop-resource/', 'CropResourceController@showBanner');
+
+            //videos
+            Route::resource('/albums/{album}/videos', 'VideosController', ['except' => 'show']);
+
+            Route::get('/videos', 'VideosController@index');
+            Route::post('/videos/{video}/getInfo', 'VideosController@videoInfo');
+            Route::post('/videos/{video}/cover', 'VideosController@updateVideoCover');
+            Route::post('/videos/create', 'VideosController@store');
+            Route::post('/videos/{video}/edit', 'VideosController@update');
+            Route::delete('/videos/{video}', 'VideosController@destroy');
+
+            //videos order
+            Route::get('/news/{news}/videos/order', 'VideosOrderController@showNewsVideos');
+            Route::get('/articles/{article}/videos/order', 'VideosOrderController@showArticleVideos');
+            Route::get('/albums/{album}/videos/order', 'VideosOrderController@showAlbumVideos');
+            Route::post('/videos/order', 'VideosOrderController@update');
         });
 
         // accounts

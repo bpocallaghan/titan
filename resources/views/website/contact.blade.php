@@ -93,7 +93,7 @@
     <script type="text/javascript" charset="utf-8">
         $(function () {
             var map = initGoogleMap('js-map-contact-us', -22.9666717, 14.5019224, 14);
-//            addGoogleMapsMarker(map, -22.6228835, 17.0939617, false);
+            {{--addGoogleMapsMarker(map, -22.6228835, 17.0939617, 'map_marker', '{{ $settings->name }}', '{{ $settings->address }}', '{{ $settings->phone }}', '{{ $settings->email }}');--}}
         });
     </script>
 @endsection

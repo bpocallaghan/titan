@@ -43,6 +43,7 @@ class PhotosController extends AdminController
         save_resource_url();
 
         return $this->view('titan::photos.create_edit')
+            ->with('videos', $photoable->videos)
             ->with('photoable', $photoable)
             ->with('photos', $photos);
     }

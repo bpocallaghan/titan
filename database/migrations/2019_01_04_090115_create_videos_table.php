@@ -1,9 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePhotosTable extends Migration
+class CreateVideosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +13,16 @@ class CreatePhotosTable extends Migration
      */
     public function up()
     {
-        Schema::create('photos', function (Blueprint $table) {
-            $table->increments('id')->unique()->index();
+        Schema::create('videos', function (Blueprint $table) {
+            $table->increments('id');
             $table->boolean('is_cover')->default(false);
             $table->string('name');
-            $table->string('filename');
-            $table->bigInteger('photoable_id')->unsigned()->index();
-            $table->string('photoable_type')->index();
+            $table->text('content')->nullable();
+            $table->string('link');
+            $table->string('image')->nullable();
+            $table->boolean('is_youtube')->default(true);
+            $table->integer('videoable_id');
+            $table->string('videoable_type');
             $table->integer('list_order')->default(999);
             $table->timestamps();
             $table->softDeletes();
@@ -35,6 +39,6 @@ class CreatePhotosTable extends Migration
      */
     public function down()
     {
-        Schema::drop('photos');
+        Schema::dropIfExists('videos');
     }
 }
