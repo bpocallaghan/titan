@@ -1,8 +1,8 @@
 <?php
 namespace Bpocallaghan\Titan\Seeds;
-use App\Models\NewsCategory;
+use Bpocallaghan\Titan\Models\NewsCategory;
 use Illuminate\Database\Seeder;
-use App\Models\News;
+use Bpocallaghan\Titan\Models\News;
 
 class NewsTableSeeder extends Seeder
 {

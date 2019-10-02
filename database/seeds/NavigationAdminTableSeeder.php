@@ -1,6 +1,6 @@
 <?php
 namespace Bpocallaghan\Titan\Seeds;
-use App\Models\NavigationAdmin;
+use Bpocallaghan\Titan\Models\NavigationAdmin;
 use Illuminate\Database\Seeder;
 
 class NavigationAdminTableSeeder extends Seeder
@@ -10,7 +10,8 @@ class NavigationAdminTableSeeder extends Seeder
         NavigationAdmin::truncate();
         //DB::delete('TRUNCATE navigation_admin_role');
 
-        $csvPath = database_path() . DIRECTORY_SEPARATOR . 'seeds' . DIRECTORY_SEPARATOR . 'csv' . DIRECTORY_SEPARATOR . 'navigation_admin.csv';
+        //$csvPath = database_path() . DIRECTORY_SEPARATOR . 'seeds' . DIRECTORY_SEPARATOR . 'csv' . DIRECTORY_SEPARATOR . 'navigation_admin.csv';
+        $csvPath = __DIR__ . DIRECTORY_SEPARATOR . 'csv' . DIRECTORY_SEPARATOR . 'navigation_admin.csv';
         $items = csv_to_array($csvPath);
 
         foreach ($items as $key => $item) {

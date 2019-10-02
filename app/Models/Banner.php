@@ -1,12 +1,13 @@
 <?php
 
 namespace Bpocallaghan\Titan\Models;
+
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Titan\Models\TitanCMSModel;
-use Titan\Models\Traits\ActiveTrait;
-use Titan\Models\Traits\ImageThumb;
+use Bpocallaghan\Titan\Models\TitanCMSModel;
+use Bpocallaghan\Titan\Models\Traits\ActiveTrait;
+use Bpocallaghan\Titan\Models\Traits\ImageThumb;
 
 class Banner extends TitanCMSModel
 {

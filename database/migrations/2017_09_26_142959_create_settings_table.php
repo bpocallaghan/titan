@@ -1,5 +1,5 @@
 <?php
-namespace Bpocallaghan\Titan\Migrations;
+
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -15,23 +15,32 @@ class CreateSettingsTable extends Migration
         Schema::create('settings', function (Blueprint $table) {
             $table->increments('id')->unique()->index();
             $table->string('name');
+            $table->string('slogan')->nullable();
             $table->text('description');
+            $table->text('keywords')->nullable();
+            $table->string('author');
+
+            // contact
             $table->string('email')->nullable();
             $table->string('cellphone')->nullable();
             $table->string('telephone')->nullable();
-            $table->string('fax')->nullable();
+            $table->string('address')->nullable();
+            $table->string('po_box')->nullable();
+
+            // social media
             $table->string('facebook')->nullable();
             $table->string('twitter')->nullable();
             $table->string('googleplus')->nullable();
             $table->string('linkedin')->nullable();
-            $table->string('address')->nullable();
-            // geo location
-            // google analytics
+            $table->string('youtube')->nullable();
+            $table->string('instagram')->nullable();
+
+            // google maps
+            $table->smallInteger('zoom_level')->nullable();
+            $table->string('latitude', '50')->nullable();
+            $table->string('longitude', '50')->nullable();
+
             $table->timestamps();
-            $table->softDeletes();
-            $table->integer('created_by')->unsigned();
-            $table->integer('updated_by')->unsigned()->nullable();
-            $table->integer('deleted_by')->unsigned()->nullable();
         });
     }
 

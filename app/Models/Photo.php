@@ -2,7 +2,7 @@
 
 namespace Bpocallaghan\Titan\Models;
 
-use Titan\Models\Traits\ModifyBy;
+use Bpocallaghan\Titan\Models\Traits\ModifyBy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -22,7 +22,7 @@ class Photo extends Model
 
     protected $guarded = ['id'];
 
-    protected $appends = ['thumb', 'original', 'url'];
+    protected $appends = ['thumb', 'url'/*, 'original_filename', 'original_url'*/];
 
     static public $rules = [
         'file' => 'required|image|max:5000|mimes:jpg,jpeg,png,bmp'

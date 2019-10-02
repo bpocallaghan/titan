@@ -2,7 +2,7 @@
 
 namespace Bpocallaghan\Titan\Models\Traits;
 
-use App\Models\Page;
+use Bpocallaghan\Titan\Models\Page;
 
 trait PageHelper
 {
@@ -36,13 +36,10 @@ trait PageHelper
      * @return mixed
      */
     static public function whereParentIdORM(
-        $id,
-        $type = 'list',
-        $order = 'list_order',
-        $hidden = 0
+        $id, $type = 'list', $order = 'list_order', $hidden = 0
     ) {
         $query = Page::query();
-        if($type != "featured") {
+        if ($type != "featured") {
             $query->whereParentId($id);
         }
 
@@ -74,16 +71,20 @@ trait PageHelper
     public function updateUrl()
     {
         // if slug is url
-        if(is_slug_url($this->slug)) {
+        if (is_slug_url($this->slug)) {
             $this->url = $this->slug;
+
             return $this;
         }
-        
+
         $this->url = '';
         $this->generateCompleteUrl($this);
         $this->url = $this->url;
 
-        if (strlen($this->slug) > 1) {
+        if (strlen($this->slug) == 1) {
+            $this->url = $this->slug;
+        }
+        else if (strlen($this->slug) > 1) {
             $this->url .= (is_slug_url($this->slug) ? "" : "/") . $this->slug;
         }
 
@@ -100,10 +101,8 @@ trait PageHelper
     {
         $row = self::find($nav->url_parent_id);
 
-        if ($row) {
-            if (strlen($row->slug) > 1) {
-                $this->url = "/{$row->slug}" . ("{$this->url}");
-            }
+        if ($row && strlen($row->slug) > 1) {
+            $this->url = "/{$row->slug}" . ("{$this->url}");
 
             return $this->generateCompleteUrl($row);
         }
@@ -243,20 +242,16 @@ trait PageHelper
         // about
         $items = Page::with('parent')
             ->where('is_hidden', 0)
-            ->whereIn('parent_id', [15, 26, 6])
-            ->orderBy('header_order')
+            ->where('is_footer', 1)
+            ->orderBy('footer_order')
             ->select('id', 'icon', 'name', 'title', 'description', 'slug', 'url', 'parent_id')
             ->get();
 
         $items = $items->groupBy(function ($item) {
-            return $item->parent->name;
+            if ($item->parent != null) {
+                return $item->parent->name;
+            }
         });
-
-        // rename
-        //if ($items['About Us']) {
-        //    $items['NamPost'] = $items['About Us'];
-        //    unset($items['About Us']);
-        //}
 
         return $items;
     }

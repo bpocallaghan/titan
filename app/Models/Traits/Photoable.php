@@ -2,7 +2,7 @@
 
 namespace Bpocallaghan\Titan\Models\Traits;
 
-use App\Models\Photo;
+use Bpocallaghan\Titan\Models\Photo;
 
 trait Photoable
 {
@@ -34,5 +34,27 @@ trait Photoable
     public function photos()
     {
         return $this->morphMany(Photo::class, 'photoable');
+    }
+
+    /**
+     * Scope filter to only allow where has photos
+     *
+     * @param $query
+     * @return mixed
+     */
+    public function scopeHasCoverPhoto($query)
+    {
+        return $query->whereHas('photos');
+    }
+
+    /**
+     * Scope filter to only allow where has photos
+     *
+     * @param $query
+     * @return mixed
+     */
+    public function scopeHasPhotos($query)
+    {
+        return $query->whereHas('photos');
     }
 }

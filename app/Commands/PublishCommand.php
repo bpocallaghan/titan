@@ -11,6 +11,8 @@ use Symfony\Component\Finder\SplFileInfo;
 
 class PublishCommand extends Command
 {
+    use CopyFilesHelpers;
+
     /**
      * The console command name.
      *
@@ -25,9 +27,6 @@ class PublishCommand extends Command
      */
     protected $description = 'Copy the [type] related files to your laravel app.';
 
-    private $appNamespace = "namespace App";
-    private $baseNamespace = "namespace Bpocallaghan\Titan";
-
     /**
      * @var Filesystem
      */
@@ -36,6 +35,13 @@ class PublishCommand extends Command
     private $appPath;
 
     private $basePath;
+
+    // directory separator
+    private $ds;
+
+    private $appNamespace = "namespace App";
+
+    private $baseNamespace = "namespace Bpocallaghan\Titan";
 
     /**
      * Create a new controller creator command instance.
@@ -46,10 +52,11 @@ class PublishCommand extends Command
     {
         parent::__construct();
 
+        $this->ds = DIRECTORY_SEPARATOR;
         $this->filesystem = $filesystem;
 
-        $this->basePath = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
-        $this->appPath = $this->basePath . "app" . DIRECTORY_SEPARATOR;
+        $this->basePath = __DIR__ . $this->ds . '..' . $this->ds . '..' . $this->ds;
+        $this->appPath = $this->basePath . "app" . $this->ds;
     }
 
     /**
@@ -68,25 +75,131 @@ class PublishCommand extends Command
             case 'assets':
                 $this->copyAssets();
                 break;
+            case 'config':
+                $this->copyConfig();
+                break;
             case 'database':
                 $this->copyDatabase();
+                break;
+            case 'events':
+                $this->copyEventsAndNotifications();
+                break;
+            case 'helpers':
+                $this->copyHelpers();
+                break;
+            case 'public':
+                $this->copyPublic();
+                break;
+            case 'routes':
+                $this->copyRoutesAndProvider();
+                break;
+            case 'website':
+                $this->copyAllWebsiteFiles();
+                break;
+
+            // COPY COMPONENTS
+            case 'newsletter':
+                $this->copyNewsletter();
+                break;
+
+            // COPY AUTH FILES
+            case 'auth':
+                $this->copyAuthFiles();
                 break;
         }
     }
 
     /**
+     * Cope all front end related files
+     * Website routes, controllers, views, assets, webpack
+     */
+    private function copyAllWebsiteFiles()
+    {
+        // routes
+
+        // VIEWS
+        $source = "{$this->basePath}resources{$this->ds}views{$this->ds}website";
+        $destination = resource_path("views{$this->ds}website");
+        $this->copyFilesFromSource($source, $destination);
+
+        // WEBSITE master layout
+        $source = "{$this->basePath}resources{$this->ds}views{$this->ds}layouts{$this->ds}website.blade.php";
+        $destination = resource_path("views{$this->ds}layouts");
+        $this->copyFilesFromSource($source, $destination);
+
+        // PARTIALS
+        $source = "{$this->basePath}resources{$this->ds}views{$this->ds}partials";
+        $destination = resource_path("views{$this->ds}partials");
+        $this->copyFilesFromSource($source, $destination);
+
+        // CONTROLLERS
+        $source = "{$this->appPath}Controllers{$this->ds}Website";
+        $destination = app_path("Http{$this->ds}Controllers{$this->ds}Website");
+
+        // copy files and replace namespace and views only
+        $this->copyFilesFromSource($source, $destination, 'namespace_views');
+
+        // SEEDS
+        $search = "{$this->baseNamespace}\Seeds;";
+        $source = "{$this->basePath}database{$this->ds}seeds{$this->ds}UsersTableSeeder.php";
+        $destination = database_path("seeds");
+        $this->copyFilesFromSource($source, $destination, $search, "");
+
+        // EVENTS (todo, admin for now)
+        // MAILS (todo, admin for now)
+        // NOTIFICATIONS (todo, admin for now)
+
+        // webpack.js, packages.json root files
+        $base = $source = $this->basePath . "resources" . $this->ds . "assets_setup" . $this->ds;
+        $source = [
+            $base . "webpack.mix.js",
+            $base . "package.json",
+            $base . "package-lock.json",
+        ];
+        $this->copyFilesFromSource($source, base_path(), false);
+
+        // ASSETS
+        $source = "{$this->basePath}resources{$this->ds}assets{$this->ds}";
+        $destination = resource_path("assets{$this->ds}");
+        // css
+        $this->copyFilesFromSource("{$source}css", "{$destination}css", false);
+        // fonts
+        $this->copyFilesFromSource("{$source}fonts", "{$destination}fonts", false);
+        // images
+        $this->copyFilesFromSource("{$source}images", "{$destination}images", false);
+        // js
+        $this->copyFilesFromSource("{$source}js", "{$destination}js", false);
+        // sass
+        $this->copyFilesFromSource("{$source}sass", "{$destination}sass", false);
+
+        // public/assets
+        $this->copyFilesFromSource($this->basePath . 'public', base_path('public'));
+    }
+
+    /**
      * Copy the app files
-     * Copy all controllers, models and views
+     * Copy all controllers, models and views and routes
      */
     private function copyApp()
     {
-        // update files to namespace App\Models
-        $destinationModels = app_path('Models');
+        // copy MODELS
+        $this->copyFilesFromSource($this->appPath . 'Models', app_path('Models'));
 
-        // copy files from source to destination
-        $search = "{$this->baseNamespace}\Models";
-        $replace = "{$this->appNamespace}\Models";
-        $this->copyFilesFromSource($this->appPath . 'Models', $destinationModels, $search, $replace);
+        // copy VIEWS
+        // replace
+        // @include('titan::
+        // @extends('titan::
+        // $this->view('titan::
+
+        $source = $this->basePath . "resources" . $this->ds . "views";
+        $this->copyFilesFromSource($source, resource_path("views"));
+
+        // copy CONTROLLERS
+        $this->copyFilesFromSource($this->appPath . "Controllers",
+            app_path("Http{$this->ds}Controllers"));
+
+        // copy RouteServiceProvider
+        $this->copyRoutesAndProvider();
     }
 
     /**
@@ -95,7 +208,28 @@ class PublishCommand extends Command
      */
     public function copyAssets()
     {
+        // copy ASSETS
+        //$source = $this->basePath . "resources" . $this->ds . "assets";
+        //$this->copyFilesFromSource($source, resource_path("assets"));
 
+        // copy WEBPACK.js
+        $base = $source = $this->basePath . "resources" . $this->ds . "assets_setup" . $this->ds;
+        $source = [
+            $base . "webpack.mix.js",
+            $base . "package.json",
+            $base . "package-lock.json",
+        ];
+        $this->copyFilesFromSource($source, base_path(), false);
+    }
+
+    /**
+     * Copy the config file
+     */
+    private function copyConfig()
+    {
+        // copy config
+        $this->filesystem->copy($this->basePath . "config/config.php", config_path('titan.php'));
+        $this->line("Config Copied: " . config_path('titan.php'));
     }
 
     /**
@@ -108,147 +242,121 @@ class PublishCommand extends Command
         // if one already exist in desired location
         // flag and ask to override or not
 
-        $sourceDatabase = $this->basePath . "database" . DIRECTORY_SEPARATOR;
+        $sourceDatabase = $this->basePath . "database" . $this->ds;
         $destinationMigrations = database_path('migrations');
         $destinationSeeds = database_path('seeds');
 
         // copy files from source to destination
         $search = "{$this->baseNamespace}\Migrations;";
-        $this->copyFilesFromSource($sourceDatabase . 'migrations', $destinationMigrations, $search);
+        $this->copyFilesFromSource($sourceDatabase . 'migrations', $destinationMigrations, $search,
+            "");
 
         $search = "{$this->baseNamespace}\Seeds;";
-        $this->copyFilesFromSource($sourceDatabase . 'seeds', $destinationSeeds, $search);
+        $this->copyFilesFromSource($sourceDatabase . 'seeds', $destinationSeeds, $search, "");
     }
 
     /**
-     * Copy files from the source to destination
-     * @param        $source
-     * @param        $destination
-     * @param bool   $search
-     * @param string $replace
-     * @param bool   $allFolders
+     * Copy the events files
+     * Copy all events, listeners and notifications
      */
-    private function copyFilesFromSource($source, $destination, $search = false, $replace = "", $allFolders = true)
+    public function copyEventsAndNotifications()
     {
-        $source = $this->formatFilePath($source . DIRECTORY_SEPARATOR);
-        $destination = $this->formatFilePath($destination . DIRECTORY_SEPARATOR);
+        // copy EVENTS
+        $this->copyFilesFromSource($this->appPath . 'Events', app_path('Events'));
 
-        // include sub folders
-        if(!$allFolders) {
-            $files = collect($this->filesystem->files($source));
-        } else {
-            $files = collect($this->filesystem->allFiles($source));
-        }
+        // copy LISTENERS
+        $this->copyFilesFromSource($this->appPath . 'Listeners', app_path('Listeners'));
 
-        $this->line("Destination: {$destination}");
+        // copy Mail
+        $this->copyFilesFromSource($this->appPath . 'Mail', app_path('Mail'));
 
-        // can we override the existing files or not
-        $override = $this->overrideExistingFiles($files, $destination);
+        // copy Notifications
+        $this->copyFilesFromSource($this->appPath . 'Events', app_path('Notifications'));
 
-        // loop through all files and copy file to destination
-        $files->map(function (SplFileInfo $file) use ($source, $destination, $override, $search, $replace) {
-
-            $fileSource = $file->getRealPath();
-            //$fileSource = $source . $file->getFilename();
-            //$fileSource = $file->getPath() . DIRECTORY_SEPARATOR . $file->getFilename();
-            $fileDestination = $destination . $file->getFilename();
-
-            // if file is in subdirectory - update destination
-            if($source != $file->getPath() . DIRECTORY_SEPARATOR) {
-                $subDirectories = str_replace($source, "", $file->getPath() . DIRECTORY_SEPARATOR);
-                $fileDestination = $destination . $subDirectories . $file->getFilename();
-            }
-
-            //dump("$fileSource");
-            if (!$this->filesystem->exists($fileSource)) {
-                dump("file does not exist? " . $fileSource);
-                return;
-            }
-
-            // if not exist or if we can override the files
-            if ($this->filesystem->exists($fileDestination) == false || $override == true) {
-
-                // make all the directories
-                $this->makeDirectory($fileDestination);
-
-                // replace file namespace
-                $stub = $this->filesystem->get($fileSource);
-                if (is_string($search)) {
-                    $stub = str_replace($search, $replace, $stub);
-                }
-                else if (is_array($search)) {
-                    foreach ($search as $k => $value) {
-                        $stub = str_replace($value, $replace[$k], $stub);
-                    }
-                }
-
-                // save modified file to destination
-                $this->filesystem->put($fileDestination, $stub);
-
-                // copy (old)
-                //$this->filesystem->copy($fileSource, $fileDestination);
-
-                $this->info("File copied: {$file->getFilename()}");
-            }
-            //dump($file->getFilename());
-        });
+        // copy EventServiceProvider
+        $source = $this->appPath . "Providers{$this->ds}EventServiceProvider.php";
+        $this->copyFilesFromSource($source, app_path('Providers'));
     }
 
     /**
-     * See if any files exist
-     * Ask to override or not
-     * @param Collection $files
-     * @param            $destination
-     * @return bool
+     * Cope the helpers files
      */
-    private function overrideExistingFiles(Collection $files, $destination)
+    private function copyHelpers()
     {
-        $answer = true;
-        $filesFound = [];
-        // map over to see if same filename already exist in destination
-        $files->map(function (SplFileInfo $file) use ($destination, &$filesFound) {
-            if ($this->filesystem->exists($destination . $file->getFilename())) {
-                $filesFound [] = $file->getFilename();
-            }
-        });
+        // copy Notifications
+        $this->copyFilesFromSource($this->appPath . 'Helpers', app_path('Helpers'));
 
-        // if files found
-        if (count($filesFound) >= 1) {
-            collect($filesFound)->each(function ($file) {
-                $this->info(" - {$file}");
-            });
+        // copy HelperServiceProvider
+        $source = $this->appPath . "Providers{$this->ds}HelperServiceProvider.php";
+        $this->copyFilesFromSource($source, app_path('Providers'));
 
-            //$this->info("Destination: " . $destination);
-            $answer = $this->confirm("Above is a list of the files that already exist. Override all files?");
-        }
-
-        return $answer;
+        $this->line("Remember to add 'App\Providers\HelperServiceProvider::class,' in your 'config/app.php' in 'providers'");
     }
 
     /**
-     * Build the directory for the class if necessary.
-     *
-     * @param  string $path
-     * @return string
+     * Copy the public files
      */
-    protected function makeDirectory($path)
+    private function copyPublic()
     {
-        if (!$this->filesystem->isDirectory(dirname($path))) {
-            $this->filesystem->makeDirectory(dirname($path), 0777, true, true);
-        }
-
-        return $path;
+        $this->copyFilesFromSource($this->basePath . 'public', base_path('public'));
     }
 
     /**
-     * Replace the default directory seperator with the
-     * computer's directory seperator (windows, mac, linux)
-     * @param $path
-     * @return mixed
+     * Copy the route service provider
+     * The provider will point to routes in the vendor directory
      */
-    private function formatFilePath($path)
+    private function copyRoutesAndProvider()
     {
-        return str_replace('\\', DIRECTORY_SEPARATOR, $path);
+        // copy ROUTES
+        $this->copyFilesFromSource($this->basePath . "routes", base_path("routes"));
+
+        // copy RouteServiceProvider
+        $source = $this->appPath . "Providers{$this->ds}RouteServiceProvider.php";
+        $this->copyFilesFromSource($source, app_path('Providers'), "namespace Bpocallaghan\Titan", "namespace App");
+    }
+
+    /**
+     * Copy all newsletter related files to application
+     */
+    private function copyNewsletter()
+    {
+        // models
+        $source =  "{$this->appPath}Models{$this->ds}NewsletterSubscriber.php";
+        $this->copyFilesFromSource($source, app_path("Models"), 'namespace_views');
+
+        // controllers
+        $destination = app_path("Http{$this->ds}Controllers{$this->ds}Admin{$this->ds}Newsletter");
+        $source = "{$this->appPath}Controllers{$this->ds}Admin{$this->ds}Newsletter{$this->ds}SubscribersController.php";
+        $this->copyFilesFromSource($source, $destination, 'namespace_views');
+
+        // views
+        $destination = base_path("resources{$this->ds}views{$this->ds}admin{$this->ds}newsletters");
+        $source = "{$this->basePath}resources{$this->ds}views{$this->ds}admin{$this->ds}newsletters";
+        $this->copyFilesFromSource($source, $destination);
+
+        // migrations
+        $source = "{$this->basePath}database{$this->ds}migrations{$this->ds}2017_10_01_181435_create_newsletter_subscribers_table.php";
+        $this->copyFilesFromSource($source, database_path("migrations"));
+
+    }
+
+    /**
+     * Copy all auth related files to application
+     */
+    private function copyAuthFiles()
+    {
+        // models
+        $source =  "{$this->appPath}Models{$this->ds}UserInvite.php";
+        $this->copyFilesFromSource($source, app_path("Models"), 'namespace_views');
+
+        // controllers
+        $this->copyFilesFromSource($this->appPath . "Controllers{$this->ds}Auth",
+            app_path("Http{$this->ds}Controllers{$this->ds}Auth"));
+
+        // views
+        $destination = base_path("resources{$this->ds}views{$this->ds}auth");
+        $source = "{$this->basePath}resources{$this->ds}views{$this->ds}auth";
+        $this->copyFilesFromSource($source, $destination);
     }
 
     /**

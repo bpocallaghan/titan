@@ -2,7 +2,7 @@
 
 namespace Bpocallaghan\Titan\Models;
 
-use App\Models\User;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class LogAdminActivity extends Model

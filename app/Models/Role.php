@@ -2,7 +2,7 @@
 
 namespace Bpocallaghan\Titan\Models;
 
-use Titan\Models\TitanCMSModel;
+use Bpocallaghan\Titan\Models\TitanCMSModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Role extends TitanCMSModel
@@ -18,12 +18,13 @@ class Role extends TitanCMSModel
     // basic admin
     public static $BASE_ADMIN = 'base_admin'; // 3
 
-    public static $ADMIN_SUPER = 'admin'; // 4
+    public static $ADMIN = 'admin'; // 4
 
-    public static $DEVELOPER = 'developer'; // 5
+    public static $ADMIN_SUPER = 'admin_super'; // 5
 
-    // base admin + analytics only
-    public static $ANALYTICS = 'analytics'; // 6
+    public static $ADMIN_NOTIFY = 'admin_notify'; // 6
+
+    public static $DEVELOPER = 'developer'; // 7
 
     protected $table = 'roles';
 

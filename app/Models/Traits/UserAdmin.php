@@ -2,7 +2,7 @@
 
 namespace Bpocallaghan\Titan\Models\Traits;
 
-use App\Models\Role;
+use Bpocallaghan\Titan\Models\Role;
 
 trait UserAdmin
 {
@@ -22,7 +22,7 @@ trait UserAdmin
      */
     public function isSuperAdmin()
     {
-        return $this->hasRole(Role::$ADMIN);
+        return $this->hasRole(Role::$ADMIN_SUPER);
     }
 
     /**
