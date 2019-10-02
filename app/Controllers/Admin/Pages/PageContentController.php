@@ -3,14 +3,15 @@
 namespace Bpocallaghan\Titan\Http\Controllers\Admin\Pages;
 
 use Image;
-use Bpocallaghan\Titan\Models\Page;
 use App\Http\Requests;
-use Bpocallaghan\Titan\Models\Content;
-use Bpocallaghan\Titan\Models\PageContent;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
-use Bpocallaghan\Titan\Http\Controllers\Admin\AdminController;
+use Bpocallaghan\Titan\Models\Page;
+use Bpocallaghan\Titan\Models\Content;
+use Bpocallaghan\Titan\Models\PageContent;
 use Bpocallaghan\Titan\Models\Traits\ImageThumb;
+use Bpocallaghan\Titan\Http\Controllers\Admin\AdminController;
 
 class PageContentController extends AdminController
 {
@@ -51,7 +52,7 @@ class PageContentController extends AdminController
     public function store(Request $request)
     {
         if (is_null(request()->file('media'))) {
-            $attributes = request()->validate(array_except(PageContent::$rules, 'media'),
+            $attributes = request()->validate(Arr::except(PageContent::$rules, 'media'),
                 PageContent::$messages);
         }
         else {
@@ -92,7 +93,7 @@ class PageContentController extends AdminController
     public function update(Page $page, PageContent $content)
     {
         if (is_null(request()->file('media'))) {
-            $attributes = request()->validate(array_except(PageContent::$rules, 'media'),
+            $attributes = request()->validate(Arr::except(PageContent::$rules, 'media'),
                 PageContent::$messages);
         }
         else {
@@ -145,6 +146,19 @@ class PageContentController extends AdminController
                 ]);
             }
         }
+
+        return ['result' => 'success'];
+    }
+
+    /**
+     * @param Page $page
+     * @param PageContent $content
+     * @return array
+     */
+    public function removeMedia(Page $page, PageContent $content)
+    {
+        $content->media = null;
+        $content->save();
 
         return ['result' => 'success'];
     }

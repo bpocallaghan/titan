@@ -6,10 +6,14 @@
                     <span><i class="fa fa-image"></i></span>
                     <span>{!! $photoable->name !!} Photos</span>
                 </h3>
+
+                <div class="pull-right box-tools" data-toggle="tooltip" title="Order Sections" data-original-title="Order Sections">
+                    <a class="btn btn-warning btn-sm" href="{{ request()->url() }}/order"> <span><i class="fa fa-sort" aria-hidden="true"></i></span></a>
+                </div>
             </div>
 
             <div class="box-body superbox">
-                @forelse($photos as $photo)
+                @forelse($photos->sortBy('list_order') as $photo)
                     <div class="superbox-list">
                         <table class="dt-table">
                             <tbody>

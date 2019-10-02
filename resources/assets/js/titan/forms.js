@@ -106,6 +106,8 @@ var FormClass = function (options)
             url: url,
             data: data,
             dataType: 'json',
+            contentType: false,
+            processData: false,
             success: function (response)
             {
                 $(spinner).slideUp();

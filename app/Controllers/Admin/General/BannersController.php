@@ -5,8 +5,9 @@ namespace Bpocallaghan\Titan\Http\Controllers\Admin\General;
 use Image;
 use Redirect;
 use App\Http\Requests;
-use Bpocallaghan\Titan\Models\Banner;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
+use Bpocallaghan\Titan\Models\Banner;
 use Bpocallaghan\Titan\Http\Controllers\Admin\AdminController;
 
 class BannersController extends AdminController
@@ -87,7 +88,7 @@ class BannersController extends AdminController
     public function update(Banner $banner, Request $request)
     {
         if (is_null($request->file('photo'))) {
-            $attributes = request()->validate(array_except(Banner::$rules, 'photo'),
+            $attributes = request()->validate(Arr::except(Banner::$rules, 'photo'),
                 Banner::$messages);
         }
         else {
