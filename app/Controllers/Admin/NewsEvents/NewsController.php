@@ -19,6 +19,8 @@ class NewsController extends AdminController
     public function index()
     {
         save_resource_url();
+        session()->put('photoable_type', News::class);
+
         $items = News::with(['category', 'photos'])->get();
 
         return $this->view('titan::news_events.index', compact('items'));

@@ -46,43 +46,15 @@ class PhotosOrderController extends AdminController
     }
 
     /**
-     * @param Page $page
-     * @param PageContent $content
-     * @return mixed
-     */
-    public function showPageContentPhotos(Page $page, PageContent $content)
-    {
-        return $this->showPhotoable($content, $content->photos);
-    }
-
-    /**
      * Show the News' photos
-     * @param News $news
      * @return mixed
      */
-    public function showNewsPhotos(News $news)
+    public function showPhotos($id)
     {
-        return $this->showPhotoable($news, $news->photos);
-    }
+        $model = app(session('photoable_type'));
+        $model = $model->find($id);
 
-    /**
-     * Show the album's photos
-     * @param PhotoAlbum $album
-     * @return mixed
-     */
-    public function showAlbumPhotos(PhotoAlbum $album)
-    {
-        return $this->showPhotoable($album, $album->photos);
-    }
-
-    /**
-     * Show the article's photos
-     * @param Article $article
-     * @return mixed
-     */
-    public function showArticlePhotos(Article $article)
-    {
-        return $this->showPhotoable($article, $article->photos);
+        return $this->showPhotoable($model, $model->photos);
     }
 
     /**

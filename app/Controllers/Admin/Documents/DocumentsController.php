@@ -54,6 +54,19 @@ class DocumentsController extends AdminController
     }
 
     /**
+     * Show the category's documents
+     * @param $id
+     * @return mixed
+     */
+    public function showDocuments($id)
+    {
+        $model = app(session('documentable_type'));
+        $model = $model->find($id);
+
+        return $this->showDocumentable($model, $model->documents);
+    }
+
+    /**
      * Upload a new photo to the album
      * @return \Illuminate\Http\JsonResponse
      */

@@ -42,12 +42,7 @@
                                 <td>{{ $item->created_at->format('d M Y') }}</td>
                                 <td>
                                     <div class="btn-toolbar">
-                                        <div class="btn-group">
-                                            <a href="/admin/photos/albums/{{ $item->id }}" class="btn btn-info btn-xs" data-toggle="tooltip" title="Add Photos to {{ $item->name }}">
-                                                <i class="fa fa-image"></i>
-                                            </a>
-                                        </div>
-                                        {!! action_row($selectedNavigation->url, $item->id, $item->name, ['edit', 'delete'], false) !!}
+                                        {!! action_row($selectedNavigation->url, $item->id, $item->name, [['image' => '/admin/photos/show/'.$item->id], 'edit', 'delete'], false) !!}
                                     </div>
                                 </td>
                             </tr>

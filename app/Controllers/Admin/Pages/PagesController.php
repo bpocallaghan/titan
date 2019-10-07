@@ -3,6 +3,7 @@
 namespace Bpocallaghan\Titan\Http\Controllers\Admin\Pages;
 
 use Bpocallaghan\Titan\Models\Banner;
+use Bpocallaghan\Titan\Models\PageContent;
 use Redirect;
 use App\Http\Requests;
 use Bpocallaghan\Titan\Models\Page;
@@ -19,6 +20,7 @@ class PagesController extends AdminController
     public function index()
     {
         save_resource_url();
+        session()->put('photoable_type', PageContent::class);
 
         $items = Page::with('parent')->get();
 

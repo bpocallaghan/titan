@@ -20,6 +20,7 @@ class AlbumsController extends AdminController
         save_resource_url();
 
         $items = PhotoAlbum::with('photos')->get();
+        session()->put('photoable_type', PhotoAlbum::class);
 
         return $this->view('titan::photos.albums.index')->with('items', $items);
     }

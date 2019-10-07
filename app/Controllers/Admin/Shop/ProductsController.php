@@ -19,6 +19,7 @@ class ProductsController extends AdminController
     public function index()
     {
         save_resource_url();
+        session()->put('photoable_type', Product::class);
 
         $items = Product::with('category')->get();
 

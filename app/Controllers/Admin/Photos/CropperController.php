@@ -28,43 +28,15 @@ class CropperController extends AdminController
     }
 
     /**
-     * @param News  $news
-     * @param Photo $photo
-     * @return this
+     * Show the Photoables' photos
+     * @return mixed
      */
-    public function showNewsPhoto(News $news, Photo $photo)
+    public function showPhotos($id, Photo $photo)
     {
-        return $this->showCropper($news, $photo);
-    }
+        $model = app(session('photoable_type'));
+        $model = $model->find($id);
 
-    /**
-     * @param PhotoAlbum $album
-     * @param Photo      $photo
-     * @return this
-     */
-    public function showAlbumsPhoto(PhotoAlbum $album, Photo $photo)
-    {
-        return $this->showCropper($album, $photo);
-    }
-
-    /**
-     * @param Article $article
-     * @param Photo   $photo
-     * @return this
-     */
-    public function showArticlesPhoto(Article $article, Photo $photo)
-    {
-        return $this->showCropper($article, $photo);
-    }
-
-    /**
-     * @param Product $product
-     * @param Photo   $photo
-     * @return this
-     */
-    public function showProductPhoto(Product $product, Photo $photo)
-    {
-        return $this->showCropper($product, $photo);
+        return $this->showCropper($model, $photo);
     }
 
     /**
