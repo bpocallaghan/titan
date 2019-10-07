@@ -20,6 +20,7 @@ class ArticlesController extends AdminController
     {
         save_resource_url();
         $items = Article::with(['category', 'photos'])->get();
+        session()->put('photoable_type', Article::class);
 
         return $this->view('titan::blog.index', compact('items'));
     }

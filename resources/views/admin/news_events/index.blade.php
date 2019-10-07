@@ -44,7 +44,7 @@
                                         </a>
                                     @endif
                                 </td>
-                                <td>{!! action_row($selectedNavigation->url, $item->id, $item->title, [['image' => '/admin/photos/news/'.$item->id], 'show', 'edit', 'delete']) !!}</td>
+                                <td>{!! action_row($selectedNavigation->url, $item->id, $item->title, [['image' => '/admin/photos/show/'.$item->id], 'show', 'edit', 'delete']) !!}</td>
                             </tr>
                         @endforeach
                         </tbody>

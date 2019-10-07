@@ -45,43 +45,15 @@ class VideosOrderController extends AdminController
     }
 
     /**
-     * @param Page $page
-     * @param PageContent $content
-     * @return mixed
-     */
-    public function showPageContentVideos(Page $page, PageContent $content)
-    {
-        return $this->showVideoable($content, $content->videos);
-    }
-
-    /**
      * Show the News' photos
-     * @param News $news
      * @return mixed
      */
-    public function showNewsVideos(News $news)
+    public function showVideos($id)
     {
-        return $this->showVideoable($news, $news->videos);
-    }
+        $model = app(session('photoable_type'));
+        $model = $model->find($id);
 
-    /**
-     * Show the album's photos
-     * @param PhotoAlbum $album
-     * @return mixed
-     */
-    public function showAlbumVideos(PhotoAlbum $album)
-    {
-        return $this->showVideoable($album, $album->videos);
-    }
-
-    /**
-     * Show the article's photos
-     * @param Article $article
-     * @return mixed
-     */
-    public function showArticleVideos(Article $article)
-    {
-        return $this->showVideoable($article, $article->videos);
+        return $this->showVideoable($model, $model->videos);
     }
 
     /**

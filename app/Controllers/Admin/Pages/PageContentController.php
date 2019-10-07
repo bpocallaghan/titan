@@ -25,7 +25,7 @@ class PageContentController extends AdminController
     public function index(Page $page)
     {
         save_resource_url();
-
+        
         $page->load('sections');
 
         return $this->view('titan::pages.components.page_components')->with('page', $page);

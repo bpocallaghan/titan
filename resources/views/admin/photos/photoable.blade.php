@@ -8,7 +8,7 @@
                 </h3>
 
                 <div class="pull-right box-tools" data-toggle="tooltip" title="Order Sections" data-original-title="Order Sections">
-                    <a class="btn btn-warning btn-sm" href="{{ request()->url() }}/order"> <span><i class="fa fa-sort" aria-hidden="true"></i></span></a>
+                    <a class="btn btn-warning btn-sm" href="/admin/photos/show/{{ $photoable->id }}/order"> <span><i class="fa fa-sort" aria-hidden="true"></i></span></a>
                 </div>
             </div>
 

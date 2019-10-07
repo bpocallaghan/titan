@@ -123,9 +123,6 @@ Route::group(['middleware' => ['auth', 'auth.admin'], 'prefix' => 'admin', 'name
 
         });
         Route::resource('pages', 'Pages\PagesController');
-        // order page content photos
-        Route::get('/pages/{page}/sections/content/{content}/edit/order', 'Photos\PhotosOrderController@showPageContentPhotos');
-        Route::get('/pages/{page}/sections/content/{content}/edit/videos/order', 'Photos\VideosOrderController@showPageContentVideos');
 
         // blog
         Route::group(['prefix' => 'blog', 'namespace' => 'Blog'], function () {
@@ -164,26 +161,15 @@ Route::group(['middleware' => ['auth', 'auth.admin'], 'prefix' => 'admin', 'name
             Route::post('/{photo}/edit/name', 'PhotosController@updatePhotoName');
             Route::post('/{photo}/cover', 'PhotosController@updatePhotoCover');
 
-            // photoables
-            Route::get('/news/{news}', 'PhotosController@showNewsPhotos');
-            Route::get('/articles/{article}', 'PhotosController@showArticlePhotos');
-            Route::get('/products/{product}', 'PhotosController@showProductPhotos');
-
             Route::resource('/albums', 'AlbumsController', ['except' => 'show']);
-            Route::get('/albums/{album}', 'PhotosController@showAlbumPhotos');
-
+            // photoables
+            Route::get('/show/{photoable}', 'PhotosController@showPhotos');
             //photos order
-            Route::get('/news/{news}/order', 'PhotosOrderController@showNewsPhotos');
-            Route::get('/articles/{article}/order', 'PhotosOrderController@showArticlePhotos');
-            Route::get('/albums/{album}/order', 'PhotosOrderController@showAlbumPhotos');
+            Route::get('/show/{photoable}/order', 'PhotosOrderController@showPhotos');
             Route::post('/order', 'PhotosOrderController@update');
-
             // croppers
             Route::post('/crop/{photo}', 'CropperController@cropPhoto');
-            Route::get('/news/{news}/crop/{photo}', 'CropperController@showNewsPhoto');
-            Route::get('/albums/{album}/crop/{photo}', 'CropperController@showAlbumsPhoto');
-            Route::get('/products/{product}/crop/{photo}', 'CropperController@showProductPhoto');
-            Route::get('/articles/{article}/crop/{photo}', 'CropperController@showArticlesPhoto');
+            Route::get('/show/{photoable}/crop/{photo}', 'CropperController@showPhotos');
 
             // resource image crop
             Route::post('/crop-resource', 'CropResourceController@cropPhoto');
@@ -193,16 +179,13 @@ Route::group(['middleware' => ['auth', 'auth.admin'], 'prefix' => 'admin', 'name
             Route::resource('/albums/{album}/videos', 'VideosController', ['except' => 'show']);
 
             Route::get('/videos', 'VideosController@index');
-            Route::post('/videos/{video}/getInfo', 'VideosController@videoInfo');
-            Route::post('/videos/{video}/cover', 'VideosController@updateVideoCover');
             Route::post('/videos/create', 'VideosController@store');
             Route::post('/videos/{video}/edit', 'VideosController@update');
             Route::delete('/videos/{video}', 'VideosController@destroy');
-
+            Route::post('/videos/{video}/getInfo', 'VideosController@videoInfo');
+            Route::post('/videos/{video}/cover', 'VideosController@updateVideoCover');
             //videos order
-            Route::get('/news/{news}/videos/order', 'VideosOrderController@showNewsVideos');
-            Route::get('/articles/{article}/videos/order', 'VideosOrderController@showArticleVideos');
-            Route::get('/albums/{album}/videos/order', 'VideosOrderController@showAlbumVideos');
+            Route::get('/show/{videoable}/videos/order', 'VideosOrderController@showVideos');
             Route::post('/videos/order', 'VideosOrderController@update');
         });
 
@@ -237,6 +220,9 @@ Route::group(['middleware' => ['auth', 'auth.admin'], 'prefix' => 'admin', 'name
 
             // documentable
             Route::get('/category/{category}', 'DocumentsController@showCategory');
+
+            //show documents for other components
+            Route::get('/show/{documentable}', 'DocumentsController@showDocuments');
 
             // categories
             Route::resource('/categories', 'CategoriesController');
