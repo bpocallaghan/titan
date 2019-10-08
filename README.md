@@ -50,7 +50,7 @@ It will do the following:
  ```
  It will do the following:
   - Specify the 'table types' you would like to migrate
-  - `blog, documents, faq, locations, news, nesletter_subscribers, photos, testimonials, shop`
+  - `blog, documents, faq, locations, news, newsletter_subscribers, photos, testimonials, shop`
  
  ```bash
  (Optional)
