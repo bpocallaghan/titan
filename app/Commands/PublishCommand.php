@@ -106,6 +106,11 @@ class PublishCommand extends Command
             case 'auth':
                 $this->copyAuthFiles();
                 break;
+
+            // COPY AUTH FILES
+            case 'pages':
+                $this->copyPagesFiles();
+                break;
         }
     }
 
@@ -138,12 +143,6 @@ class PublishCommand extends Command
 
         // copy files and replace namespace and views only
         $this->copyFilesFromSource($source, $destination, 'namespace_views');
-
-        // databaseseeder
-        $search = "{$this->baseNamespace}\Migrations;";
-        $source = "{$this->basePath}database{$this->ds}migrations{$this->ds}DatabaseSeeder.php";
-        $destination = database_path("seeds");
-        $this->copyFilesFromSource($source, $destination, $search, "");
 
         // SEEDS
         $search = "{$this->baseNamespace}\Seeds;";
@@ -343,7 +342,6 @@ class PublishCommand extends Command
         // migrations
         $source = "{$this->basePath}database{$this->ds}migrations{$this->ds}2017_10_01_181435_create_newsletter_subscribers_table.php";
         $this->copyFilesFromSource($source, database_path("migrations"));
-
     }
 
     /**
@@ -363,6 +361,39 @@ class PublishCommand extends Command
         $destination = base_path("resources{$this->ds}views{$this->ds}auth");
         $source = "{$this->basePath}resources{$this->ds}views{$this->ds}auth";
         $this->copyFilesFromSource($source, $destination);
+    }
+
+    /**
+     * Copy all page related files to application
+     */
+    private function copyPagesFiles()
+    {
+        // models
+        $source =  "{$this->appPath}Models{$this->ds}Page.php";
+        $this->copyFilesFromSource($source, app_path("Models"));
+        $source =  "{$this->appPath}Models{$this->ds}PageContent.php";
+        $this->copyFilesFromSource($source, app_path("Models"));
+        $source =  "{$this->appPath}Models{$this->ds}Traits{$this->ds}PageHelper.php";
+        $destination = app_path("Models{$this->ds}Traits{$this->ds}PageHelper.php");
+        $this->copyFilesFromSource($source, app_path("Models"));
+
+        // controllers
+        $destination = app_path("Http{$this->ds}Controllers{$this->ds}Admin{$this->ds}Pages");
+        $source = "{$this->appPath}Controllers{$this->ds}Admin{$this->ds}Pages";
+        $this->copyFilesFromSource($source, $destination, 'namespace_views');
+
+        // views
+        $destination = base_path("resources{$this->ds}views{$this->ds}admin{$this->ds}pages");
+        $source = "{$this->basePath}resources{$this->ds}views{$this->ds}admin{$this->ds}pages";
+        $this->copyFilesFromSource($source, $destination);
+
+        // migrations
+        $source = "{$this->basePath}database{$this->ds}migrations{$this->ds}2017_09_26_154748_create_pages_table.php";
+        $this->copyFilesFromSource($source, database_path("migrations"));
+        $source = "{$this->basePath}database{$this->ds}migrations{$this->ds}2017_09_28_184930_create_banner_page_pivot_table.php";
+        $this->copyFilesFromSource($source, database_path("migrations"));
+        $source = "{$this->basePath}database{$this->ds}migrations{$this->ds}2017_10_10_123309_create_page_content_table.php";
+        $this->copyFilesFromSource($source, database_path("migrations"));
     }
 
     /**
