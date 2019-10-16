@@ -284,7 +284,7 @@ class PublishCommand extends Command
         $this->copyFilesFromSource($this->appPath . 'Mail', app_path('Mail'));
 
         // copy Notifications
-        $this->copyFilesFromSource($this->appPath . 'Events', app_path('Notifications'));
+        $this->copyFilesFromSource($this->appPath . 'Notifications', app_path('Notifications'));
 
         // copy EventServiceProvider
         $source = $this->appPath . "Providers{$this->ds}EventServiceProvider.php";
