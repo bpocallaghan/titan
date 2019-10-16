@@ -20,6 +20,8 @@ class PublishCommand extends Command
      */
     protected $name = 'titan:publish';
 
+    protected $signature = 'titan:publish {--files=}';
+
     /**
      * The console command description.
      *
@@ -107,7 +109,7 @@ class PublishCommand extends Command
                 $this->copyAuthFiles();
                 break;
 
-            // COPY AUTH FILES
+            // COPY PAGES FILES
             case 'pages':
                 $this->copyPagesFiles();
                 break;
@@ -143,6 +145,12 @@ class PublishCommand extends Command
 
         // copy files and replace namespace and views only
         $this->copyFilesFromSource($source, $destination, 'namespace_views');
+
+        // databaseseeder
+        $search = "{$this->baseNamespace}\Migrations;";
+        $source = "{$this->basePath}database{$this->ds}migrations{$this->ds}DatabaseSeeder.php";
+        $destination = database_path("seeds");
+        $this->copyFilesFromSource($source, $destination, $search, "");
 
         // SEEDS
         $search = "{$this->baseNamespace}\Seeds;";
@@ -342,6 +350,7 @@ class PublishCommand extends Command
         // migrations
         $source = "{$this->basePath}database{$this->ds}migrations{$this->ds}2017_10_01_181435_create_newsletter_subscribers_table.php";
         $this->copyFilesFromSource($source, database_path("migrations"));
+
     }
 
     /**
@@ -349,8 +358,19 @@ class PublishCommand extends Command
      */
     private function copyAuthFiles()
     {
+        //events
+        $source =  "{$this->appPath}Events{$this->ds}UserRegistered.php";
+        $this->copyFilesFromSource($source, app_path("Events"), 'namespace_views');
+
+        //notifications
+        $source =  "{$this->appPath}Notifications{$this->ds}UserConfirmedAccount.php";
+        $this->copyFilesFromSource($source, app_path("Notifications"), 'namespace_views');
+
         // models
         $source =  "{$this->appPath}Models{$this->ds}UserInvite.php";
+        $this->copyFilesFromSource($source, app_path("Models"), 'namespace_views');
+
+        $source =  "{$this->appPath}Models{$this->ds}LogLogin.php";
         $this->copyFilesFromSource($source, app_path("Models"), 'namespace_views');
 
         // controllers
