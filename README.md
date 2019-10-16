@@ -44,6 +44,7 @@ It will do the following:
  - Update `.env`
  - `php artisan migrate`
  - `php artisan titan:db:seed`
+ - `php artisan titan:publish --files=auth`
  
  ```bash
  php artisan titan:migrate --name=
@@ -102,11 +103,13 @@ For example, you need to add or change a field in a table or update text or desi
  
 ```bash
 php artisan titan:publish --files=app
+php artisan titan:publish --files=auth
 php artisan titan:publish --files=assets
 php artisan titan:publish --files=config
 php artisan titan:publish --files=database
 php artisan titan:publish --files=events
 php artisan titan:publish --files=helpers
+php artisan titan:publish --files=pages
 php artisan titan:publish --files=public
 php artisan titan:publish --files=routes
 php artisan titan:publish --files=website
@@ -160,7 +163,7 @@ php artisan titan:publish --files=routes
 This will copy all `routes`, and `RouteServiceProvider` to your application.
 
 ## TODO
-- install command, remove laravel installed files (auth controllers and views, public/svg)
+- install command, remove laravel installed files (public/svg)
 - add titan:publish --type=banner (to copy only banner files to application)
 - create config file (don't load routes, etc)
 
