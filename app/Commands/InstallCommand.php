@@ -114,7 +114,7 @@ APP_NAME=Laravel", $stub);
         $this->updateDotEnv("What is your APP_AUTHOR?", "APP_AUTHOR");
         $this->updateDotEnv("What is your APP_URL?", "APP_URL");
 
-        $this->info('.env was updated. (Extra environment variables were addted at the top)');
+        $this->info('.env was updated. (Extra environment variables were added at the top)');
 
         // php artisan migrate
         $this->call('migrate');
@@ -124,6 +124,10 @@ APP_NAME=Laravel", $stub);
 
         // php artisan db:seed
         $this->call('db:seed');
+
+        $this->call('titan:publish', ['--files' => 'auth']);
+
+        $this->info('Auth files copied successfully.');
 
         $this->alert('Installation complete.');
     }
