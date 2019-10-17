@@ -113,6 +113,11 @@ class PublishCommand extends Command
             case 'pages':
                 $this->copyPagesFiles();
                 break;
+
+            // COPY BANNER FILES
+            case 'banner':
+                $this->copyBannerFiles();
+                break;
         }
     }
 
@@ -414,6 +419,45 @@ class PublishCommand extends Command
         $this->copyFilesFromSource($source, database_path("migrations"));
         $source = "{$this->basePath}database{$this->ds}migrations{$this->ds}2017_10_10_123309_create_page_content_table.php";
         $this->copyFilesFromSource($source, database_path("migrations"));
+    }
+
+    /**
+     * Copy all page related files to application
+     */
+    private function copyBannerFiles()
+    {
+        // models
+        $source =  "{$this->appPath}Models{$this->ds}Banner.php";
+        $this->copyFilesFromSource($source, app_path("Models"), 'namespace_views');
+
+        // controllers
+        $search = [
+            'namespace Bpocallaghan\Titan',
+            'Bpocallaghan\Titan\Models\Banner',
+            "('titan::"
+        ];
+        $replace = [
+            "namespace App",
+            'App\Models\Banner',
+            "('"
+        ];
+        $destination = app_path("Http{$this->ds}Controllers{$this->ds}Admin{$this->ds}General");
+        $source = "{$this->appPath}Controllers{$this->ds}Admin{$this->ds}General{$this->ds}BannersController.php";
+        $this->copyFilesFromSource($source, $destination, $search, $replace);
+        $source = "{$this->appPath}Controllers{$this->ds}Admin{$this->ds}General{$this->ds}BannersOrderController.php";
+        $this->copyFilesFromSource($source, $destination, $search, $replace);
+
+        // views
+        $destination = base_path("resources{$this->ds}views{$this->ds}admin{$this->ds}banners");
+        $source = "{$this->basePath}resources{$this->ds}views{$this->ds}admin{$this->ds}banners";
+        $this->copyFilesFromSource($source, $destination, false, false);
+
+        // migrations
+        $source = "{$this->basePath}database{$this->ds}migrations{$this->ds}2017_06_21_101323_create_banners_table.php";
+        $this->copyFilesFromSource($source, database_path("migrations"));
+
+        $this->info('Don\'t forget to add the routes in web.php to point to the right files!');
+
     }
 
     /**
