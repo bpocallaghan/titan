@@ -103,8 +103,9 @@ For example, you need to add or change a field in a table or update text or desi
  
 ```bash
 php artisan titan:publish --files=app
-php artisan titan:publish --files=auth
 php artisan titan:publish --files=assets
+php artisan titan:publish --files=auth
+php artisan titan:publish --files=banner
 php artisan titan:publish --files=config
 php artisan titan:publish --files=database
 php artisan titan:publish --files=events
@@ -116,11 +117,6 @@ php artisan titan:publish --files=website
 ```
 
 ```bash
-php artisan titan:publish --files=website
-```
-This will copy all `Website` related files to your application (views, controllers, assets).
-
-```bash
 php artisan titan:publish --files=app
 ```
 This will copy all `Models`, `Views` and `Controllers` to your application.
@@ -130,6 +126,16 @@ This will also copy all `routes` and `RouteServiceProvider` to your application.
 php artisan titan:publish --files=assets
 ```
 This will copy all `assets (css, js, fonts, images)` and `webpack.js, package.json` to your application.
+
+```bash
+php artisan titan:publish --files=auth
+```
+This will copy all Auth related `Models`, `Views` and `Controllers` to your application.
+
+```bash
+php artisan titan:publish --files=banner
+```
+This will copy all Banner related `Models`, `Views` and `Controllers` to your application.
 
 ```bash
 php artisan titan:publish --files=config
@@ -162,9 +168,15 @@ php artisan titan:publish --files=routes
 ```
 This will copy all `routes`, and `RouteServiceProvider` to your application.
 
+```bash
+php artisan titan:publish --files=website
+```
+This will copy all `Website` related files to your application (views, controllers, assets).
+
+**Note: If you are not going to run `php artisan titan:publish --files=routes`, remember to add the routes to your application.**
+
 ## TODO
 - install command, remove laravel installed files (public/svg)
-- add titan:publish --type=banner (to copy only banner files to application)
 - create config file (don't load routes, etc)
 
 **create new packages for**
