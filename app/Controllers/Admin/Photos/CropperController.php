@@ -82,7 +82,14 @@ class CropperController extends AdminController
         $originalImage->save($path . $photo->original_filename);
 
         // crop image on cropped area
-        $imageTmp = $originalImage->crop($width, $height, $x, $y);
+        //$imageTmp = $originalImage->crop($width, $height, $x, $y);
+
+        //ensure the background color is white (if cropping outside the actual image)
+        $imageTmp = Image::canvas($width * 3, $height * 3);
+        $imageTmp->fill('#fff');
+        $image11 = Image::make($photo->original_url);
+        $imageTmp->insert($image11, 'top-left',$width,$height);
+        $imageTmp->crop($width, $height, $width+$x, $height+$y);
 
         // resize the image to large size
         $imageTmp->resize($largeSize[0], null, function ($constraint) {
