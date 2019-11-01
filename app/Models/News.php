@@ -54,6 +54,16 @@ class News extends TitanCMSModel
     }
 
     /**
+     * Get the summary text
+     *
+     * @return mixed
+     */
+    public function getNameAttribute()
+    {
+        return $this->attributes['title'];
+    }
+
+    /**
      * Get the createdBy
      */
     public function createdBy()
