@@ -40,4 +40,36 @@ trait UploadImageHelper
 
         return $filename;
     }
+
+    /**
+     * @param        $file
+     * @param string $path
+     * @return string
+     */
+    protected function uploadImageOriginalSize($file, $path = '')
+    {
+        $name = token();
+        $extension = $file->guessClientExtension();
+
+        $filename = $name . '.' . $extension;
+        $filenameThumb = $name . '-tn.' . $extension;
+        $imageTmp = Image::make($file->getRealPath());
+
+        if (!$imageTmp) {
+            return notify()->error('Oops', 'Something went wrong', 'warning shake animated');
+        }
+
+        $path = upload_path_images($path);
+
+        // original
+        $imageTmp->save($path . $name . '-o.' . $extension);
+
+        // save the image
+        $image = $imageTmp->save($path . $filename);
+
+        // thumb image
+        $image->save($path . $filenameThumb);
+
+        return $filename;
+    }
 }
