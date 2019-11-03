@@ -57,7 +57,7 @@ class TitanController extends Controller
      *
      * @param            $path
      * @param array      $data
-     * @return $this
+     * @return $this|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     protected function view($path, $data = [])
     {
