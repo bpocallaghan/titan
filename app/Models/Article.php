@@ -30,6 +30,8 @@ class Article extends TitanCMSModel
     static public $rules = [
         'title'       => 'required|min:3:max:255',
         'content'     => 'required|min:5:max:2000',
+        'active_from' => 'nullable|date',
+        'active_to'   => 'nullable|date',
         'category_id' => 'required|exists:article_categories,id',
     ];
 
