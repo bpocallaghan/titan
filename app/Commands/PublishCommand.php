@@ -99,22 +99,22 @@ class PublishCommand extends Command
                 $this->copyAllWebsiteFiles();
                 break;
 
-            // COPY COMPONENTS
+                // COPY COMPONENTS
             case 'newsletter':
                 $this->copyNewsletter();
                 break;
 
-            // COPY AUTH FILES
+                // COPY AUTH FILES
             case 'auth':
                 $this->copyAuthFiles();
                 break;
 
-            // COPY PAGES FILES
+                // COPY PAGES FILES
             case 'pages':
                 $this->copyPagesFiles();
                 break;
 
-            // COPY BANNER FILES
+                // COPY BANNER FILES
             case 'banner':
                 $this->copyBannerFiles();
                 break;
@@ -145,7 +145,8 @@ class PublishCommand extends Command
         $this->copyFilesFromSource($source, $destination);
 
         // CONTROLLERS
-        $source = "{$this->appPath}Controllers{$this->ds}Website";
+        $source = "{$this->appPath}Http{$this->ds}Controllers{$this->ds}Website";
+
         $destination = app_path("Http{$this->ds}Controllers{$this->ds}Website");
 
         // copy files and replace namespace and views only
@@ -213,8 +214,10 @@ class PublishCommand extends Command
         $this->copyFilesFromSource($source, resource_path("views"));
 
         // copy CONTROLLERS
-        $this->copyFilesFromSource($this->appPath . "Controllers",
-            app_path("Http{$this->ds}Controllers"));
+        $this->copyFilesFromSource(
+            $this->appPath . "Controllers",
+            app_path("Http{$this->ds}Controllers")
+        );
 
         // copy RouteServiceProvider
         $this->copyRoutesAndProvider();
@@ -266,8 +269,12 @@ class PublishCommand extends Command
 
         // copy files from source to destination
         $search = "{$this->baseNamespace}\Migrations;";
-        $this->copyFilesFromSource($sourceDatabase . 'migrations', $destinationMigrations, $search,
-            "");
+        $this->copyFilesFromSource(
+            $sourceDatabase . 'migrations',
+            $destinationMigrations,
+            $search,
+            ""
+        );
 
         $search = "{$this->baseNamespace}\Seeds;";
         $this->copyFilesFromSource($sourceDatabase . 'seeds', $destinationSeeds, $search, "");
@@ -344,7 +351,7 @@ class PublishCommand extends Command
 
         // controllers
         $destination = app_path("Http{$this->ds}Controllers{$this->ds}Admin{$this->ds}Newsletter");
-        $source = "{$this->appPath}Controllers{$this->ds}Admin{$this->ds}Newsletter{$this->ds}SubscribersController.php";
+        $source = "{$this->appPath}Http{$this->ds}Controllers{$this->ds}Admin{$this->ds}Newsletter{$this->ds}SubscribersController.php";
         $this->copyFilesFromSource($source, $destination, 'namespace_views');
 
         // views
@@ -355,7 +362,6 @@ class PublishCommand extends Command
         // migrations
         $source = "{$this->basePath}database{$this->ds}migrations{$this->ds}2017_10_01_181435_create_newsletter_subscribers_table.php";
         $this->copyFilesFromSource($source, database_path("migrations"));
-
     }
 
     /**
@@ -379,8 +385,10 @@ class PublishCommand extends Command
         $this->copyFilesFromSource($source, app_path("Models"), 'namespace_views');
 
         // controllers
-        $this->copyFilesFromSource($this->appPath . "Controllers{$this->ds}Auth",
-            app_path("Http{$this->ds}Controllers{$this->ds}Auth"));
+        $this->copyFilesFromSource(
+            $this->appPath . "Http{$this->ds}Controllers{$this->ds}Auth",
+            app_path("Http{$this->ds}Controllers{$this->ds}Auth")
+        );
 
         // views
         $destination = base_path("resources{$this->ds}views{$this->ds}auth");
@@ -404,7 +412,7 @@ class PublishCommand extends Command
 
         // controllers
         $destination = app_path("Http{$this->ds}Controllers{$this->ds}Admin{$this->ds}Pages");
-        $source = "{$this->appPath}Controllers{$this->ds}Admin{$this->ds}Pages";
+        $source = "{$this->appPath}Http{$this->ds}Controllers{$this->ds}Admin{$this->ds}Pages";
         $this->copyFilesFromSource($source, $destination, 'namespace_views');
 
         // views
@@ -442,9 +450,9 @@ class PublishCommand extends Command
             "('"
         ];
         $destination = app_path("Http{$this->ds}Controllers{$this->ds}Admin{$this->ds}General");
-        $source = "{$this->appPath}Controllers{$this->ds}Admin{$this->ds}General{$this->ds}BannersController.php";
+        $source = "{$this->appPath}Http{$this->ds}Controllers{$this->ds}Admin{$this->ds}General{$this->ds}BannersController.php";
         $this->copyFilesFromSource($source, $destination, $search, $replace);
-        $source = "{$this->appPath}Controllers{$this->ds}Admin{$this->ds}General{$this->ds}BannersOrderController.php";
+        $source = "{$this->appPath}Http{$this->ds}Controllers{$this->ds}Admin{$this->ds}General{$this->ds}BannersOrderController.php";
         $this->copyFilesFromSource($source, $destination, $search, $replace);
 
         // views
@@ -457,7 +465,6 @@ class PublishCommand extends Command
         $this->copyFilesFromSource($source, database_path("migrations"));
 
         $this->info('Don\'t forget to add the routes in web.php to point to the right files!');
-
     }
 
     /**
