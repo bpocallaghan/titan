@@ -33,7 +33,7 @@ class Banner extends TitanCMSModel
         'action_url'  => 'nullable|max:500',
         'active_from' => 'nullable|date',
         'active_to'   => 'nullable|date',
-        'photo'       => 'required|image|max:6000|mimes:jpg,jpeg,png,bmp',
+        'photo'       => 'required|max:6000|mimes:jpg,jpeg,png,bmp',
     ];
 
     /**

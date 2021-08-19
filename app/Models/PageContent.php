@@ -39,7 +39,7 @@ class PageContent extends TitanCMSModel
         'content'         => 'nullable|max:8000',
         'page_id'         => 'required|exists:pages,id',
         'caption'         => 'nullable|max:240',
-        'media'           => 'nullable|image|max:3000|mimes:jpg,jpeg,png,bmp',
+        'media'           => 'nullable|max:3000|mimes:jpg,jpeg,png,bmp',
         'media_align'     => 'required|max:20',
     ];
 
