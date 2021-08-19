@@ -77,6 +77,6 @@ class TitanUser extends Authenticatable
         'gender'    => 'required|in:male,female',
         'telephone' => 'nullable|min:9',
         'password'  => 'nullable|min:4|confirmed',
-        'photo'     => 'required|image|max:6000|mimes:jpg,jpeg,png,bmp',
+        'photo'     => 'required|max:6000|mimes:jpg,jpeg,png,bmp',
     ];
 }
