@@ -27,7 +27,7 @@ class GalleryTableSeeder extends Seeder
                 'category_id' => $faker->numberBetween(1, 5),
                 'slug'        => 'asd'
             ]);
-
+          
             for ($a = 0; $a < $faker->numberBetween(2, 4); $a++) {
                 $r = random_int(1, 2);
                 $item->photos()->create([
@@ -35,7 +35,7 @@ class GalleryTableSeeder extends Seeder
                     'filename' => "news-{$r}.jpg",
                 ]);
             }
+          
         }
-
     }
 }
