@@ -11,5 +11,11 @@ class GalleryTableSeeder extends Seeder
         Article::truncate();
         ArticleCategory::truncate();
 
+        for ($i = 0; $i < 5; $i++) {
+            $category = ArticleCategory::create([
+                'name' => $faker->sentence(2)
+            ]);
+        }
+
     }
 }
