@@ -10,6 +10,6 @@ class GalleryTableSeeder extends Seeder
     {
         Article::truncate();
         ArticleCategory::truncate();
-        
+
     }
 }
