@@ -4,11 +4,11 @@ A Laravel Website and Admin Framework for your everyday Websites build in Larave
 This project is the core framework for [Laravel Starter](https://github.com/bpocallaghan/laravel-admin-starter). Please check this out for the detailed Features list and more.
 
 ### Test Driven Development
-- [titan-starter](https://github.com/bpocallaghan/titan-starter)
+- [titan-starter](https://github.com/bpocallaghan/titan-starter-website)
 - I have started from scratch with a new test driven version. The end goal is to focus on TDD, more generic and easier to customize and help speed up your website development.
 
-[Preview project here](http://bpocallaghan.co.za)
-- User: github@bpocallaghan.co.za
+[Preview project here](http://bpocallaghan.ie)
+- User: github@bpocallaghan.ie
 - Password: github
 
 Titan is nicely packaged for you so that you only have to do the following;
